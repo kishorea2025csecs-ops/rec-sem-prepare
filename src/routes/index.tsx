@@ -210,7 +210,7 @@ function Landing() {
 
       <main id="top" className="relative">
         {/* Persistent 3D Background */}
-        <div className="fixed inset-0 z-0 opacity-80 pointer-events-none">
+        <div className="fixed inset-0 z-0 opacity-100 pointer-events-none">
           <Suspense fallback={null}>
             <StudySpace />
           </Suspense>
@@ -234,8 +234,8 @@ function Landing() {
               className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale scale-110"
               aria-hidden="true"
             />
-            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-[#020205]/40 to-[#020205]" />
-            <div className="absolute inset-0 z-10 backdrop-blur-[1px]" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-[#020205]/10 to-[#020205]/40" />
+            <div className="absolute inset-0 z-10 backdrop-blur-none" />
             <div
               className="pointer-events-none absolute inset-0 z-20"
               style={{ 
@@ -502,7 +502,7 @@ function Landing() {
         </section>
 
         {/* SECTION 4: IMPORTANT QUESTIONS & TAMIL HELP */}
-        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/30 backdrop-blur-[2px] py-20 overflow-hidden" aria-labelledby="tamil-heading">
+        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/5 backdrop-blur-none py-20 overflow-hidden" aria-labelledby="tamil-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -551,7 +551,7 @@ function Landing() {
         </section>
 
         {/* SECTION 5 & 6: ANSWER COACH & REVISION */}
-        <section className="relative z-10 py-24 bg-background/20 backdrop-blur-lg" aria-labelledby="cta-heading">
+        <section className="relative z-10 py-24 bg-background/5 backdrop-blur-none" aria-labelledby="cta-heading">
           <div className="mx-auto max-w-4xl px-5 text-center">
             <h2 id="cta-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Semester exams start soon. Your plan can start now.
