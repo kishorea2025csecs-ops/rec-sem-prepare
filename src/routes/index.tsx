@@ -19,7 +19,7 @@ import brainVideoAsset from "@/assets/brain-video.png.asset.json";
 import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef, Suspense } from "react";
-import { StudySpace } from "@/components/StudySpace";
+import { StudySpaceCanvas } from "@/components/StudySpace";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -127,7 +127,8 @@ function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
+    <div className="min-h-screen bg-[#020205] font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
+      <StudySpaceCanvas />
       <header className="sticky top-4 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 md:px-5 py-3 md:py-4">
           <a href="#top" className="flex items-center gap-3 group">
@@ -172,7 +173,7 @@ function Landing() {
           onMouseLeave={handleMouseLeave}
         >
           {/* Background Video & Glows */}
-          <div className="absolute inset-0 z-0 overflow-hidden bg-[#020205]">
+          <div className="absolute inset-0 z-0 overflow-hidden">
             <video 
               src={backgroundVideoAsset.url} 
               autoPlay 
@@ -193,14 +194,6 @@ function Landing() {
               }}
               aria-hidden="true"
             />
-            {/* Interactive 3D Study Space */}
-            <div className="absolute inset-0 z-[25] opacity-60 pointer-events-none">
-              <Suspense fallback={null}>
-                <div className="size-full pointer-events-auto">
-                  <StudySpace />
-                </div>
-              </Suspense>
-            </div>
           </div>
 
           {/* Floating Glows & 3D Objects Across Home Screen */}
