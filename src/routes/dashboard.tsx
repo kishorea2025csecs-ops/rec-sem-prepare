@@ -216,7 +216,7 @@ function Dashboard() {
             <div className="h-8 w-[1px] bg-border" />
             <div className="flex items-center gap-3 rounded-full border border-border bg-surface px-3 py-1.5">
                <div className="size-6 rounded-full bg-gradient-to-tr from-accent to-primary" />
-               <span className="text-sm font-medium">Kishore A</span>
+               <span className="text-sm font-medium">My Account</span>
             </div>
           </div>
         </header>
