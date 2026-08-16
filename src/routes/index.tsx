@@ -110,10 +110,10 @@ function Landing() {
             <a className="transition-colors hover:text-foreground" href="#tamil">Tamil help</a>
           </nav>
           <a
-            href="#start"
+            href="/dashboard"
             className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
           >
-            Start free
+            Go to Dashboard
           </a>
         </div>
       </header>
@@ -145,10 +145,10 @@ function Landing() {
               </p>
               <div id="start" className="mt-9 flex flex-wrap items-center gap-3">
                 <a
-                  href="#how"
+                  href="/dashboard"
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elevated)] transition-transform hover:-translate-y-0.5"
                 >
-                  <Upload className="size-4" /> Upload a unit PDF
+                  <Upload className="size-4" /> Open Dashboard
                 </a>
                 <a
                   href="#tamil"
