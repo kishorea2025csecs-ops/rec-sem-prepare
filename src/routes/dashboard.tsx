@@ -222,7 +222,7 @@ function Dashboard() {
           <div className="p-6">
             <Link to="/" className="flex items-center gap-3">
               <div className="flex size-9 items-center justify-center rounded-lg bg-accent/10 p-1 border border-accent/20">
-                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain" />
+                <img src={logoV2Asset.url} alt="REC Logo" className="size-full object-contain" />
               </div>
               <span className="font-display font-bold tracking-tight text-lg">SemPrep AI</span>
             </Link>
@@ -268,7 +268,7 @@ function Dashboard() {
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
           <div className="flex items-center gap-3 md:hidden">
             <div className="flex size-8 items-center justify-center rounded-lg bg-accent/10 p-0.5 border border-accent/20">
-              <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain" />
+              <img src={logoV2Asset.url} alt="REC Logo" className="size-full object-contain" />
             </div>
             <span className="font-display font-bold">SemPrep AI</span>
           </div>
