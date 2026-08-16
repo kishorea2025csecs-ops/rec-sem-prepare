@@ -154,7 +154,7 @@ function Landing() {
         </div>
       </header>
 
-      <main id="top">
+      <main id="top" className="relative">
         {/* Hero Section with The Learner Orbit */}
         <section 
           aria-labelledby="hero-heading"
@@ -316,7 +316,7 @@ function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="border-y border-white/10 bg-black/40 py-20" aria-labelledby="how-it-works-heading">
+        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="how-it-works-heading">
           <div className="mx-auto max-w-6xl px-5">
             <h2 id="how-it-works-heading" className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
               From a PDF to a plan in six moves
@@ -348,7 +348,7 @@ function Landing() {
         </section>
 
         {/* Features */}
-        <section id="features" className="py-20" aria-labelledby="features-heading">
+        <section id="features" className="relative z-10 py-20 bg-background" aria-labelledby="features-heading">
           <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <h2 id="features-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
@@ -386,7 +386,7 @@ function Landing() {
         </section>
 
         {/* Tamil */}
-        <section id="tamil" className="border-y border-white/10 bg-black/40 py-20" aria-labelledby="tamil-heading">
+        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="tamil-heading">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 glass-morphism px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
