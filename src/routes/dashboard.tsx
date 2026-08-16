@@ -40,6 +40,7 @@ import {
   Brain,
 } from "lucide-react";
 import { ModelViewer } from "@/components/ModelViewer";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
