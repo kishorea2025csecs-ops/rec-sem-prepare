@@ -171,6 +171,20 @@
   }
 }
 
+/* Hide the Made with Lovable badge */
+#lovable-badge,
+[id^="lovable-badge"],
+.lovable-badge {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
