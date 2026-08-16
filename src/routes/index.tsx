@@ -152,6 +152,7 @@ function Landing() {
       <main id="top">
         {/* Hero Section with The Learner Orbit */}
         <section 
+          aria-labelledby="hero-heading"
           className="relative overflow-hidden min-h-[700px] lg:min-h-[900px] flex items-center"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
@@ -302,9 +303,9 @@ function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="border-y border-border bg-surface/40 py-20">
+        <section id="how" className="border-y border-border bg-surface/40 py-20" aria-labelledby="how-it-works-heading">
           <div className="mx-auto max-w-6xl px-5">
-            <h2 className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 id="how-it-works-heading" className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
               From a PDF to a plan in six moves
             </h2>
             <p className="mt-4 max-w-2xl text-muted-foreground">
@@ -334,10 +335,10 @@ function Landing() {
         </section>
 
         {/* Features */}
-        <section id="features" className="py-20">
+        <section id="features" className="py-20" aria-labelledby="features-heading">
           <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
-              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+              <h2 id="features-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
                 Study like the paper is already in front of you
               </h2>
               <p className="mt-4 text-muted-foreground">
@@ -372,13 +373,13 @@ function Landing() {
         </section>
 
         {/* Tamil */}
-        <section id="tamil" className="border-y border-border bg-surface/40 py-20">
+        <section id="tamil" className="border-y border-border bg-surface/40 py-20" aria-labelledby="tamil-heading">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                 <Youtube className="size-3.5" /> தமிழ் tutorials
               </span>
-              <h2 className="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+              <h2 id="tamil-heading" className="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">
                 When English textbooks stop making sense
               </h2>
               <p className="mt-4 text-muted-foreground">
@@ -413,9 +414,9 @@ function Landing() {
         </section>
 
         {/* CTA */}
-        <section className="py-24">
+        <section className="py-24" aria-labelledby="cta-heading">
           <div className="mx-auto max-w-4xl px-5 text-center">
-            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 id="cta-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Semester exams start soon. Your plan can start now.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
