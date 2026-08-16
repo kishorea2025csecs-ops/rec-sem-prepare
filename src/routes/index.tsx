@@ -102,7 +102,7 @@ function Landing() {
             <span className="grid size-9 place-items-center rounded-xl bg-[image:var(--gradient-brand)] text-brand-foreground">
               <GraduationCap className="size-5" />
             </span>
-            <span className="font-display text-lg font-700 tracking-tight">SemPrep AI</span>
+            <span className="font-display text-lg font-bold tracking-tight">SemPrep AI</span>
           </a>
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
             <a className="transition-colors hover:text-foreground" href="#how">How it works</a>
