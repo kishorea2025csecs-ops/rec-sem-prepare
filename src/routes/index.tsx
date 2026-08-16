@@ -386,7 +386,15 @@ function Landing() {
         </section>
 
         {/* Features */}
-        <section id="features" className="relative z-10 py-20 bg-background" aria-labelledby="features-heading">
+        <section id="features" className="relative z-10 py-20 bg-background overflow-hidden" aria-labelledby="features-heading">
+          {/* Animated Background Objects for Section */}
+          <div className="absolute inset-0 pointer-events-none">
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 10, repeat: Infinity }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[600px] bg-accent/5 rounded-full blur-[120px]" 
+            />
+          </div>
           <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <h2 id="features-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
