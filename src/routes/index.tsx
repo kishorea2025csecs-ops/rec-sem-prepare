@@ -99,6 +99,21 @@ const features = [
 ];
 
 function Landing() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const tutorials = [
+    { title: "Data Structures விளக்கம்", meta: "4G Silver — AU Syllabus", dept: "CSE" },
+    { title: "Digital Electronics எளிமையாக", meta: "4G Silver — AU Syllabus", dept: "ECE" },
+    { title: "Control Systems problem solving", meta: "4G Silver — AU Syllabus", dept: "EEE" },
+    { title: "Python Programming Basics", meta: "4G Silver — AU Syllabus", dept: "IT" },
+    { title: "Manufacturing Technology", meta: "4G Silver — AU Syllabus", dept: "MECH" },
+  ];
+
+  const filteredTutorials = tutorials.filter(t => 
+    t.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+    t.dept.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
