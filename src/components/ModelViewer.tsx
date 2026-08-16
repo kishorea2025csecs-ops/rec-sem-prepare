@@ -25,7 +25,7 @@ export function ModelViewer() {
             polar={[-0.1, Math.PI / 4]}
             rotation={[Math.PI / 8, Math.PI / 4, 0]}
           >
-            <Stage environment="city" intensity={0.5} contactShadow={false}>
+            <Stage environment="city" intensity={0.5} adjustCamera={true}>
               <Model />
             </Stage>
           </PresentationControls>
