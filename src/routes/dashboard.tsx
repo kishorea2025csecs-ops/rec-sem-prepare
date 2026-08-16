@@ -40,6 +40,7 @@ import {
   Brain,
 } from "lucide-react";
 import { ModelViewer } from "@/components/ModelViewer";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -343,14 +344,27 @@ function Dashboard() {
                     { label: "Completion", value: `${activeSubject.progress}%`, color: "text-primary" },
                     { label: "Topics Prepared", value: "8 / 10", color: "text-accent" },
                     { label: "Practice Rate", value: "72%", color: "text-foreground" },
-                  ].map((stat) => (
-                    <div key={stat.label} className="rounded-2xl border border-border bg-card p-4 hover:border-primary/50 transition-colors group neon-border-cyan">
+                  ].map((stat, i) => (
+                    <motion.div 
+                      key={stat.label} 
+
+                      animate={{ 
+                        y: [0, -5, 0],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.5
+                      }}
+                      className="rounded-2xl border border-border bg-card p-4 hover:border-primary/50 transition-colors group neon-border-cyan"
+                    >
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{stat.label}</p>
                       <div className="mt-1 flex items-baseline justify-between">
                         <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
                         <BarChart3 className="size-3.5 text-muted-foreground/30 group-hover:text-primary transition-colors" />
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -361,7 +375,11 @@ function Dashboard() {
                     <h3 className="font-display font-semibold">Study Recommendation</h3>
                     <AlertCircle className="size-4 text-accent" />
                   </div>
-                  <div className="mt-4 flex items-start gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-4 neon-border-purple">
+                  <motion.div 
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="mt-4 flex items-start gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-4 neon-border-purple"
+                  >
                     <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground shadow-lg neon-glow-purple">
                       <TrendingUp className="size-5" />
                     </div>
@@ -371,7 +389,7 @@ function Dashboard() {
                         High-priority Part-C topic. Recommended to watch the Tamil visualization before reading notes.
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
                 <Link to="/study-planner" className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-card px-4 py-2 text-xs font-bold border border-border hover:bg-surface transition-all">
                   Open Planner <Calendar className="size-3.5" />
@@ -407,12 +425,21 @@ function Dashboard() {
                     { title: "Finish Project", icon: ShieldCheck, desc: "6: Finish the Project – Put everything together safely.", color: "from-indigo-500/20 to-indigo-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/success-2601729-2184147.png?f=webp&w=256" },
                     { title: "Share Your Work", icon: Share2, desc: "7: Share Your Work – Show your results to others.", color: "from-pink-500/20 to-pink-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/sharing-2601725-2184143.png?f=webp&w=256" },
                   ].map((step, i) => (
-                    <button
+                    <motion.button
                       key={i}
                       onClick={() => setActiveLessonStep(i)}
+                      animate={{ 
+                        y: [0, -4, 0],
+                        rotate: [0, i % 2 === 0 ? 0.5 : -0.5, 0]
+                      }}
+                      transition={{
+                        duration: 5 + i,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
                       className={`group relative flex flex-col items-center text-center p-3 rounded-2xl transition-all ${
                         activeLessonStep === i 
-                          ? "bg-surface ring-2 ring-primary/50 shadow-lg -translate-y-1" 
+                          ? "bg-surface ring-2 ring-primary/50 shadow-lg" 
                           : "hover:bg-surface/50 opacity-60 hover:opacity-100"
                       }`}
                     >
@@ -441,7 +468,7 @@ function Dashboard() {
                           </div>
                         </div>
                       )}
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
@@ -849,7 +876,18 @@ function Dashboard() {
                   </div>
                   <div className="p-5">
                     <div className="space-y-6">
-                      <div className="aspect-[4/3] w-full relative rounded-2xl bg-surface/30 overflow-hidden group cursor-crosshair border border-border">
+                      <motion.div 
+                        animate={{ 
+                          y: [0, -6, 0],
+                          rotate: [0, 0.5, 0]
+                        }}
+                        transition={{
+                          duration: 7,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        className="aspect-[4/3] w-full relative rounded-2xl bg-surface/30 overflow-hidden group cursor-crosshair border border-border"
+                      >
                         <div className="h-full w-full opacity-90 transition-transform duration-500 group-hover:scale-105">
                           <ModelViewer />
                         </div>
@@ -857,26 +895,38 @@ function Dashboard() {
                           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Interactive 3D Model</p>
                           <h4 className="mt-1 text-sm font-bold">Concept Analysis</h4>
                         </div>
-                      </div>
+                      </motion.div>
 
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="rounded-2xl bg-surface/50 border border-border p-4">
+                        <motion.div 
+                          animate={{ y: [0, -3, 0] }}
+                          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+                          className="rounded-2xl bg-surface/50 border border-border p-4"
+                        >
                           <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Selection Rate</p>
                           <p className="mt-1 text-lg font-black text-accent">84%</p>
                           <div className="mt-2 h-1 w-full bg-border rounded-full overflow-hidden">
                             <div className="h-full bg-accent w-[84%]" />
                           </div>
-                        </div>
-                        <div className="rounded-2xl bg-surface/50 border border-border p-4">
+                        </motion.div>
+                        <motion.div 
+                          animate={{ y: [0, -3, 0] }}
+                          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+                          className="rounded-2xl bg-surface/50 border border-border p-4"
+                        >
                           <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Accuracy</p>
                           <p className="mt-1 text-lg font-black text-primary">92%</p>
                           <div className="mt-2 h-1 w-full bg-border rounded-full overflow-hidden">
                             <div className="h-full bg-primary w-[92%]" />
                           </div>
-                        </div>
+                        </motion.div>
                       </div>
 
-                      <div className="p-4 rounded-2xl bg-surface/50 border border-border">
+                      <motion.div 
+                        animate={{ y: [0, -2, 0] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+                        className="p-4 rounded-2xl bg-surface/50 border border-border"
+                      >
                         <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest mb-3">
                           <span className="text-muted-foreground">Revision KPI</span>
                           <span className="text-accent">Active</span>
@@ -884,7 +934,7 @@ function Dashboard() {
                         <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
                           <div className="h-full bg-accent w-[72%] rounded-full shadow-[0_0_8px_rgba(var(--accent),0.5)]" />
                         </div>
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
                 </div>
