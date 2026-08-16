@@ -159,6 +159,10 @@ export const StudySpace = () => {
       <Canvas 
         camera={{ position: [0, 0, 10], fov: 45 }}
         dpr={[1, 2]}
+        // Prevent R3F from trying to apply data attributes from the React devtools or other extensions
+        onCreated={({ gl }) => {
+          gl.setClearColor(new THREE.Color('#020205'), 0);
+        }}
       >
         <ambientLight intensity={0.4} />
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
