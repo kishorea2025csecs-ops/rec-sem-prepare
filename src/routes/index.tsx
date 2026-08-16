@@ -99,6 +99,24 @@ const features = [
   },
 ];
 
+const testimonials = [
+  {
+    name: "Aravind Kumar",
+    dept: "Computer Science",
+    text: "SemPrep saved my Unit 3 internal. The Tamil explanation for Bayesian Networks was a lifesaver at 2 AM.",
+  },
+  {
+    name: "Divya S.",
+    dept: "Information Technology",
+    text: "The way it highlights repeat questions from last 5 years makes revision so much more focused.",
+  },
+  {
+    name: "Rohan M.",
+    dept: "Electronics & Communication",
+    text: "Finally a tool that understands REC regulation papers. The writing structure tips are solid.",
+  },
+];
+
 function Landing() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -422,6 +440,51 @@ function Landing() {
                   <h3 className="mt-5 font-display text-base font-semibold">{f.title}</h3>
                   <p className="mt-2 text-sm text-muted-foreground">{f.body}</p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Social Proof / Testimonials Section */}
+        <section id="community" className="relative z-10 py-24 bg-background/40 backdrop-blur-sm border-b border-white/10 overflow-hidden" aria-labelledby="community-heading">
+          <div className="absolute inset-0 pointer-events-none">
+            <motion.div 
+              animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
+              transition={{ duration: 15, repeat: Infinity }}
+              className="absolute top-0 right-0 size-[500px] bg-pink-500/5 rounded-full blur-[120px]" 
+            />
+          </div>
+          <div className="mx-auto max-w-6xl px-5">
+            <div className="text-center mb-16">
+              <h2 id="community-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl uppercase">
+                Trusted by REC Students
+              </h2>
+              <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+                Join hundreds of engineering students who are already using AI to master their semester exams.
+              </p>
+            </div>
+            
+            <div className="grid gap-6 md:grid-cols-3">
+              {testimonials.map((t, i) => (
+                <motion.div
+                  key={t.name}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: i * 0.1 }}
+                  className="rounded-3xl border border-white/10 glass-morphism p-8 pro-card-hover"
+                >
+                  <p className="text-lg italic text-foreground/90 mb-6">"{t.text}"</p>
+                  <div className="flex items-center gap-4">
+                    <div className="size-10 rounded-full bg-gradient-to-tr from-accent to-primary flex items-center justify-center text-xs font-black">
+                      {t.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    <div>
+                      <p className="font-bold text-sm">{t.name}</p>
+                      <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{t.dept}</p>
+                    </div>
+                  </div>
+                </motion.div>
               ))}
             </div>
           </div>
