@@ -22,12 +22,12 @@ const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
 
   const pos = useMemo(() => {
     // Hero (0-0.2): Right side, centered on mobile
-    if (scrollProgress < 0.2) return [isMobile ? 0 : 3.5, isMobile ? 2 : 0, 0];
+    if (scrollProgress < 0.2) return [isMobile ? 0 : 3.5, isMobile ? 0.5 : 0, 0];
     // Section 2: Study Material (0.2-0.4) -> Moves to back/top
     if (scrollProgress < 0.4) {
       const t = (scrollProgress - 0.2) / 0.2;
       const startX = isMobile ? 0 : 3.5;
-      const startY = isMobile ? 2 : 0;
+      const startY = isMobile ? 0.5 : 0;
       return [THREE.MathUtils.lerp(startX, 0, t), THREE.MathUtils.lerp(startY, 4, t), THREE.MathUtils.lerp(0, -10, t)];
     }
     // Section 3: AI Analysis (0.4-0.6) -> Center focus
@@ -200,8 +200,8 @@ const Scene = ({ scrollY }: { scrollY: number }) => {
   useFrame(() => {
     // Smoother persistent camera movement
     // Adjust camera position and zoom for mobile to ensure objects aren't clipped
-    const targetZ = isMobile ? 18 - scrollProgress * 5 : 10 - scrollProgress * 3;
-    const targetY = isMobile ? -scrollProgress * 6 + 1 : -scrollProgress * 4;
+    const targetZ = isMobile ? 8 - scrollProgress * 5 : 10 - scrollProgress * 3;
+    const targetY = isMobile ? -scrollProgress * 6 : -scrollProgress * 4;
     
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
     camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
