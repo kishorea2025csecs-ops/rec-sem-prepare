@@ -154,16 +154,8 @@ function Landing() {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Background Spline Widget Carousel */}
+          {/* Background Gradient & Glows */}
           <div className="absolute inset-0 z-0">
-            <iframe
-              src="https://my.spline.design/widgetscarouselcopycopy-cfc7yNWcEtRgYFIXmHzEZWoV-JSW/"
-              frameBorder="0"
-              width="100%"
-              height="100%"
-              className="h-full w-full pointer-events-none opacity-30 lg:opacity-50"
-              title="3D Background Orbit"
-            />
             <div
               className="pointer-events-none absolute inset-0 z-10"
               style={{ backgroundImage: "var(--gradient-hero)" }}
