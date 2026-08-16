@@ -198,9 +198,11 @@ function Dashboard() {
       <main className="flex-1 md:pl-64">
         {/* Top Header */}
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
-          <div className="flex items-center gap-4 md:hidden">
-             <Layout className="size-5 text-primary" />
-             <span className="font-display font-bold">SemPrep AI</span>
+          <div className="flex items-center gap-3 md:hidden">
+            <div className="flex size-8 items-center justify-center rounded-lg bg-accent/10 p-0.5 border border-accent/20">
+              <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain" />
+            </div>
+            <span className="font-display font-bold">SemPrep AI</span>
           </div>
           <div className="hidden items-center gap-2 text-xs font-medium text-muted-foreground md:flex">
              <span>Subjects</span>
