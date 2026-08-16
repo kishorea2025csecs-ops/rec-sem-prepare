@@ -156,17 +156,22 @@ function Landing() {
           onMouseLeave={handleMouseLeave}
         >
           {/* Background Video & Glows */}
-          <div className="absolute inset-0 z-0 overflow-hidden">
-            <div className="absolute inset-0 z-10 bg-background/40 backdrop-blur-[2px]" />
-            <img 
-              src={brainVideoAsset.url} 
-              alt="" 
-              className="h-full w-full object-cover opacity-30 grayscale brightness-50"
-              aria-hidden="true"
-            />
+          <div className="absolute inset-0 z-0 overflow-hidden bg-background">
+            <div className="absolute inset-0 z-10 bg-black/60 backdrop-blur-[2px]" />
+            <div className="absolute inset-0 z-5 scale-110">
+              <img 
+                src={brainVideoAsset.url} 
+                alt="" 
+                className="h-full w-full object-cover opacity-20 grayscale brightness-75"
+                aria-hidden="true"
+              />
+            </div>
             <div
               className="pointer-events-none absolute inset-0 z-20"
-              style={{ backgroundImage: "var(--gradient-hero)" }}
+              style={{ 
+                background: "radial-gradient(circle at 50% 50%, transparent 0%, var(--background) 100%)",
+                backgroundImage: "var(--gradient-hero)" 
+              }}
               aria-hidden="true"
             />
           </div>
