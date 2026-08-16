@@ -151,10 +151,10 @@ function Dashboard() {
       <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-border bg-card md:block">
         <div className="flex h-full flex-col">
           <div className="p-6">
-            <Link to="/" className="flex items-center gap-2">
-              <span className="grid size-8 place-items-center rounded-lg bg-[image:var(--gradient-brand)] text-brand-foreground">
-                <Layout className="size-4" />
-              </span>
+            <Link to="/" className="flex items-center gap-3">
+              <div className="flex size-9 items-center justify-center rounded-lg bg-accent/10 p-1 border border-accent/20">
+                <img src="/src/assets/logo-clean.png.asset.json" alt="REC Logo" className="size-full object-contain" />
+              </div>
               <span className="font-display font-bold tracking-tight">SemPrep AI</span>
             </Link>
           </div>
