@@ -32,7 +32,7 @@ function AuthCallback() {
             description: `Signed in as ${user.email}`,
           });
           
-          navigate({ to: "/dashboard" });
+          navigate({ to: "/" });
         } else {
           // No session found, user might have just landed here
           navigate({ to: "/auth/login" });

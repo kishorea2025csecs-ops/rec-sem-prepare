@@ -73,7 +73,7 @@ function ProfilePage() {
       {/* Header */}
       <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
         <button 
-          onClick={() => navigate({ to: "/dashboard" })}
+          onClick={() => navigate({ to: "/" })}
           className="mr-4 flex size-9 items-center justify-center rounded-full border border-border bg-surface text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="size-4" />
