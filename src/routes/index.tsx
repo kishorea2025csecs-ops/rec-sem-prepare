@@ -128,7 +128,7 @@ function Landing() {
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-white/10 glass-morphism">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="flex items-center gap-3 group">
             <div className="relative">
@@ -214,7 +214,7 @@ function Landing() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 glass-morphism px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-accent">
                   <Sparkles className="size-3.5" /> Built for REC students
                 </span>
                 <h1 id="hero-heading" className="mt-6 font-display text-4xl font-black leading-[0.95] tracking-tighter sm:text-6xl lg:text-8xl uppercase">
@@ -263,7 +263,7 @@ function Landing() {
               }}
               className="relative hidden lg:block"
             >
-              <div className="glass-card rounded-[2.5rem] p-8 transition-transform duration-200 ease-out border-white/10 overflow-hidden relative group">
+              <div className="glass-morphism rounded-[2.5rem] p-8 transition-transform duration-200 ease-out border-white/10 overflow-hidden relative group">
                 <div className="absolute -inset-24 bg-gradient-radial from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 
                 <div className="relative z-10">
@@ -328,7 +328,7 @@ function Landing() {
               {steps.map((step, i) => (
                 <li
                   key={step.title}
-                  className="group rounded-3xl border border-border bg-card p-6 transition-colors hover:border-accent/50 pro-card-hover"
+                  className="group rounded-3xl border border-white/10 glass-morphism p-6 transition-colors hover:border-accent/50 pro-card-hover"
                 >
                   <div className="flex items-center justify-between">
                     <span className="grid size-11 place-items-center rounded-2xl bg-accent/15 text-accent neon-glow-purple border border-accent/20">
