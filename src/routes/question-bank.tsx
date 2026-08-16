@@ -113,7 +113,7 @@ function QuestionBank() {
         </div>
       </aside>
 
-      <main className="flex-1 md:pl-64">
+      <main className="flex-1 md:pl-64" aria-labelledby="qb-heading">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
           <div className="hidden items-center gap-2 text-xs font-medium text-muted-foreground md:flex">
              <span>Resources</span>
@@ -131,7 +131,7 @@ function QuestionBank() {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div>
-                <h1 className="font-display text-3xl font-bold tracking-tight">Question Bank</h1>
+                <h1 id="qb-heading" className="font-display text-3xl font-bold tracking-tight">Question Bank</h1>
                 <p className="mt-2 text-muted-foreground">Search and filter through historical exam questions.</p>
               </div>
               <div className="flex gap-2">

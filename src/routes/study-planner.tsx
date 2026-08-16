@@ -79,7 +79,7 @@ function StudyPlanner() {
         </div>
       </aside>
 
-      <main className="flex-1 md:pl-64">
+      <main className="flex-1 md:pl-64" aria-labelledby="sp-heading">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
           <div className="hidden items-center gap-2 text-xs font-medium text-muted-foreground md:flex">
              <span>AI Tools</span>
@@ -96,7 +96,7 @@ function StudyPlanner() {
         <div className="mx-auto max-w-5xl p-6 lg:p-10">
           <div className="flex flex-col gap-8">
             <div className="max-w-2xl">
-              <h1 className="font-display text-3xl font-bold tracking-tight">AI Study Planner</h1>
+              <h1 id="sp-heading" className="font-display text-3xl font-bold tracking-tight">AI Study Planner</h1>
               <p className="mt-2 text-muted-foreground">Generate a personalized revision schedule based on your exam date and current preparation level.</p>
             </div>
 

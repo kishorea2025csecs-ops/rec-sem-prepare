@@ -139,7 +139,7 @@ function ImportantTopics() {
         </div>
       </aside>
 
-      <main className="flex-1 md:pl-64">
+      <main className="flex-1 md:pl-64" aria-labelledby="topics-heading">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
           <div className="hidden items-center gap-2 text-xs font-medium text-muted-foreground md:flex">
              <span>AI Analysis</span>
@@ -164,7 +164,7 @@ function ImportantTopics() {
         <div className="mx-auto max-w-5xl p-6 lg:p-10">
           <div className="flex flex-col gap-8">
             <div>
-              <h1 className="font-display text-3xl font-bold tracking-tight">Important Topics</h1>
+              <h1 id="topics-heading" className="font-display text-3xl font-bold tracking-tight">Important Topics</h1>
               <p className="mt-2 text-muted-foreground">
                 Priority calculated based on previous 6 semesters' frequency and mark distribution.
               </p>

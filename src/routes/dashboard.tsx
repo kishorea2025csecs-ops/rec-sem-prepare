@@ -263,7 +263,7 @@ function Dashboard() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 md:pl-64">
+      <main className="flex-1 md:pl-64" aria-labelledby="dashboard-heading">
         {/* Top Header */}
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
           <div className="flex items-center gap-3 md:hidden">
@@ -334,12 +334,12 @@ function Dashboard() {
           </div>
         </header>
 
-        <div className="mx-auto max-w-5xl p-6 lg:p-10">
+        <div className="mx-auto max-w-5xl p-6 lg:p-10" role="main">
           <div className="flex flex-col gap-8">
             {/* Subject Info & Progress */}
             <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
               <div>
-                <h1 className="font-display text-3xl font-bold tracking-tight uppercase">
+                <h1 id="dashboard-heading" className="font-display text-3xl font-bold tracking-tight uppercase">
                   {activeSubject.name}
                 </h1>
                 <p className="mt-2 text-muted-foreground">
