@@ -534,7 +534,7 @@ function Dashboard() {
                          </div>
                          <div className="min-w-0">
                            <p className="text-xs font-semibold truncate">PYQ_Bank_2018-24.pdf</p>
-                           <p className="text-[10px] text-muted-foreground">Last updated yesterday</p>
+                           <p className="text-[10px] text-muted-foreground">PDF Question Bank</p>
                          </div>
                       </div>
                     </div>
