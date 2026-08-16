@@ -120,13 +120,24 @@ function Landing() {
 
       <main id="top">
         {/* Hero */}
-        <section className="relative overflow-hidden">
-          <div
-            className="pointer-events-none absolute inset-0"
-            style={{ backgroundImage: "var(--gradient-hero)" }}
-            aria-hidden="true"
-          />
-          <div className="relative mx-auto grid max-w-6xl gap-14 px-5 pb-20 pt-16 md:pt-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+        <section className="relative overflow-hidden min-h-[600px] lg:min-h-[800px] flex items-center">
+          {/* Spline 3D Design Background */}
+          <div className="absolute inset-0 z-0">
+            <iframe
+              src="https://my.spline.design/room-bec3f548-ef95-486b-ac90-d11b131772e5/"
+              frameBorder="0"
+              width="100%"
+              height="100%"
+              className="h-full w-full pointer-events-none opacity-40 lg:opacity-60"
+              title="3D Background Design"
+            />
+            <div
+              className="pointer-events-none absolute inset-0 z-10"
+              style={{ backgroundImage: "var(--gradient-hero)" }}
+              aria-hidden="true"
+            />
+          </div>
+          <div className="relative z-20 mx-auto grid max-w-6xl gap-14 px-5 pb-20 pt-16 md:pt-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                 <Sparkles className="size-3.5" /> Built for REC students
