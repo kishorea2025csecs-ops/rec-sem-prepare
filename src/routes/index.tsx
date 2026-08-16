@@ -341,7 +341,20 @@ function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="how-it-works-heading">
+        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
+          {/* Animated Background Objects for Section */}
+          <div className="absolute inset-0 pointer-events-none">
+            <motion.div 
+              animate={{ x: [0, 20, 0], y: [0, -20, 0] }}
+              transition={{ duration: 15, repeat: Infinity }}
+              className="absolute top-0 right-[10%] size-72 bg-purple-500/5 rounded-full blur-3xl" 
+            />
+            <motion.div 
+              animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
+              transition={{ duration: 18, repeat: Infinity }}
+              className="absolute bottom-0 left-[5%] size-80 bg-cyan-500/5 rounded-full blur-3xl" 
+            />
+          </div>
           <div className="mx-auto max-w-6xl px-5">
             <h2 id="how-it-works-heading" className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
               From a PDF to a plan in six moves
