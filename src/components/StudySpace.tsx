@@ -19,11 +19,15 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
 
-  // Rotate items slowly
-  useFrame((state) => {
+  // Rotate items slowly, reacting to scroll
+  useFrame((state, delta) => {
     if (meshRef.current && !active) {
-      meshRef.current.rotation.x += 0.005 + (index * 0.002);
-      meshRef.current.rotation.y += 0.005 + (index * 0.001);
+      // Base rotation + scroll-induced boost
+      const scrollImpact = Math.abs((window.scrollY - state.camera.position.y * -200) * 0.0001);
+      const rotationSpeed = 0.005 + (index * 0.002) + (scrollImpact * 0.05);
+      
+      meshRef.current.rotation.x += rotationSpeed;
+      meshRef.current.rotation.y += rotationSpeed * 0.5;
     }
   });
 
@@ -119,12 +123,26 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
 
 export const StudySpace = () => {
   const scrollRef = useRef(0);
+  const scrollVelocity = useRef(0);
+  const lastScrollY = useRef(0);
   
-  // Update scroll value for camera parallax
-  useFrame((state) => {
-    scrollRef.current = window.scrollY;
+  // Update scroll value for camera parallax and velocity for object rotation
+  useFrame((state, delta) => {
+    const currentScrollY = window.scrollY;
+    
+    // Calculate velocity with smoothing
+    const velocity = (currentScrollY - lastScrollY.current) / (delta * 1000);
+    scrollVelocity.current = THREE.MathUtils.lerp(scrollVelocity.current, velocity, 0.1);
+    lastScrollY.current = currentScrollY;
+    
+    scrollRef.current = currentScrollY;
+    
+    // Parallax movement
     const targetY = -(scrollRef.current * 0.005);
     state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.1);
+    
+    // Subtly tilt camera based on scroll velocity
+    state.camera.rotation.x = THREE.MathUtils.lerp(state.camera.rotation.x, scrollVelocity.current * 0.0002, 0.05);
   });
 
   const objects = [
