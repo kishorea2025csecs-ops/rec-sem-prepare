@@ -342,7 +342,7 @@ function Landing() {
           </div>
         </section>
 
-        {/* How it works */}
+        {/* SECTION 2: STUDY MATERIAL */}
         <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
@@ -387,8 +387,8 @@ function Landing() {
           </div>
         </section>
 
-        {/* Features */}
-        <section id="features" className="relative z-10 py-20 bg-background overflow-hidden" aria-labelledby="features-heading">
+        {/* SECTION 3: AI ANALYSIS & FEATURES */}
+        <section id="features" className="relative z-10 py-20 bg-background/40 backdrop-blur-sm overflow-hidden" aria-labelledby="features-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -433,7 +433,7 @@ function Landing() {
           </div>
         </section>
 
-        {/* Tamil */}
+        {/* SECTION 4: IMPORTANT QUESTIONS & TAMIL HELP */}
         <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="tamil-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
@@ -482,8 +482,8 @@ function Landing() {
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="py-24" aria-labelledby="cta-heading">
+        {/* SECTION 5 & 6: ANSWER COACH & REVISION */}
+        <section className="relative z-10 py-24 bg-background/20 backdrop-blur-lg" aria-labelledby="cta-heading">
           <div className="mx-auto max-w-4xl px-5 text-center">
             <h2 id="cta-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Semester exams start soon. Your plan can start now.
