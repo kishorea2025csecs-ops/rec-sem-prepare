@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import logoAsset from "@/assets/logo-clean.png.asset.json";
 import { useState, useEffect } from "react";
 import {
   BookOpen,
@@ -153,9 +154,9 @@ function Dashboard() {
           <div className="p-6">
             <Link to="/" className="flex items-center gap-3">
               <div className="flex size-9 items-center justify-center rounded-lg bg-accent/10 p-1 border border-accent/20">
-                <img src="/src/assets/logo-clean.png.asset.json" alt="REC Logo" className="size-full object-contain" />
+                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain" />
               </div>
-              <span className="font-display font-bold tracking-tight">SemPrep AI</span>
+              <span className="font-display font-bold tracking-tight text-lg">SemPrep AI</span>
             </Link>
           </div>
 
