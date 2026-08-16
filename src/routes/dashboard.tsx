@@ -81,16 +81,11 @@ function Dashboard() {
       <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-border bg-card md:block">
         <div className="flex h-full flex-col">
           <div className="p-6">
-            <Link to="/" className="flex items-center gap-3">
-              <img 
-                src="https://www.rajalakshmi.org/images/logo.png" 
-                alt="REC Logo" 
-                className="h-8 w-auto object-contain"
-              />
-              <div className="flex flex-col">
-                <span className="font-display text-base font-bold tracking-tight leading-tight">SemPrep AI</span>
-                <span className="text-[9px] font-semibold text-muted-foreground uppercase tracking-tighter">REC Edition</span>
-              </div>
+            <Link to="/" className="flex items-center gap-2">
+              <span className="grid size-8 place-items-center rounded-lg bg-[image:var(--gradient-brand)] text-brand-foreground">
+                <Layout className="size-4" />
+              </span>
+              <span className="font-display font-bold tracking-tight">SemPrep AI</span>
             </Link>
           </div>
 
@@ -132,12 +127,8 @@ function Dashboard() {
       <main className="flex-1 md:pl-64">
         {/* Top Header */}
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
-          <div className="flex items-center gap-3 md:hidden">
-             <img 
-               src="https://www.rajalakshmi.org/images/logo.png" 
-               alt="REC Logo" 
-               className="h-7 w-auto object-contain"
-             />
+          <div className="flex items-center gap-4 md:hidden">
+             <Layout className="size-5 text-primary" />
              <span className="font-display font-bold">SemPrep AI</span>
           </div>
           <div className="hidden items-center gap-2 text-xs font-medium text-muted-foreground md:flex">
