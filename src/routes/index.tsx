@@ -15,6 +15,7 @@ import {
   Youtube,
 } from "lucide-react";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
+import logoV2Asset from "@/assets/logo-v2.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
 import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
