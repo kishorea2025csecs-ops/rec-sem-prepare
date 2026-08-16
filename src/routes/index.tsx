@@ -15,6 +15,8 @@ import {
   Youtube,
 } from "lucide-react";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useState, useRef } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
