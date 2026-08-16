@@ -120,6 +120,8 @@ const testimonials = [
 function Landing() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [scrollY, setScrollY] = useState(0);
 
   const mouseXSpring = useSpring(x);
   const mouseYSpring = useSpring(y);
@@ -144,10 +146,14 @@ function Landing() {
     y.set(0);
   };
 
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    setScrollY(e.currentTarget.scrollTop);
+  };
+
   return (
-    <div className="min-h-screen bg-[#020205] font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
-      <StudySpaceCanvas />
-      <header className="sticky top-4 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
+    <div className="h-screen bg-[#020205] font-sans text-foreground selection:bg-primary selection:text-primary-foreground overflow-hidden">
+      <StudySpaceCanvas scrollY={scrollY} />
+      <header className="fixed top-4 left-0 right-0 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 md:px-5 py-3 md:py-4">
           <a href="#top" className="flex items-center gap-3 group">
             <div className="relative">
@@ -182,11 +188,11 @@ function Landing() {
         </div>
       </header>
 
-      <main id="top" className="relative">
+      <main id="top" ref={scrollContainerRef} onScroll={handleScroll} className="section-scroll-container">
         {/* Hero Section with The Learner Orbit */}
         <section 
           aria-labelledby="hero-heading"
-          className="relative overflow-hidden min-h-[700px] lg:min-h-[900px] flex items-center"
+          className="scroll-section flex items-center"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
@@ -355,7 +361,7 @@ function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
+        <section id="how" className="scroll-section border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="how-it-works-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -400,7 +406,7 @@ function Landing() {
         </section>
 
         {/* Features */}
-        <section id="features" className="relative z-10 py-20 bg-background overflow-hidden" aria-labelledby="features-heading">
+        <section id="features" className="scroll-section py-20 bg-background" aria-labelledby="features-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -446,7 +452,7 @@ function Landing() {
         </section>
 
         {/* Social Proof / Testimonials Section */}
-        <section id="community" className="relative z-10 py-24 bg-background/40 backdrop-blur-sm border-b border-white/10 overflow-hidden" aria-labelledby="community-heading">
+        <section id="community" className="scroll-section py-24 bg-background/40 backdrop-blur-sm border-b border-white/10" aria-labelledby="community-heading">
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
               animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
@@ -491,7 +497,7 @@ function Landing() {
         </section>
 
         {/* Tamil */}
-        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="tamil-heading">
+        <section id="tamil" className="scroll-section border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="tamil-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -540,7 +546,7 @@ function Landing() {
         </section>
 
         {/* CTA */}
-        <section className="py-24" aria-labelledby="cta-heading">
+        <section className="scroll-section py-24 flex items-center justify-center" aria-labelledby="cta-heading">
           <div className="mx-auto max-w-4xl px-5 text-center">
             <h2 id="cta-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Semester exams start soon. Your plan can start now.
