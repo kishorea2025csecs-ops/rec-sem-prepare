@@ -370,41 +370,63 @@ function Landing() {
 
         {/* Tamil */}
         <section id="tamil" className="border-y border-border bg-surface/40 py-20">
-          <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
-            <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-                <Youtube className="size-3.5" /> தமிழ் tutorials
-              </span>
-              <h2 className="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">
-                When English textbooks stop making sense
-              </h2>
-              <p className="mt-4 text-muted-foreground">
-                For every hard concept in your unit, SemPrep AI finds the clearest Tamil explanation
-                on YouTube and jumps straight to the timestamp that covers it — no scrubbing through
-                two-hour lectures at 2 AM.
-              </p>
-            </div>
-            <div className="space-y-4">
-              {[
-                ["Bayesian Networks விளக்கம்", "Tamil Tutorials Available"],
-                ["Hidden Markov Model எளிமையாக", "Tamil Tutorials Available"],
-                ["Naive Bayes problem solving", "Tamil Tutorials Available"],
-              ].map(([title, meta]) => (
-                <div
-                  key={title}
-                  className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4"
-                >
-                  <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary">
-                    <Play className="size-5" />
-                  </span>
-                  <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold">{title}</p>
-                    <p className="mt-1 text-xs text-muted-foreground">
-                      {meta}
-                    </p>
+          <div className="mx-auto max-w-6xl px-5">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <div>
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+                  <Youtube className="size-3.5" /> தமிழ் tutorials
+                </span>
+                <h2 className="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+                  When English textbooks stop making sense
+                </h2>
+                <p className="mt-4 text-muted-foreground">
+                  Access 4G Silver handpicked YouTube tutorials specifically curated for the 
+                  <strong> Anna University Syllabus</strong>. Every difficult concept is covered with 
+                  clear Tamil explanations.
+                </p>
+
+                {/* Subject Search Bar */}
+                <div className="mt-8 relative group max-w-md">
+                  <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+                    <Search className="size-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search subjects (e.g., Data Structures)..."
+                    className="w-full bg-card/50 border border-border rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all backdrop-blur-sm"
+                  />
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {["CSE", "ECE", "IT", "EEE", "MECH"].map((dept) => (
+                      <button key={dept} className="text-[10px] font-bold px-2 py-1 rounded-md bg-white/5 border border-white/10 hover:border-primary/40 transition-colors">
+                        {dept}
+                      </button>
+                    ))}
                   </div>
                 </div>
-              ))}
+              </div>
+              <div className="space-y-4">
+                {[
+                  ["Data Structures விளக்கம்", "4G Silver — AU Syllabus"],
+                  ["Digital Electronics எளிமையாக", "4G Silver — AU Syllabus"],
+                  ["Control Systems problem solving", "4G Silver — AU Syllabus"],
+                  ["Python Programming Basics", "4G Silver — AU Syllabus"],
+                ].map(([title, meta]) => (
+                  <div
+                    key={title}
+                    className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 hover:border-primary/30 transition-all cursor-pointer group"
+                  >
+                    <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+                      <Play className="size-5" />
+                    </span>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-semibold">{title}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        {meta}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
