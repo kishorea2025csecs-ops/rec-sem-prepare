@@ -22,9 +22,10 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
   // Rotate items slowly, reacting to scroll
   useFrame((state, delta) => {
     if (meshRef.current && !active) {
+      // Get scroll values from parent state or global window
       // Base rotation + scroll-induced boost
-      const scrollImpact = Math.abs((window.scrollY - state.camera.position.y * -200) * 0.0001);
-      const rotationSpeed = 0.005 + (index * 0.002) + (scrollImpact * 0.05);
+      const scrollY = window.scrollY;
+      const rotationSpeed = 0.005 + (index * 0.002) + (Math.abs(scrollY) * 0.00005);
       
       meshRef.current.rotation.x += rotationSpeed;
       meshRef.current.rotation.y += rotationSpeed * 0.5;
@@ -124,25 +125,28 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
 export const StudySpace = () => {
   const scrollRef = useRef(0);
   const scrollVelocity = useRef(0);
-  const lastScrollY = useRef(0);
+  const lastScrollY = useRef(typeof window !== 'undefined' ? window.scrollY : 0);
   
   // Update scroll value for camera parallax and velocity for object rotation
   useFrame((state, delta) => {
     const currentScrollY = window.scrollY;
     
     // Calculate velocity with smoothing
-    const velocity = (currentScrollY - lastScrollY.current) / (delta * 1000);
+    const diff = currentScrollY - lastScrollY.current;
+    const velocity = diff / (delta * 1000); // pixels per ms
     scrollVelocity.current = THREE.MathUtils.lerp(scrollVelocity.current, velocity, 0.1);
     lastScrollY.current = currentScrollY;
     
-    scrollRef.current = currentScrollY;
-    
-    // Parallax movement
-    const targetY = -(scrollRef.current * 0.005);
+    // Parallax movement - more dramatic for depth
+    // Map scroll Y to a range that keeps objects in view but moving
+    const targetY = -(currentScrollY * 0.01);
     state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.1);
     
-    // Subtly tilt camera based on scroll velocity
-    state.camera.rotation.x = THREE.MathUtils.lerp(state.camera.rotation.x, scrollVelocity.current * 0.0002, 0.05);
+    // Subtly tilt camera based on scroll velocity for organic feel
+    state.camera.rotation.x = THREE.MathUtils.lerp(state.camera.rotation.x, scrollVelocity.current * 0.001, 0.05);
+    
+    // Keep Z constant or move slightly for depth
+    state.camera.position.z = 10 + Math.sin(currentScrollY * 0.001) * 0.5;
   });
 
   const objects = [
@@ -157,29 +161,36 @@ export const StudySpace = () => {
       color: "#00D2FF", 
       label: "PYQ Analysis", 
       tip: "Historical weighting analysis identifies which topics are trending for this semester.",
-      pos: [5, -2, 0],
+      pos: [5, -5, 0],
       path: "/question-bank"
     },
     { 
       color: "#FFB703", 
       label: "Important Topics", 
       tip: "Bayesian Networks and Neural Architecture are marked as 'High Priority' for Unit 3.",
-      pos: [1, 3.5, -3],
+      pos: [1, -15, -3],
       path: "/topics"
     },
     { 
       color: "#FB8500", 
       label: "Tamil Help", 
       tip: "Difficult concepts? We map specific timestamps in Tamil tutorials to your notes.",
-      pos: [-4, -3, 1],
+      pos: [-4, -25, 1],
       path: "/dashboard"
     },
     { 
       color: "#F15BB5", 
       label: "Study Planner", 
       tip: "Targeted writing structure: Point-wise presentation and diagram placement tips.",
-      pos: [3, 2, -1],
+      pos: [3, -35, -1],
       path: "/study-planner"
+    },
+    { 
+      color: "#00F5D4", 
+      label: "Community", 
+      tip: "Connect with REC students who passed these papers with flying colors.",
+      pos: [-2, -45, -2],
+      path: "/dashboard"
     }
   ];
 
