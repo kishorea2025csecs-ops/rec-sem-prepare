@@ -14,6 +14,7 @@ import {
   Upload,
   Youtube,
 } from "lucide-react";
+import logoAsset from "@/assets/rec-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -98,10 +99,13 @@ function Landing() {
     <div className="min-h-screen bg-background font-sans text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <a href="#top" className="flex items-center gap-2">
-            <span className="grid size-9 place-items-center rounded-xl bg-[image:var(--gradient-brand)] text-brand-foreground">
-              <GraduationCap className="size-5" />
-            </span>
+          <a href="#top" className="flex items-center gap-3">
+            <div className="relative group">
+              <div className="absolute -inset-1 rounded-xl bg-[image:var(--gradient-brand)] opacity-40 blur transition duration-300 group-hover:opacity-70" />
+              <div className="relative overflow-hidden rounded-xl border-2 border-[#FDB813] bg-[#662D91] p-0.5">
+                <img src={logoAsset.url} alt="REC Logo" className="size-8 object-contain" />
+              </div>
+            </div>
             <span className="font-display text-lg font-bold tracking-tight">SemPrep AI</span>
           </a>
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
