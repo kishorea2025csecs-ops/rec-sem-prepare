@@ -159,9 +159,9 @@ function Landing() {
               </div>
               <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6">
                 {[
-                  ["12 yrs", "of question papers"],
-                  ["6 depts", "syllabus mapped"],
-                  ["94%", "repeat-question hit rate"],
+                  ["Units", "Detailed Analysis"],
+                  ["Papers", "PYQ Mapped"],
+                  ["Results", "High Scoring Strategy"],
                 ].map(([value, label]) => (
                   <div key={label}>
                     <dt className="font-display text-2xl font-bold text-accent">{value}</dt>
