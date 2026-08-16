@@ -302,7 +302,7 @@ function Landing() {
                   {isAuthenticated ? (
                     isVerifiedRec ? (
                       <Link
-                        to="/auth/login"
+                        to="/dashboard"
                         className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-10 py-5 text-base font-black text-white shadow-[0_0_25px_rgba(121,40,202,0.4)] transition-all duration-500 hover:scale-105 active:scale-95 hover:shadow-[0_0_50px_rgba(0,112,243,0.6)] border border-white/20 overflow-hidden"
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
