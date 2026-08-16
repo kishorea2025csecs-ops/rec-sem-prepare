@@ -203,18 +203,31 @@ function Landing() {
             </div>
           </div>
 
-          {/* Floating Glows */}
+          {/* Floating Glows & 3D Objects Across Home Screen */}
           <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+            {/* Top Area */}
             <motion.div 
-              animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }}
+              animate={{ y: [0, -30, 0], rotate: [0, 10, 0], scale: [1, 1.1, 1] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-[20%] left-[15%] size-32 rounded-full bg-gradient-to-tr from-[#00D2FF]/20 to-transparent blur-2xl animate-pulse-glow"
+              className="absolute top-[10%] left-[5%] size-48 rounded-full bg-gradient-to-tr from-[#00D2FF]/15 to-transparent blur-3xl"
             />
+            
+            {/* Mid Area */}
             <motion.div 
-              animate={{ y: [0, 40, 0], rotate: [0, -15, 0] }}
-              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-[25%] right-[10%] size-48 rounded-full bg-gradient-to-tr from-[#9D4EDD]/20 to-transparent blur-3xl animate-pulse-glow"
+              animate={{ y: [0, 50, 0], x: [0, 20, 0], rotate: [0, -20, 0] }}
+              transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-[40%] right-[5%] size-64 rounded-full bg-gradient-to-tr from-[#9D4EDD]/15 to-transparent blur-[100px]"
             />
+
+            {/* Bottom Area */}
+            <motion.div 
+              animate={{ y: [0, -40, 0], x: [0, -30, 0] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute bottom-[10%] left-[10%] size-56 rounded-full bg-gradient-to-tr from-cyan-500/10 to-transparent blur-[80px]"
+            />
+
+            {/* Extra Glows for Depth */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[800px] bg-accent/5 rounded-full blur-[150px]" />
           </div>
 
           <div className="relative z-20 mx-auto grid max-w-6xl gap-14 px-5 pb-20 pt-16 md:pt-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
@@ -328,7 +341,20 @@ function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="how-it-works-heading">
+        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
+          {/* Animated Background Objects for Section */}
+          <div className="absolute inset-0 pointer-events-none">
+            <motion.div 
+              animate={{ x: [0, 20, 0], y: [0, -20, 0] }}
+              transition={{ duration: 15, repeat: Infinity }}
+              className="absolute top-0 right-[10%] size-72 bg-purple-500/5 rounded-full blur-3xl" 
+            />
+            <motion.div 
+              animate={{ x: [0, -30, 0], y: [0, 30, 0] }}
+              transition={{ duration: 18, repeat: Infinity }}
+              className="absolute bottom-0 left-[5%] size-80 bg-cyan-500/5 rounded-full blur-3xl" 
+            />
+          </div>
           <div className="mx-auto max-w-6xl px-5">
             <h2 id="how-it-works-heading" className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
               From a PDF to a plan in six moves
@@ -360,7 +386,15 @@ function Landing() {
         </section>
 
         {/* Features */}
-        <section id="features" className="relative z-10 py-20 bg-background" aria-labelledby="features-heading">
+        <section id="features" className="relative z-10 py-20 bg-background overflow-hidden" aria-labelledby="features-heading">
+          {/* Animated Background Objects for Section */}
+          <div className="absolute inset-0 pointer-events-none">
+            <motion.div 
+              animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+              transition={{ duration: 10, repeat: Infinity }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[600px] bg-accent/5 rounded-full blur-[120px]" 
+            />
+          </div>
           <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
               <h2 id="features-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
@@ -398,7 +432,15 @@ function Landing() {
         </section>
 
         {/* Tamil */}
-        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="tamil-heading">
+        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="tamil-heading">
+          {/* Animated Background Objects for Section */}
+          <div className="absolute inset-0 pointer-events-none">
+            <motion.div 
+              animate={{ x: [0, 30, 0], rotate: [0, 15, 0] }}
+              transition={{ duration: 12, repeat: Infinity }}
+              className="absolute top-0 left-[20%] size-64 bg-amber-500/5 rounded-full blur-[100px]" 
+            />
+          </div>
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 glass-morphism px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
