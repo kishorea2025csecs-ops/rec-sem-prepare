@@ -344,9 +344,10 @@ function Dashboard() {
                     { label: "Completion", value: `${activeSubject.progress}%`, color: "text-primary" },
                     { label: "Topics Prepared", value: "8 / 10", color: "text-accent" },
                     { label: "Practice Rate", value: "72%", color: "text-foreground" },
-                  ].map((stat) => (
+                  ].map((stat, i) => (
                     <motion.div 
                       key={stat.label} 
+
                       animate={{ 
                         y: [0, -5, 0],
                       }}
