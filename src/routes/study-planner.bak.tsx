@@ -19,7 +19,7 @@ import {
   Brain
 } from "lucide-react";
 
-export const Route = createFileRoute("/study-planner")({
+export const Route = createFileRoute("/study-planner/bak")({
   head: () => ({
     meta: [
       { title: "AI Study Planner | SemPrep AI - Custom Exam Schedule" },

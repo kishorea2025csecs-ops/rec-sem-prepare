@@ -43,7 +43,7 @@ import {
 import { ModelViewer } from "@/components/ModelViewer";
 import { motion } from "framer-motion";
 
-export const Route = createFileRoute("/dashboard")({
+export const Route = createFileRoute("/dashboard/bak")({
   head: () => ({
     meta: [
       { title: "Student Dashboard | SemPrep AI - Rajalakshmi Engineering College" },

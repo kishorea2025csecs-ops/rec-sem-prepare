@@ -1,47 +1,25 @@
-# Plan - Merge all sub-pages into a single long-form home page
+# Consolidation Plan - Single Page Experience
 
-Merge the Dashboard, Topics, Question Bank, and Study Planner content into a single scrolling experience on the index route, with the interactive 3D Study Space serving as the focal point.
+Merge all preparation tools, analytics, and interactive modules into a single, high-performance scrolling page at the root route.
 
-## User Review Required
+## User Experience
+- Unified scrolling journey from Landing → Analytics → Roadmap → Resources.
+- Navigation header with smooth-scrolling anchor links.
+- "The Learner Orbit" 3D model integrated directly into the analytics section.
+- Interactive preparation tools (Topics, PYQs, Planner) available without route changes.
 
-> [!IMPORTANT]
-> The application will transition from a multi-page dashboard to a single long-form page. Navigation will now scroll to sections instead of switching routes.
+## Technical Changes
+- **Root Component (`src/routes/index.tsx`)**:
+  - Incorporate state management from `dashboard.tsx` (analysis progress, tab switching, lesson steps).
+  - Merge component logic for `Topics`, `QuestionBank`, and `StudyPlanner`.
+  - Add smooth-scroll anchor sections (`#analytics`, `#roadmap`, `#resources`).
+- **Styles (`src/styles.css`)**:
+  - Add `scroll-behavior: smooth` to `:root`.
+- **Cleanup**:
+  - Redirect or remove `dashboard.tsx`, `topics.tsx`, `question-bank.tsx`, and `study-planner.tsx` once merged.
 
-- Do you want to keep the sidebar navigation, or should it be a top-navigation bar only?
-- Should the profile page also be merged, or remains a separate route?
-
-## Proposed Changes
-
-### Routes & Components
-
-#### [MERGE] `src/routes/index.tsx`
-- Combine the current landing page with `Dashboard`, `Topics`, `Question Bank`, and `Study Planner` content.
-- Restructure into sections:
-  1. **Hero**: Existing hero + Interactive 3D Study Space.
-  2. **Analytics**: Moved from Dashboard (Selection Rate, Accuracy, 3D Concept Analysis).
-  3. **Roadmap**: Moved from Dashboard (7-step Lesson Roadmap).
-  4. **Topics**: Moved from Topics page.
-  5. **Question Bank**: Moved from Question Bank page.
-  6. **Planner**: Moved from Study Planner page.
-  7. **How it Works / Features**: Existing landing page sections.
-
-#### [REFACTOR] `src/components/StudySpace.tsx`
-- Ensure it handles scrolling gracefully (sticky or parallax).
-
-#### [CLEANUP] `src/routes/dashboard.tsx`, `src/routes/topics.tsx`, `src/routes/question-bank.tsx`, `src/routes/study-planner.tsx`
-- Remove these routes as their content is now on the index.
-
-### Styles
-- Add smooth scrolling to the `html` element.
-- Ensure consistent cyber-neon styling across all merged sections.
-
-## Verification Plan
-
-### Automated Tests
-- Check that `http://localhost:8080/` renders all sections (Analytics, Topics, etc.).
-- Verify that clicking "Important Topics" in the nav scrolls to the correct section.
-- Check that the 3D Study Space is correctly positioned between the hero and content sections.
-
-### Manual Verification
-- Scroll through the entire page to ensure no layout breaks.
-- Interact with the 3D objects and verify they still trigger tooltips/sections.
+## Execution Steps
+1. Update `src/styles.css` for smooth scrolling.
+2. Update `src/routes/index.tsx` with unified state and component structure.
+3. Consolidate functional sections (Analytics, Roadmap, Resources) into the main JSX.
+4. Verify navigation and interactivity.
