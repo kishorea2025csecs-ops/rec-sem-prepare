@@ -876,7 +876,18 @@ function Dashboard() {
                   </div>
                   <div className="p-5">
                     <div className="space-y-6">
-                      <div className="aspect-[4/3] w-full relative rounded-2xl bg-surface/30 overflow-hidden group cursor-crosshair border border-border">
+                      <motion.div 
+                        animate={{ 
+                          y: [0, -6, 0],
+                          rotate: [0, 0.5, 0]
+                        }}
+                        transition={{
+                          duration: 7,
+                          repeat: Infinity,
+                          ease: "easeInOut"
+                        }}
+                        className="aspect-[4/3] w-full relative rounded-2xl bg-surface/30 overflow-hidden group cursor-crosshair border border-border"
+                      >
                         <div className="h-full w-full opacity-90 transition-transform duration-500 group-hover:scale-105">
                           <ModelViewer />
                         </div>
@@ -884,7 +895,7 @@ function Dashboard() {
                           <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Interactive 3D Model</p>
                           <h4 className="mt-1 text-sm font-bold">Concept Analysis</h4>
                         </div>
-                      </div>
+                      </motion.div>
 
                       <div className="grid grid-cols-2 gap-3">
                         <div className="rounded-2xl bg-surface/50 border border-border p-4">
