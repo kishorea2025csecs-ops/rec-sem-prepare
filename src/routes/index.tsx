@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
+import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 
@@ -125,7 +126,7 @@ function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans text-foreground">
+    <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="flex items-center gap-3">
@@ -157,10 +158,13 @@ function Landing() {
         >
           {/* Background Video & Glows */}
           <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-            <img 
-              src={brainVideoAsset.url} 
-              alt="" 
-              className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale"
+            <video 
+              src={backgroundVideoAsset.url} 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover opacity-30 grayscale"
               aria-hidden="true"
             />
             <div className="absolute inset-0 z-10 bg-black/40 backdrop-blur-[2px]" />
@@ -427,10 +431,10 @@ function Landing() {
         </section>
       </main>
 
-      <footer className="border-t border-border py-8">
+      <footer className="border-t border-border py-8" role="contentinfo">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 text-sm text-muted-foreground sm:flex-row">
-          <p>SemPrep AI · Made for Rajalakshmi Engineering College</p>
-          <p>© {new Date().getFullYear()} SemPrep AI</p>
+          <p>SemPrep AI · Made for Rajalakshmi Engineering College (REC)</p>
+          <p>© {new Date().getFullYear()} SemPrep AI. All rights reserved.</p>
         </div>
       </footer>
     </div>
