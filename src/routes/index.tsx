@@ -128,7 +128,7 @@ function Landing() {
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
-      <header className="sticky top-4 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden">
+      <header className="sticky top-4 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="flex items-center gap-3 group">
             <div className="relative">
@@ -179,7 +179,8 @@ function Landing() {
               className="pointer-events-none absolute inset-0 z-20"
               style={{ 
                 background: "radial-gradient(circle at 50% 50%, transparent 0%, var(--background) 100%)",
-                backgroundImage: "var(--gradient-hero)" 
+                backgroundImage: "var(--gradient-hero)",
+                mixBlendMode: "overlay"
               }}
               aria-hidden="true"
             />
