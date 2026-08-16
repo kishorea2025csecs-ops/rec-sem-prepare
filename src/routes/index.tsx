@@ -205,29 +205,32 @@ function Landing() {
 
           {/* Floating Glows & 3D Objects Across Home Screen */}
           <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
-            {/* Top Area */}
+            {/* Animated Orbiting Glow Balls */}
+            <div className="absolute top-[15%] left-[10%] size-96 rounded-full bg-cyan-500/20 blur-[120px] animate-orbit-glow" />
+            <div className="absolute top-[40%] right-[15%] size-[500px] rounded-full bg-purple-600/15 blur-[150px] animate-orbit-glow [animation-delay:-5s]" />
+            <div className="absolute bottom-[20%] left-[20%] size-80 rounded-full bg-pink-500/15 blur-[100px] animate-orbit-glow [animation-delay:-10s]" />
+            
+            {/* Primary Hero Accents */}
             <motion.div 
               animate={{ y: [0, -30, 0], rotate: [0, 10, 0], scale: [1, 1.1, 1] }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-[10%] left-[5%] size-48 rounded-full bg-gradient-to-tr from-[#00D2FF]/15 to-transparent blur-3xl"
+              className="absolute top-[10%] left-[5%] size-48 rounded-full bg-gradient-to-tr from-[#00D2FF]/20 to-transparent blur-3xl opacity-60"
             />
             
-            {/* Mid Area */}
             <motion.div 
               animate={{ y: [0, 50, 0], x: [0, 20, 0], rotate: [0, -20, 0] }}
               transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute top-[40%] right-[5%] size-64 rounded-full bg-gradient-to-tr from-[#9D4EDD]/15 to-transparent blur-[100px]"
+              className="absolute top-[40%] right-[5%] size-64 rounded-full bg-gradient-to-tr from-[#9D4EDD]/20 to-transparent blur-[100px] opacity-60"
             />
 
-            {/* Bottom Area */}
             <motion.div 
               animate={{ y: [0, -40, 0], x: [0, -30, 0] }}
               transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute bottom-[10%] left-[10%] size-56 rounded-full bg-gradient-to-tr from-cyan-500/10 to-transparent blur-[80px]"
+              className="absolute bottom-[10%] left-[10%] size-56 rounded-full bg-gradient-to-tr from-cyan-500/20 to-transparent blur-[80px] opacity-60"
             />
 
             {/* Extra Glows for Depth */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[800px] bg-accent/5 rounded-full blur-[150px]" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-[800px] bg-accent/10 rounded-full blur-[180px]" />
           </div>
 
           <div className="relative z-20 mx-auto grid max-w-6xl gap-14 px-5 pb-20 pt-16 md:pt-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
