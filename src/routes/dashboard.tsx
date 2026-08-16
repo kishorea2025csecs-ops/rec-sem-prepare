@@ -344,13 +344,25 @@ function Dashboard() {
                     { label: "Topics Prepared", value: "8 / 10", color: "text-accent" },
                     { label: "Practice Rate", value: "72%", color: "text-foreground" },
                   ].map((stat) => (
-                    <div key={stat.label} className="rounded-2xl border border-border bg-card p-4 hover:border-primary/50 transition-colors group neon-border-cyan">
+                    <motion.div 
+                      key={stat.label} 
+                      animate={{ 
+                        y: [0, -5, 0],
+                      }}
+                      transition={{
+                        duration: 4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                        delay: i * 0.5
+                      }}
+                      className="rounded-2xl border border-border bg-card p-4 hover:border-primary/50 transition-colors group neon-border-cyan"
+                    >
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{stat.label}</p>
                       <div className="mt-1 flex items-baseline justify-between">
                         <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
                         <BarChart3 className="size-3.5 text-muted-foreground/30 group-hover:text-primary transition-colors" />
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
@@ -407,12 +419,21 @@ function Dashboard() {
                     { title: "Finish Project", icon: ShieldCheck, desc: "6: Finish the Project – Put everything together safely.", color: "from-indigo-500/20 to-indigo-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/success-2601729-2184147.png?f=webp&w=256" },
                     { title: "Share Your Work", icon: Share2, desc: "7: Share Your Work – Show your results to others.", color: "from-pink-500/20 to-pink-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/sharing-2601725-2184143.png?f=webp&w=256" },
                   ].map((step, i) => (
-                    <button
+                    <motion.button
                       key={i}
                       onClick={() => setActiveLessonStep(i)}
+                      animate={{ 
+                        y: [0, -4, 0],
+                        rotate: [0, i % 2 === 0 ? 0.5 : -0.5, 0]
+                      }}
+                      transition={{
+                        duration: 5 + i,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
                       className={`group relative flex flex-col items-center text-center p-3 rounded-2xl transition-all ${
                         activeLessonStep === i 
-                          ? "bg-surface ring-2 ring-primary/50 shadow-lg -translate-y-1" 
+                          ? "bg-surface ring-2 ring-primary/50 shadow-lg" 
                           : "hover:bg-surface/50 opacity-60 hover:opacity-100"
                       }`}
                     >
@@ -441,7 +462,7 @@ function Dashboard() {
                           </div>
                         </div>
                       )}
-                    </button>
+                    </motion.button>
                   ))}
                 </div>
               </div>
