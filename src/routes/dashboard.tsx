@@ -1,7 +1,13 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
 import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 import {
+  LogOut,
+  User,
+  Settings as SettingsIcon,
+  ChevronDown,
   BookOpen,
   Layout,
   Upload,
@@ -116,12 +122,55 @@ const extractedConcepts = [
 ];
 
 function Dashboard() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState<any>(null);
+  const [profile, setProfile] = useState<any>(null);
   const [activeSubject] = useState(subjects[0]);
   const [activeUnit] = useState(3);
   const [activeTab, setActiveTab] = useState("Preparation Plan");
   const [activeLessonStep, setActiveLessonStep] = useState(0);
   const [analysisStatus, setAnalysisStatus] = useState<"idle" | "uploading" | "analyzing" | "complete">("idle");
   const [processingProgress, setProcessingProgress] = useState(0);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
+  useEffect(() => {
+    const getSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        navigate({ to: "/auth/login" });
+        return;
+      }
+      setUser(session.user);
+      
+      const { data: profileData } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", session.user.id)
+        .single();
+      
+      if (profileData) {
+        setProfile(profileData);
+      }
+    };
+    
+    getSession();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        navigate({ to: "/auth/login" });
+      } else {
+        setUser(session.user);
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, [navigate]);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    toast.success("Signed out successfully");
+    navigate({ to: "/auth/login" });
+  };
 
   const startAnalysis = () => {
     setAnalysisStatus("uploading");
@@ -224,9 +273,48 @@ function Dashboard() {
               <Search className="size-4" />
             </button>
             <div className="h-8 w-[1px] bg-border" />
-            <div className="flex items-center gap-3 rounded-full border border-border bg-surface px-3 py-1.5">
-               <div className="size-6 rounded-full bg-gradient-to-tr from-accent to-primary" />
-               <span className="text-sm font-medium">My Account</span>
+            <div className="relative">
+              <button 
+                onClick={() => setShowUserMenu(!showUserMenu)}
+                className="flex items-center gap-3 rounded-full border border-border bg-surface px-3 py-1.5 transition-colors hover:bg-surface/80"
+              >
+                 {profile?.avatar_url || user?.user_metadata?.avatar_url ? (
+                   <img 
+                     src={profile?.avatar_url || user?.user_metadata?.avatar_url} 
+                     alt="Avatar" 
+                     className="size-6 rounded-full object-cover" 
+                   />
+                 ) : (
+                   <div className="size-6 rounded-full bg-gradient-to-tr from-accent to-primary" />
+                 )}
+                 <span className="text-sm font-medium max-w-[120px] truncate">
+                   {profile?.full_name || user?.user_metadata?.full_name || "Student"}
+                 </span>
+                 <ChevronDown className={`size-3 text-muted-foreground transition-transform ${showUserMenu ? 'rotate-180' : ''}`} />
+              </button>
+
+              {showUserMenu && (
+                <div className="absolute right-0 mt-2 w-48 overflow-hidden rounded-2xl border border-border bg-popover shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+                  <div className="border-b border-border p-3">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Signed in as</p>
+                    <p className="mt-0.5 truncate text-xs font-medium">{user?.email}</p>
+                  </div>
+                  <div className="p-1.5">
+                    <button className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-xs font-medium hover:bg-surface transition-colors">
+                      <User className="size-3.5" /> Profile
+                    </button>
+                    <button className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-xs font-medium hover:bg-surface transition-colors">
+                      <SettingsIcon className="size-3.5" /> Settings
+                    </button>
+                    <button 
+                      onClick={handleLogout}
+                      className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-xs font-medium text-destructive hover:bg-destructive/10 transition-colors"
+                    >
+                      <LogOut className="size-3.5" /> Logout
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </header>
@@ -237,7 +325,9 @@ function Dashboard() {
             <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
               <div>
                 <h1 className="font-display text-3xl font-bold tracking-tight">{activeSubject.name}</h1>
-                <p className="mt-2 text-muted-foreground">Rajalakshmi Engineering College · Semester 4</p>
+                <p className="mt-2 text-muted-foreground">
+                  Rajalakshmi Engineering College · {profile?.full_name || "Semester 4"}
+                </p>
                 
                 <div className="mt-8 grid grid-cols-3 gap-4">
                   {[

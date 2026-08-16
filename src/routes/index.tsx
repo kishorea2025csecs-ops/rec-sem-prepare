@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   BrainCircuit,
@@ -110,12 +110,12 @@ function Landing() {
             <a className="transition-colors hover:text-foreground" href="#features">Features</a>
             <a className="transition-colors hover:text-foreground" href="#tamil">Tamil help</a>
           </nav>
-          <a
-            href="/dashboard"
+          <Link
+            to="/auth/login"
             className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
           >
             Go to Dashboard
-          </a>
+          </Link>
         </div>
       </header>
 
@@ -156,12 +156,12 @@ function Landing() {
                 full marks — with Tamil YouTube tutorials for the concepts that refuse to click.
               </p>
               <div id="start" className="mt-9 flex flex-wrap items-center gap-3">
-                <a
-                  href="/dashboard"
+                <Link
+                  to="/auth/login"
                   className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elevated)] transition-transform hover:-translate-y-0.5"
                 >
                   <Upload className="size-4" /> Open Dashboard
-                </a>
+                </Link>
                 <a
                   href="#tamil"
                   className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-surface"
