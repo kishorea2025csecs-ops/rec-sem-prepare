@@ -18,8 +18,13 @@ import logoAsset from "@/assets/logo-glow.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
 import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState, useRef, Suspense } from "react";
+import { useState, useRef, Suspense, useEffect } from "react";
 import { StudySpace } from "@/components/StudySpace";
+import { useServerFn } from "@tanstack/react-start";
+import { getSessionInfo } from "@/lib/auth.functions";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
+import { Lock } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -100,6 +105,30 @@ const features = [
 ];
 
 function Landing() {
+  const getSession = useServerFn(getSessionInfo);
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const { data: authStatus, isLoading: isAuthLoading } = useQuery({
+    queryKey: ["auth-status", session?.user?.id],
+    queryFn: () => getSession(),
+    enabled: !!session,
+  });
+
+  const isVerifiedRec = authStatus?.isVerifiedRec;
+  const isAuthenticated = !!session;
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -154,12 +183,28 @@ function Landing() {
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-amber-400/10 to-amber-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             </a>
           </nav>
-          <Link
-            to="/auth/login"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
-          >
-            Go to Dashboard
-          </Link>
+          {isAuthenticated ? (
+            isVerifiedRec ? (
+              <Link
+                to="/auth/login"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
+              >
+                Go to Dashboard
+              </Link>
+            ) : (
+              <div className="flex items-center gap-2 rounded-full bg-red-500/10 border border-red-500/30 px-4 py-2 text-[10px] font-black uppercase text-red-400 backdrop-blur-md">
+                <Lock className="size-3" />
+                <span>Verified REC Only</span>
+              </div>
+            )
+          ) : (
+            <Link
+              to="/auth/login"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </header>
 
@@ -254,14 +299,37 @@ function Landing() {
                   Turn your unit PDFs into winning strategies and Tamil-supported learning paths.
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
-                  <Link
-                    to="/auth/login"
-                    className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-10 py-5 text-base font-black text-white shadow-[0_0_25px_rgba(121,40,202,0.4)] transition-all duration-500 hover:scale-105 active:scale-95 hover:shadow-[0_0_50px_rgba(0,112,243,0.6)] border border-white/20 overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-                    <Upload className="size-5 transition-transform group-hover:-translate-y-1 relative z-10" /> 
-                    <span className="relative z-10">Start Your Orbit</span>
-                  </Link>
+                  {isAuthenticated ? (
+                    isVerifiedRec ? (
+                      <Link
+                        to="/auth/login"
+                        className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-10 py-5 text-base font-black text-white shadow-[0_0_25px_rgba(121,40,202,0.4)] transition-all duration-500 hover:scale-105 active:scale-95 hover:shadow-[0_0_50px_rgba(0,112,243,0.6)] border border-white/20 overflow-hidden"
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+                        <Upload className="size-5 transition-transform group-hover:-translate-y-1 relative z-10" /> 
+                        <span className="relative z-10">Start Your Orbit</span>
+                      </Link>
+                    ) : (
+                      <div className="flex flex-col gap-2">
+                        <div className="inline-flex items-center gap-2 rounded-full bg-red-500/10 border border-red-500/50 px-6 py-4 text-red-400">
+                          <Lock className="size-5" />
+                          <span className="text-sm font-bold uppercase tracking-wider">Access Restricted</span>
+                        </div>
+                        <p className="text-xs text-red-400/80 max-w-xs px-2">
+                          Only @rajalakshmi.edu.in accounts can access AI results.
+                        </p>
+                      </div>
+                    )
+                  ) : (
+                    <Link
+                      to="/auth/login"
+                      className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-10 py-5 text-base font-black text-white shadow-[0_0_25px_rgba(121,40,202,0.4)] transition-all duration-500 hover:scale-105 active:scale-95 hover:shadow-[0_0_50px_rgba(0,112,243,0.6)] border border-white/20 overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+                      <Upload className="size-5 transition-transform group-hover:-translate-y-1 relative z-10" /> 
+                      <span className="relative z-10">Login to Start</span>
+                    </Link>
+                  )}
                   <a
                     href="#how"
                     className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 px-10 py-5 text-base font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-cyan"
