@@ -207,7 +207,7 @@ function ProfilePage() {
                 </div>
                 <button 
                   onClick={() => toast.info("Managed by Rajalakshmi Engineering College IT Department")}
-                  className="text-xs font-bold text-accent hover:underline"
+                  className="text-xs font-black uppercase tracking-widest text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] backdrop-blur-md transition-all duration-300"
                 >
                   Manage Billing
                 </button>
