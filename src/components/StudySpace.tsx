@@ -1,51 +1,59 @@
 import React, { useRef, useState, useMemo, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Environment, ContactShadows, Float } from '@react-three/drei';
+import { Environment, ContactShadows, Float, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 
 // --- Components for specific 3D objects ---
 
-const AIKnowledgeCore = ({ scrollProgress, ...props }: { scrollProgress: number } & any) => {
-  const meshRef = useRef<THREE.Group>(null);
+const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
+  const groupRef = useRef<THREE.Group>(null);
   
   useFrame((state) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y += 0.01;
-      meshRef.current.rotation.x += 0.005;
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.01;
+      groupRef.current.rotation.x += 0.005;
       const pulse = Math.sin(state.clock.elapsedTime * 2) * 0.05 + 1;
-      meshRef.current.scale.set(pulse, pulse, pulse);
+      groupRef.current.scale.set(pulse, pulse, pulse);
     }
   });
 
-  // Position logic based on scroll (Section 1 and 3 focus)
   const pos = useMemo(() => {
-    // In Hero (0-0.2): right side
-    if (scrollProgress < 0.2) return [4, 0, 0];
-    // Transitions away in Section 2
-    if (scrollProgress < 0.4) return [4 + (scrollProgress - 0.2) * 20, 2, -5];
-    // Focused in Section 3 Analysis (0.4-0.6)
-    if (scrollProgress < 0.6) return [0, 0, 0];
-    // Background in later sections
-    return [0, 5, -10];
+    // Hero (0-0.2): Right side
+    if (scrollProgress < 0.2) return [3.5, 0, 0];
+    // Section 2: Study Material (0.2-0.4) -> Moves to back/top
+    if (scrollProgress < 0.4) {
+      const t = (scrollProgress - 0.2) / 0.2;
+      return [THREE.MathUtils.lerp(3.5, 0, t), THREE.MathUtils.lerp(0, 4, t), THREE.MathUtils.lerp(0, -10, t)];
+    }
+    // Section 3: AI Analysis (0.4-0.6) -> Center focus
+    if (scrollProgress < 0.6) {
+      const t = (scrollProgress - 0.4) / 0.2;
+      return [0, THREE.MathUtils.lerp(4, 0, t), THREE.MathUtils.lerp(-10, 0, t)];
+    }
+    // Section 4 & 5: Background focus
+    if (scrollProgress < 0.8) return [0, 5, -8];
+    // Section 6: Revision (0.8-1.0) -> Center with cards
+    const t = (scrollProgress - 0.8) / 0.2;
+    return [0, THREE.MathUtils.lerp(5, 0, t), THREE.MathUtils.lerp(-8, 0, t)];
   }, [scrollProgress]);
 
   return (
-    <group ref={meshRef} position={pos as any} {...props}>
+    <group ref={groupRef} position={pos as any}>
       <mesh>
-        <icosahedronGeometry args={[1.5, 1]} />
+        <icosahedronGeometry args={[1.6, 2]} />
         <meshPhysicalMaterial 
           color="#00D2FF" 
-          transmission={0.8} 
-          thickness={1} 
+          transmission={0.9} 
+          thickness={1.5} 
           roughness={0.1} 
-          metalness={0.8}
-          emissive="#00D2FF"
-          emissiveIntensity={0.2}
+          metalness={0.2}
+          ior={1.5}
+          clearcoat={1}
         />
       </mesh>
-      <mesh scale={0.8}>
-        <sphereGeometry args={[1, 32, 32]} />
-        <meshStandardMaterial color="#9D4EDD" emissive="#9D4EDD" emissiveIntensity={0.5} />
+      <mesh>
+        <sphereGeometry args={[0.8, 32, 32]} />
+        <meshStandardMaterial color="#9D4EDD" emissive="#9D4EDD" emissiveIntensity={1} />
       </mesh>
     </group>
   );
@@ -54,68 +62,119 @@ const AIKnowledgeCore = ({ scrollProgress, ...props }: { scrollProgress: number 
 const StudyNotes = ({ scrollProgress }: { scrollProgress: number }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   
-  useFrame(() => {
+  useFrame((state) => {
     if (meshRef.current) {
-      meshRef.current.rotation.y += 0.005;
+      meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
+      meshRef.current.rotation.z = Math.cos(state.clock.elapsedTime * 0.3) * 0.1;
     }
   });
 
   const pos = useMemo(() => {
+    // Hidden during hero
+    if (scrollProgress < 0.15) return [-10, 0, -5];
     // Enters in Section 2 (0.2-0.4)
-    if (scrollProgress < 0.1) return [-15, 0, 0];
     if (scrollProgress < 0.4) {
-      const t = (scrollProgress - 0.1) / 0.3;
-      return [THREE.MathUtils.lerp(-10, 0, t), 0, 0];
+      const t = (scrollProgress - 0.15) / 0.25;
+      return [THREE.MathUtils.lerp(-8, 0, t), 0, THREE.MathUtils.lerp(-5, 2, t)];
     }
-    // Moves away in Section 3
-    return [0, -10, -5];
+    // Moves to Section 3 processing
+    if (scrollProgress < 0.6) {
+      const t = (scrollProgress - 0.4) / 0.2;
+      return [0, THREE.MathUtils.lerp(0, -10, t), THREE.MathUtils.lerp(2, -10, t)];
+    }
+    return [0, -20, -10];
   }, [scrollProgress]);
 
   return (
     <mesh ref={meshRef} position={pos as any}>
-      <boxGeometry args={[2, 3, 0.2]} />
-      <meshPhysicalMaterial color="#ffffff" roughness={0.3} metalness={0.1} />
+      <boxGeometry args={[2.2, 3, 0.1]} />
+      <meshPhysicalMaterial color="#f8f9fa" roughness={0.4} metalness={0.05} />
     </mesh>
   );
 };
 
 const QuestionPaper = ({ scrollProgress }: { scrollProgress: number }) => {
-  const meshRef = useRef<THREE.Mesh>(null);
-  
   const pos = useMemo(() => {
-    // Focused in Section 4 (0.6-0.8)
-    if (scrollProgress < 0.5) return [0, 15, -5];
+    // Section 4: Important Questions (0.6-0.8)
+    if (scrollProgress < 0.55) return [0, 10, -15];
     if (scrollProgress < 0.8) {
-      const t = (scrollProgress - 0.5) / 0.3;
-      return [0, THREE.MathUtils.lerp(10, 0, t), 0];
+      const t = (scrollProgress - 0.55) / 0.25;
+      return [0, THREE.MathUtils.lerp(8, 0, t), THREE.MathUtils.lerp(-12, 1, t)];
     }
-    return [0, -15, -5];
+    return [0, -10, -10];
   }, [scrollProgress]);
 
   return (
-    <mesh ref={meshRef} position={pos as any} rotation={[0.2, 0.2, 0]}>
-      <planeGeometry args={[3, 4]} />
-      <meshStandardMaterial color="#f0f0f0" side={THREE.DoubleSide} />
-    </mesh>
+    <group position={pos as any} rotation={[0.1, -0.2, 0]}>
+      <mesh>
+        <planeGeometry args={[2.5, 3.5]} />
+        <meshStandardMaterial color="#ffffff" side={THREE.DoubleSide} />
+      </mesh>
+      {/* Visual representation of "important question" cards emerging */}
+      {scrollProgress > 0.65 && scrollProgress < 0.8 && (
+        <Float speed={2} rotationIntensity={0.5} floatIntensity={1}>
+          <mesh position={[1.5, 1, 0.5]}>
+            <planeGeometry args={[0.8, 0.5]} />
+            <meshStandardMaterial color="#FFD700" emissive="#FFD700" emissiveIntensity={0.5} />
+          </mesh>
+        </Float>
+      )}
+    </group>
   );
 };
 
 const AnswerSheet = ({ scrollProgress }: { scrollProgress: number }) => {
   const pos = useMemo(() => {
-    // Section 5 (0.8-0.9)
-    if (scrollProgress < 0.75) return [10, 0, -10];
+    // Section 5: Answer Coach (0.75-0.9)
+    if (scrollProgress < 0.75) return [12, 0, -10];
     if (scrollProgress < 0.9) {
       const t = (scrollProgress - 0.75) / 0.15;
-      return [THREE.MathUtils.lerp(10, 0, t), 0, 0];
+      return [THREE.MathUtils.lerp(10, 0, t), 0, THREE.MathUtils.lerp(-8, 2, t)];
     }
-    return [-10, 0, -10];
+    return [-15, 0, -10];
   }, [scrollProgress]);
 
   return (
-    <mesh position={pos as any} rotation={[-0.2, -0.3, 0]}>
-      <boxGeometry args={[2.5, 3.5, 0.1]} />
-      <meshPhysicalMaterial color="#e0e0ff" roughness={0.2} metalness={0.2} />
+    <mesh position={pos as any} rotation={[-0.1, -0.1, 0]}>
+      <boxGeometry args={[2.5, 3.5, 0.05]} />
+      <meshPhysicalMaterial color="#eef2ff" transmission={0.2} thickness={0.5} roughness={0.3} />
     </mesh>
+  );
+};
+
+const RevisionCards = ({ scrollProgress }: { scrollProgress: number }) => {
+  const visible = scrollProgress > 0.8;
+  if (!visible) return null;
+
+  return (
+    <group>
+      {[0, 1, 2].map((i) => (
+        <Float key={i} speed={2} rotationIntensity={1} floatIntensity={2} position={[(i - 1) * 3, 2, -2] as any}>
+          <mesh rotation={[Math.random(), Math.random(), 0]}>
+            <boxGeometry args={[1, 0.6, 0.02]} />
+            <meshStandardMaterial color={i === 1 ? "#FF0080" : "#7928CA"} />
+          </mesh>
+        </Float>
+      ))}
+    </group>
+  );
+};
+
+const KnowledgeNodes = ({ scrollProgress }: { scrollProgress: number }) => {
+  const visible = scrollProgress > 0.4 && scrollProgress < 0.65;
+  if (!visible) return null;
+
+  return (
+    <group>
+      {[...Array(6)].map((_, i) => (
+        <Float key={i} speed={3} floatIntensity={2}>
+          <mesh position={[Math.sin(i) * 3, Math.cos(i) * 3, -2] as any}>
+            <sphereGeometry args={[0.15, 16, 16]} />
+            <meshStandardMaterial color="#00D2FF" emissive="#00D2FF" emissiveIntensity={1} />
+          </mesh>
+        </Float>
+      ))}
+    </group>
   );
 };
 
@@ -129,25 +188,29 @@ const Scene = ({ scrollY }: { scrollY: number }) => {
   }, [scrollY]);
 
   useFrame(() => {
-    // Smooth camera path
-    const targetZ = 10 - scrollProgress * 5;
+    // Smoother persistent camera movement
+    const targetZ = 10 - scrollProgress * 3;
+    const targetY = -scrollProgress * 4;
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, -scrollProgress * 2, 0.05);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
+    camera.lookAt(0, -scrollProgress * 4, 0);
   });
 
   return (
     <>
       <AIKnowledgeCore scrollProgress={scrollProgress} />
       <StudyNotes scrollProgress={scrollProgress} />
+      <KnowledgeNodes scrollProgress={scrollProgress} />
       <QuestionPaper scrollProgress={scrollProgress} />
       <AnswerSheet scrollProgress={scrollProgress} />
+      <RevisionCards scrollProgress={scrollProgress} />
 
-      <Environment preset="city" />
-      <ContactShadows position={[0, -5, 0]} opacity={0.4} scale={20} blur={2} />
+      <Environment preset="night" />
+      <ContactShadows position={[0, -6, 0]} opacity={0.4} scale={25} blur={2.5} far={10} />
       
-      <ambientLight intensity={0.5} />
-      <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} />
-      <pointLight position={[-10, -10, -10]} intensity={0.5} />
+      <ambientLight intensity={0.4} />
+      <spotLight position={[15, 20, 10]} angle={0.2} penumbra={1} intensity={1.5} castShadow />
+      <pointLight position={[-15, -10, -10]} intensity={0.5} color="#9D4EDD" />
     </>
   );
 };
@@ -166,9 +229,14 @@ export const StudySpace = () => {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       <Canvas 
-        camera={{ position: [0, 0, 10], fov: 45 }}
+        shadows
+        camera={{ position: [0, 0, 10], fov: 40 }}
         dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: "high-performance" 
+        }}
       >
         <Scene scrollY={scrollY} />
       </Canvas>
