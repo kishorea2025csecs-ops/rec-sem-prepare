@@ -65,8 +65,8 @@
   --color-highlight-foreground: var(--highlight-foreground);
   --color-surface: var(--surface);
   --color-surface-foreground: var(--surface-foreground);
-  --font-display: "Syne", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Plus Jakarta Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Montserrat", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Montserrat", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-modern: "Outfit", sans-serif;
   --z-index-3d-space: 25;
 }
