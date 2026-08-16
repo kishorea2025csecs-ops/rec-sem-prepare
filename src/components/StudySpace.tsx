@@ -66,14 +66,17 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
           scale={active ? 1.4 : hovered ? 1.1 : 1}
         >
           {geometry}
-          <MeshDistortMaterial 
-            distort={active ? 0.4 : 0.2} 
-            speed={4} 
-            color={hovered ? '#ffffff' : color} 
-            roughness={0.1}
-            metalness={0.8}
+          <meshPhysicalMaterial 
+            transmission={0.95}
+            thickness={2}
+            roughness={0.05}
+            envMapIntensity={2}
+            clearcoat={1}
+            color={hovered ? '#ffffff' : color}
+            attenuationColor={color}
+            attenuationDistance={0.5}
             emissive={color}
-            emissiveIntensity={hovered ? 0.5 : 0.2}
+            emissiveIntensity={hovered ? 0.8 : 0.2}
           />
         </mesh>
         
