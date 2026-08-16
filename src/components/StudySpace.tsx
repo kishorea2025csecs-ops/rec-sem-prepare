@@ -17,13 +17,18 @@ const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
     }
   });
 
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 5;
+
   const pos = useMemo(() => {
-    // Hero (0-0.2): Right side
-    if (scrollProgress < 0.2) return [3.5, 0, 0];
+    // Hero (0-0.2): Right side, centered on mobile
+    if (scrollProgress < 0.2) return [isMobile ? 0 : 3.5, isMobile ? 2 : 0, 0];
     // Section 2: Study Material (0.2-0.4) -> Moves to back/top
     if (scrollProgress < 0.4) {
       const t = (scrollProgress - 0.2) / 0.2;
-      return [THREE.MathUtils.lerp(3.5, 0, t), THREE.MathUtils.lerp(0, 4, t), THREE.MathUtils.lerp(0, -10, t)];
+      const startX = isMobile ? 0 : 3.5;
+      const startY = isMobile ? 2 : 0;
+      return [THREE.MathUtils.lerp(startX, 0, t), THREE.MathUtils.lerp(startY, 4, t), THREE.MathUtils.lerp(0, -10, t)];
     }
     // Section 3: AI Analysis (0.4-0.6) -> Center focus
     if (scrollProgress < 0.6) {
@@ -35,7 +40,7 @@ const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
     // Section 6: Revision (0.8-1.0) -> Center with cards
     const t = (scrollProgress - 0.8) / 0.2;
     return [0, THREE.MathUtils.lerp(5, 0, t), THREE.MathUtils.lerp(-8, 0, t)];
-  }, [scrollProgress]);
+  }, [scrollProgress, isMobile]);
 
   return (
     <group ref={groupRef} position={pos as any}>
@@ -69,21 +74,25 @@ const StudyNotes = ({ scrollProgress }: { scrollProgress: number }) => {
     }
   });
 
+  const { viewport } = useThree();
+  const isMobile = viewport.width < 5;
+
   const pos = useMemo(() => {
     // Hidden during hero
     if (scrollProgress < 0.15) return [-10, 0, -5];
     // Enters in Section 2 (0.2-0.4)
     if (scrollProgress < 0.4) {
       const t = (scrollProgress - 0.15) / 0.25;
-      return [THREE.MathUtils.lerp(-8, 0, t), 0, THREE.MathUtils.lerp(-5, 2, t)];
+      // On mobile, keep it slightly higher to avoid overlap with cards
+      return [THREE.MathUtils.lerp(-8, 0, t), isMobile ? 1.5 : 0, THREE.MathUtils.lerp(-5, 2, t)];
     }
     // Moves to Section 3 processing
     if (scrollProgress < 0.6) {
       const t = (scrollProgress - 0.4) / 0.2;
-      return [0, THREE.MathUtils.lerp(0, -10, t), THREE.MathUtils.lerp(2, -10, t)];
+      return [0, THREE.MathUtils.lerp(isMobile ? 1.5 : 0, -10, t), THREE.MathUtils.lerp(2, -10, t)];
     }
     return [0, -20, -10];
-  }, [scrollProgress]);
+  }, [scrollProgress, isMobile]);
 
   return (
     <mesh ref={meshRef} position={pos as any}>
@@ -179,8 +188,9 @@ const KnowledgeNodes = ({ scrollProgress }: { scrollProgress: number }) => {
 };
 
 const Scene = ({ scrollY }: { scrollY: number }) => {
-  const { camera } = useThree();
+  const { camera, viewport } = useThree();
   const [scrollProgress, setScrollProgress] = useState(0);
+  const isMobile = viewport.width < 5; // Rough heuristic for mobile in Three.js units
 
   useEffect(() => {
     const height = document.documentElement.scrollHeight - window.innerHeight;
@@ -189,11 +199,13 @@ const Scene = ({ scrollY }: { scrollY: number }) => {
 
   useFrame(() => {
     // Smoother persistent camera movement
-    const targetZ = 10 - scrollProgress * 3;
-    const targetY = -scrollProgress * 4;
+    // Adjust camera position and zoom for mobile to ensure objects aren't clipped
+    const targetZ = isMobile ? 18 - scrollProgress * 5 : 10 - scrollProgress * 3;
+    const targetY = isMobile ? -scrollProgress * 6 + 1 : -scrollProgress * 4;
+    
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
     camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
-    camera.lookAt(0, -scrollProgress * 4, 0);
+    camera.lookAt(0, targetY, 0);
   });
 
   return (
