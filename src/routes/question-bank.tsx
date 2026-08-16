@@ -23,8 +23,12 @@ import {
 export const Route = createFileRoute("/question-bank")({
   head: () => ({
     meta: [
-      { title: "Question Bank | SemPrep AI" },
-      { name: "description", content: "Organized bank of previous year questions for REC students." },
+      { title: "Exam Question Bank | SemPrep AI - Rajalakshmi Engineering College" },
+      { name: "description", content: "Access a comprehensive bank of previous year semester exam questions for REC. Filter by year, topic, and difficulty to prepare effectively." },
+      { property: "og:title", content: "Exam Question Bank | SemPrep AI" },
+      { property: "og:description", content: "Comprehensive bank of REC previous year questions." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: QuestionBank,

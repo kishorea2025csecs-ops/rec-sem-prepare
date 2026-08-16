@@ -20,6 +20,8 @@ export const Route = createFileRoute("/profile")({
       { name: "description", content: "Manage your SemPrep AI profile and account settings. Secure academic portal for Rajalakshmi Engineering College students." },
       { property: "og:title", content: "Student Profile | SemPrep AI" },
       { property: "og:description", content: "Manage your account settings on SemPrep AI." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ProfilePage,

@@ -37,8 +37,12 @@ import {
 export const Route = createFileRoute("/topics")({
   head: () => ({
     meta: [
-      { title: "Important Topics | SemPrep AI" },
-      { name: "description", content: "High priority topics for your upcoming semester exams." },
+      { title: "Important Exam Topics | SemPrep AI - High-Weightage Analysis" },
+      { name: "description", content: "Identify high-priority topics for REC engineering exams. AI-driven analysis of question frequency and mark weightage for effective semester prep." },
+      { property: "og:title", content: "Important Exam Topics | SemPrep AI" },
+      { property: "og:description", content: "AI-identified high-priority topics for REC exams." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ImportantTopics,

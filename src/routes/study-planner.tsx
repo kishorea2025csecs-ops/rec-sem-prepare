@@ -22,8 +22,12 @@ import {
 export const Route = createFileRoute("/study-planner")({
   head: () => ({
     meta: [
-      { title: "AI Study Planner | SemPrep AI" },
-      { name: "description", content: "Personalized exam revision schedule for REC students." },
+      { title: "AI Study Planner | SemPrep AI - Custom Exam Schedule" },
+      { name: "description", content: "Generate a personalized study schedule for your REC semester exams using SemPrep AI. Optimize your revision time based on exam dates and topic importance." },
+      { property: "og:title", content: "AI Study Planner | SemPrep AI" },
+      { property: "og:description", content: "Personalized REC exam revision schedule powered by AI." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: StudyPlanner,

@@ -50,6 +50,8 @@ export const Route = createFileRoute("/dashboard")({
       { name: "description", content: "Access your personalized exam preparation dashboard. Manage subjects, unit notes, and track your progress for REC engineering exams." },
       { property: "og:title", content: "Student Dashboard | SemPrep AI" },
       { property: "og:description", content: "AI-powered exam preparation dashboard for REC students." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Dashboard,
