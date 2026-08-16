@@ -105,6 +105,30 @@ const features = [
 ];
 
 function Landing() {
+  const getSession = useServerFn(getSessionInfo);
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const { data: authStatus, isLoading: isAuthLoading } = useQuery({
+    queryKey: ["auth-status", session?.user?.id],
+    queryFn: () => getSession(),
+    enabled: !!session,
+  });
+
+  const isVerifiedRec = authStatus?.isVerifiedRec;
+  const isAuthenticated = !!session;
+
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
