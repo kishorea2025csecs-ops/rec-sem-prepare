@@ -40,39 +40,37 @@ const subjects = [
   { id: "ma3491", name: "Statistics and Numerical Methods", code: "MA3491", progress: 20 },
 ];
 
-const topics = [
+const pyqData = [
   {
-    id: "1",
-    name: "Bayesian Networks — inference",
-    importance: "High",
-    marks: 15,
-    frequency: "Asked 5 / last 6 semesters",
-    completed: true,
+    question: "Explain the working principle of Bayesian Networks with an example.",
+    topic: "Bayesian Networks — inference",
+    importance: "Very High",
+    appearances: 5,
+    expectedMarks: "13/15 marks",
+    preparation: "Understand the principle, learn the diagram, and practice explaining it in exam format.",
   },
   {
-    id: "2",
-    name: "Hidden Markov Models",
+    question: "Discuss the architecture and transition probabilities in Hidden Markov Models.",
+    topic: "Hidden Markov Models",
     importance: "High",
-    marks: 13,
-    frequency: "Asked 4 / last 6 semesters",
-    completed: false,
+    appearances: 4,
+    expectedMarks: "13 marks",
+    preparation: "Focus on state transitions and trellis diagram representation.",
   },
   {
-    id: "3",
-    name: "Naive Bayes classifier",
+    question: "Compare Naive Bayes with other classification algorithms.",
+    topic: "Naive Bayes classifier",
     importance: "Medium",
-    marks: 13,
-    frequency: "Asked 3 / last 6 semesters",
-    completed: false,
+    appearances: 3,
+    expectedMarks: "8 marks",
+    preparation: "Learn the mathematical formula and one real-world application case study.",
   },
-  {
-    id: "4",
-    name: "Approximate inference",
-    importance: "Low",
-    marks: 2,
-    frequency: "Rarely asked",
-    completed: false,
-  },
+];
+
+const extractedConcepts = [
+  { category: "Definitions", items: ["Acyclic Graph", "Conditional Probability Table (CPT)", "Markov Property"] },
+  { category: "Formulas", items: ["P(A|B) = P(B|A)P(A)/P(B)", "Sum-Product Algorithm"] },
+  { category: "Key Diagrams", items: ["Trellis Diagram", "DAG Representation", "Transition Matrix"] },
 ];
 
 function Dashboard() {
@@ -88,8 +86,9 @@ function Dashboard() {
   };
 
   useEffect(() => {
+    let timer: any;
     if (analysisStatus === "uploading" || analysisStatus === "analyzing") {
-      const timer = setInterval(() => {
+      timer = setInterval(() => {
         setProcessingProgress((prev) => {
           if (prev >= 100) {
             if (analysisStatus === "uploading") {
@@ -100,11 +99,13 @@ function Dashboard() {
             clearInterval(timer);
             return 100;
           }
-          return prev + 5;
+          return prev + 10;
         });
-      }, 100);
-      return () => clearInterval(timer);
+      }, 150);
     }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
   }, [analysisStatus]);
 
   if (!activeSubject) return null;
