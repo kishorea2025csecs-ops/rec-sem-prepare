@@ -1,6 +1,6 @@
-import React, { useRef, useState, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, MeshDistortMaterial, Environment, ContactShadows, PresentationControls, Html } from '@react-three/drei';
+import React, { useRef, useState, useMemo, useEffect } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Float, Environment, ContactShadows, PresentationControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from '@tanstack/react-router';
@@ -117,7 +117,24 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
   );
 };
 
-export const StudySpace = () => {
+// Scene component to handle scroll-based camera movement
+const Scene = ({ scrollY }: { scrollY: number }) => {
+  const { camera } = useThree();
+  const groupRef = useRef<THREE.Group>(null);
+  
+  // Smoothly move the camera and objects based on scroll
+  useFrame((state) => {
+    // Lerp camera position
+    // As user scrolls down, we can move the camera or the objects
+    // Here we move the camera slightly and rotate the group for a parallax effect
+    const targetY = -scrollY * 0.005;
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
+    
+    if (groupRef.current) {
+      groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, scrollY * 0.0002, 0.05);
+    }
+  });
+
   const objects = [
     { 
       color: "#9D4EDD", 
@@ -157,11 +174,56 @@ export const StudySpace = () => {
   ];
 
   return (
-    <div className="absolute inset-0 z-0 pointer-events-auto">
+    <group ref={groupRef}>
+      <PresentationControls
+        global
+        snap
+        rotation={[0, 0, 0]}
+        polar={[-Math.PI / 6, Math.PI / 6]}
+        azimuth={[-Math.PI / 4, Math.PI / 4]}
+      >
+        {objects.map((obj, i) => (
+          <StudyObject 
+            key={i}
+            index={i}
+            position={obj.pos as [number, number, number]}
+            color={obj.color}
+            label={obj.label}
+            tip={obj.tip}
+            path={obj.path}
+          />
+        ))}
+      </PresentationControls>
+
+      <ContactShadows 
+        position={[0, -5, 0]} 
+        opacity={0.3} 
+        scale={20} 
+        blur={2.5} 
+        far={10} 
+      />
+      <Environment preset="night" />
+    </group>
+  );
+};
+
+export const StudySpace = () => {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div className="fixed inset-0 z-0 pointer-events-auto">
       <Canvas 
         camera={{ position: [0, 0, 10], fov: 45 }}
         dpr={[1, 2]}
-        // Prevent R3F from trying to apply data attributes from the React devtools or other extensions
+        gl={{ antialias: true, alpha: true }}
         onCreated={({ gl }) => {
           gl.setClearColor(new THREE.Color('#020205'), 0);
         }}
@@ -170,34 +232,7 @@ export const StudySpace = () => {
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow {...({} as any)} />
         <pointLight position={[-10, -10, -10]} intensity={0.5} {...({} as any)} />
         
-        <PresentationControls
-          global
-          snap
-          rotation={[0, 0, 0]}
-          polar={[-Math.PI / 6, Math.PI / 6]}
-          azimuth={[-Math.PI / 4, Math.PI / 4]}
-        >
-          {objects.map((obj, i) => (
-            <StudyObject 
-              key={i}
-              index={i}
-              position={obj.pos as [number, number, number]}
-              color={obj.color}
-              label={obj.label}
-              tip={obj.tip}
-              path={obj.path}
-            />
-          ))}
-        </PresentationControls>
-
-        <ContactShadows 
-          position={[0, -5, 0]} 
-          opacity={0.3} 
-          scale={20} 
-          blur={2.5} 
-          far={10} 
-        />
-        <Environment preset="night" />
+        <Scene scrollY={scrollY} />
       </Canvas>
     </div>
   );
