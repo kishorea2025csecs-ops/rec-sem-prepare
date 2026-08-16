@@ -232,10 +232,11 @@ function Landing() {
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   <Link
                     to="/auth/login"
-                    className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 px-10 py-5 text-base font-black text-black shadow-[var(--shadow-elevated)] transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-yellow"
+                    className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-10 py-5 text-base font-black text-white shadow-[0_0_25px_rgba(121,40,202,0.4)] transition-all duration-500 hover:scale-105 active:scale-95 hover:shadow-[0_0_50px_rgba(0,112,243,0.6)] border border-white/20 overflow-hidden"
                   >
-                    <Upload className="size-5 transition-transform group-hover:-translate-y-1" /> 
-                    <span>Start Your Orbit</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+                    <Upload className="size-5 transition-transform group-hover:-translate-y-1 relative z-10" /> 
+                    <span className="relative z-10">Start Your Orbit</span>
                   </Link>
                   <a
                     href="#how"
