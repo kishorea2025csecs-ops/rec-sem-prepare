@@ -388,7 +388,7 @@ function Landing() {
         <section id="tamil" className="border-y border-white/10 bg-black/40 py-20" aria-labelledby="tamil-heading">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 glass-morphism px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
                 <Youtube className="size-3.5" /> தமிழ் tutorials
               </span>
               <h2 id="tamil-heading" className="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">
