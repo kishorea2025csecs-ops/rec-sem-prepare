@@ -180,9 +180,11 @@ function Landing() {
               aria-hidden="true"
             />
             {/* Interactive 3D Study Space */}
-            <div className="absolute inset-0 z-25 opacity-60">
+            <div className="absolute inset-0 z-[25] opacity-60 pointer-events-none">
               <Suspense fallback={null}>
-                <StudySpace />
+                <div className="size-full pointer-events-auto">
+                  <StudySpace />
+                </div>
               </Suspense>
             </div>
           </div>
