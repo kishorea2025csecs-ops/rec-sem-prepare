@@ -20,7 +20,7 @@ import {
   Youtube
 } from "lucide-react";
 
-export const Route = createFileRoute("/question-bank")({
+export const Route = createFileRoute("/question-bank/bak")({
   head: () => ({
     meta: [
       { title: "Exam Question Bank | SemPrep AI - Rajalakshmi Engineering College" },

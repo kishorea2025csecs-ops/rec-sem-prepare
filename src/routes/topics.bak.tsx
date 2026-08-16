@@ -34,7 +34,7 @@ import {
   Target
 } from "lucide-react";
 
-export const Route = createFileRoute("/topics")({
+export const Route = createFileRoute("/topics/bak")({
   head: () => ({
     meta: [
       { title: "Important Exam Topics | SemPrep AI - High-Weightage Analysis" },

@@ -10,42 +10,22 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ProfileRouteImport } from './routes/profile'
-import { Route as QuestionBankRouteImport } from './routes/question-bank'
-import { Route as StudyPlannerRouteImport } from './routes/study-planner'
-import { Route as TopicsRouteImport } from './routes/topics'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as DashboardBakRouteImport } from './routes/dashboard.bak'
+import { Route as QuestionBankBakRouteImport } from './routes/question-bank.bak'
+import { Route as StudyPlannerBakRouteImport } from './routes/study-planner.bak'
+import { Route as TopicsBakRouteImport } from './routes/topics.bak'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardRoute = DashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const QuestionBankRoute = QuestionBankRouteImport.update({
-  id: '/question-bank',
-  path: '/question-bank',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const StudyPlannerRoute = StudyPlannerRouteImport.update({
-  id: '/study-planner',
-  path: '/study-planner',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TopicsRoute = TopicsRouteImport.update({
-  id: '/topics',
-  path: '/topics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
@@ -58,80 +38,100 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardBakRoute = DashboardBakRouteImport.update({
+  id: '/dashboard/bak',
+  path: '/dashboard/bak',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestionBankBakRoute = QuestionBankBakRouteImport.update({
+  id: '/question-bank/bak',
+  path: '/question-bank/bak',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudyPlannerBakRoute = StudyPlannerBakRouteImport.update({
+  id: '/study-planner/bak',
+  path: '/study-planner/bak',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TopicsBakRoute = TopicsBakRouteImport.update({
+  id: '/topics/bak',
+  path: '/topics/bak',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
   '/profile': typeof ProfileRoute
-  '/question-bank': typeof QuestionBankRoute
-  '/study-planner': typeof StudyPlannerRoute
-  '/topics': typeof TopicsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
+  '/dashboard/bak': typeof DashboardBakRoute
+  '/question-bank/bak': typeof QuestionBankBakRoute
+  '/study-planner/bak': typeof StudyPlannerBakRoute
+  '/topics/bak': typeof TopicsBakRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
   '/profile': typeof ProfileRoute
-  '/question-bank': typeof QuestionBankRoute
-  '/study-planner': typeof StudyPlannerRoute
-  '/topics': typeof TopicsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
+  '/dashboard/bak': typeof DashboardBakRoute
+  '/question-bank/bak': typeof QuestionBankBakRoute
+  '/study-planner/bak': typeof StudyPlannerBakRoute
+  '/topics/bak': typeof TopicsBakRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/dashboard': typeof DashboardRoute
   '/profile': typeof ProfileRoute
-  '/question-bank': typeof QuestionBankRoute
-  '/study-planner': typeof StudyPlannerRoute
-  '/topics': typeof TopicsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
+  '/dashboard/bak': typeof DashboardBakRoute
+  '/question-bank/bak': typeof QuestionBankBakRoute
+  '/study-planner/bak': typeof StudyPlannerBakRoute
+  '/topics/bak': typeof TopicsBakRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/dashboard'
     | '/profile'
-    | '/question-bank'
-    | '/study-planner'
-    | '/topics'
     | '/auth/callback'
     | '/auth/login'
+    | '/dashboard/bak'
+    | '/question-bank/bak'
+    | '/study-planner/bak'
+    | '/topics/bak'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/dashboard'
     | '/profile'
-    | '/question-bank'
-    | '/study-planner'
-    | '/topics'
     | '/auth/callback'
     | '/auth/login'
+    | '/dashboard/bak'
+    | '/question-bank/bak'
+    | '/study-planner/bak'
+    | '/topics/bak'
   id:
     | '__root__'
     | '/'
-    | '/dashboard'
     | '/profile'
-    | '/question-bank'
-    | '/study-planner'
-    | '/topics'
     | '/auth/callback'
     | '/auth/login'
+    | '/dashboard/bak'
+    | '/question-bank/bak'
+    | '/study-planner/bak'
+    | '/topics/bak'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  DashboardRoute: typeof DashboardRoute
   ProfileRoute: typeof ProfileRoute
-  QuestionBankRoute: typeof QuestionBankRoute
-  StudyPlannerRoute: typeof StudyPlannerRoute
-  TopicsRoute: typeof TopicsRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthLoginRoute: typeof AuthLoginRoute
+  DashboardBakRoute: typeof DashboardBakRoute
+  QuestionBankBakRoute: typeof QuestionBankBakRoute
+  StudyPlannerBakRoute: typeof StudyPlannerBakRoute
+  TopicsBakRoute: typeof TopicsBakRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -143,39 +143,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard': {
-      id: '/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof DashboardRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/profile': {
       id: '/profile'
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/question-bank': {
-      id: '/question-bank'
-      path: '/question-bank'
-      fullPath: '/question-bank'
-      preLoaderRoute: typeof QuestionBankRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/study-planner': {
-      id: '/study-planner'
-      path: '/study-planner'
-      fullPath: '/study-planner'
-      preLoaderRoute: typeof StudyPlannerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/topics': {
-      id: '/topics'
-      path: '/topics'
-      fullPath: '/topics'
-      preLoaderRoute: typeof TopicsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/callback': {
@@ -192,18 +164,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/bak': {
+      id: '/dashboard/bak'
+      path: '/dashboard/bak'
+      fullPath: '/dashboard/bak'
+      preLoaderRoute: typeof DashboardBakRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/question-bank/bak': {
+      id: '/question-bank/bak'
+      path: '/question-bank/bak'
+      fullPath: '/question-bank/bak'
+      preLoaderRoute: typeof QuestionBankBakRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/study-planner/bak': {
+      id: '/study-planner/bak'
+      path: '/study-planner/bak'
+      fullPath: '/study-planner/bak'
+      preLoaderRoute: typeof StudyPlannerBakRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/topics/bak': {
+      id: '/topics/bak'
+      path: '/topics/bak'
+      fullPath: '/topics/bak'
+      preLoaderRoute: typeof TopicsBakRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  DashboardRoute: DashboardRoute,
   ProfileRoute: ProfileRoute,
-  QuestionBankRoute: QuestionBankRoute,
-  StudyPlannerRoute: StudyPlannerRoute,
-  TopicsRoute: TopicsRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthLoginRoute: AuthLoginRoute,
+  DashboardBakRoute: DashboardBakRoute,
+  QuestionBankBakRoute: QuestionBankBakRoute,
+  StudyPlannerBakRoute: StudyPlannerBakRoute,
+  TopicsBakRoute: TopicsBakRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
