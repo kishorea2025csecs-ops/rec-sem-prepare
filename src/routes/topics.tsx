@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
+import logoV2Asset from "@/assets/logo-v2.png.asset.json";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -36,8 +37,12 @@ import {
 export const Route = createFileRoute("/topics")({
   head: () => ({
     meta: [
-      { title: "Important Topics | SemPrep AI" },
-      { name: "description", content: "High priority topics for your upcoming semester exams." },
+      { title: "Important Exam Topics | SemPrep AI - High-Weightage Analysis" },
+      { name: "description", content: "Identify high-priority topics for REC engineering exams. AI-driven analysis of question frequency and mark weightage for effective semester prep." },
+      { property: "og:title", content: "Important Exam Topics | SemPrep AI" },
+      { property: "og:description", content: "AI-identified high-priority topics for REC exams." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ImportantTopics,
@@ -111,7 +116,7 @@ function ImportantTopics() {
           <div className="p-6">
             <Link to="/" className="flex items-center gap-3">
               <div className="flex size-9 items-center justify-center rounded-lg bg-accent/10 p-1 border border-accent/20">
-                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain" />
+                <img src={logoV2Asset.url} alt="REC Logo" className="size-full object-contain" />
               </div>
               <span className="font-display font-bold tracking-tight text-lg">SemPrep AI</span>
             </Link>
@@ -134,7 +139,7 @@ function ImportantTopics() {
         </div>
       </aside>
 
-      <main className="flex-1 md:pl-64">
+      <main className="flex-1 md:pl-64" aria-labelledby="topics-heading">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
           <div className="hidden items-center gap-2 text-xs font-medium text-muted-foreground md:flex">
              <span>AI Analysis</span>
@@ -159,7 +164,7 @@ function ImportantTopics() {
         <div className="mx-auto max-w-5xl p-6 lg:p-10">
           <div className="flex flex-col gap-8">
             <div>
-              <h1 className="font-display text-3xl font-bold tracking-tight">Important Topics</h1>
+              <h1 id="topics-heading" className="font-display text-3xl font-bold tracking-tight">Important Topics</h1>
               <p className="mt-2 text-muted-foreground">
                 Priority calculated based on previous 6 semesters' frequency and mark distribution.
               </p>

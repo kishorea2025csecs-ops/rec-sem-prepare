@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
+import logoV2Asset from "@/assets/logo-v2.png.asset.json";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -22,8 +23,12 @@ import {
 export const Route = createFileRoute("/question-bank")({
   head: () => ({
     meta: [
-      { title: "Question Bank | SemPrep AI" },
-      { name: "description", content: "Organized bank of previous year questions for REC students." },
+      { title: "Exam Question Bank | SemPrep AI - Rajalakshmi Engineering College" },
+      { name: "description", content: "Access a comprehensive bank of previous year semester exam questions for REC. Filter by year, topic, and difficulty to prepare effectively." },
+      { property: "og:title", content: "Exam Question Bank | SemPrep AI" },
+      { property: "og:description", content: "Comprehensive bank of REC previous year questions." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: QuestionBank,
@@ -85,7 +90,7 @@ function QuestionBank() {
           <div className="p-6">
             <Link to="/" className="flex items-center gap-3">
               <div className="flex size-9 items-center justify-center rounded-lg bg-accent/10 p-1 border border-accent/20">
-                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain" />
+                <img src={logoV2Asset.url} alt="REC Logo" className="size-full object-contain" />
               </div>
               <span className="font-display font-bold tracking-tight text-lg">SemPrep AI</span>
             </Link>
@@ -108,7 +113,7 @@ function QuestionBank() {
         </div>
       </aside>
 
-      <main className="flex-1 md:pl-64">
+      <main className="flex-1 md:pl-64" aria-labelledby="qb-heading">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
           <div className="hidden items-center gap-2 text-xs font-medium text-muted-foreground md:flex">
              <span>Resources</span>
@@ -126,7 +131,7 @@ function QuestionBank() {
           <div className="flex flex-col gap-8">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
               <div>
-                <h1 className="font-display text-3xl font-bold tracking-tight">Question Bank</h1>
+                <h1 id="qb-heading" className="font-display text-3xl font-bold tracking-tight">Question Bank</h1>
                 <p className="mt-2 text-muted-foreground">Search and filter through historical exam questions.</p>
               </div>
               <div className="flex gap-2">

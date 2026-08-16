@@ -15,6 +15,7 @@ import {
   Youtube,
 } from "lucide-react";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
+import logoV2Asset from "@/assets/logo-v2.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
 import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
@@ -131,7 +132,7 @@ function Landing() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="flex items-center gap-3">
             <div className="flex size-10 items-center justify-center rounded-xl bg-accent/10 p-1 border border-accent/20">
-              <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain" />
+              <img src={logoV2Asset.url} alt="REC Logo" className="size-full object-contain" />
             </div>
             <span className="font-display text-lg font-bold tracking-tight">SemPrep AI</span>
           </a>

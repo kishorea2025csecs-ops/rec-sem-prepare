@@ -20,6 +20,8 @@ export const Route = createFileRoute("/profile")({
       { name: "description", content: "Manage your SemPrep AI profile and account settings. Secure academic portal for Rajalakshmi Engineering College students." },
       { property: "og:title", content: "Student Profile | SemPrep AI" },
       { property: "og:description", content: "Manage your account settings on SemPrep AI." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: ProfilePage,
@@ -76,10 +78,10 @@ function ProfilePage() {
         >
           <ArrowLeft className="size-4" />
         </button>
-        <h1 className="font-display text-lg font-bold tracking-tight">Account Settings</h1>
+        <h1 id="profile-heading" className="font-display text-lg font-bold tracking-tight">Account Settings</h1>
       </header>
 
-      <main className="mx-auto max-w-2xl p-6 lg:p-10">
+      <main className="mx-auto max-w-2xl p-6 lg:p-10" aria-labelledby="profile-heading">
         <div className="space-y-10">
           {/* Profile Section */}
           <section className="space-y-6">

@@ -1,5 +1,6 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
+import logoV2Asset from "@/assets/logo-v2.png.asset.json";
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -21,8 +22,12 @@ import {
 export const Route = createFileRoute("/study-planner")({
   head: () => ({
     meta: [
-      { title: "AI Study Planner | SemPrep AI" },
-      { name: "description", content: "Personalized exam revision schedule for REC students." },
+      { title: "AI Study Planner | SemPrep AI - Custom Exam Schedule" },
+      { name: "description", content: "Generate a personalized study schedule for your REC semester exams using SemPrep AI. Optimize your revision time based on exam dates and topic importance." },
+      { property: "og:title", content: "AI Study Planner | SemPrep AI" },
+      { property: "og:description", content: "Personalized REC exam revision schedule powered by AI." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: StudyPlanner,
@@ -51,7 +56,7 @@ function StudyPlanner() {
           <div className="p-6">
             <Link to="/" className="flex items-center gap-3">
               <div className="flex size-9 items-center justify-center rounded-lg bg-accent/10 p-1 border border-accent/20">
-                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain" />
+                <img src={logoV2Asset.url} alt="REC Logo" className="size-full object-contain" />
               </div>
               <span className="font-display font-bold tracking-tight text-lg">SemPrep AI</span>
             </Link>
@@ -74,7 +79,7 @@ function StudyPlanner() {
         </div>
       </aside>
 
-      <main className="flex-1 md:pl-64">
+      <main className="flex-1 md:pl-64" aria-labelledby="sp-heading">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
           <div className="hidden items-center gap-2 text-xs font-medium text-muted-foreground md:flex">
              <span>AI Tools</span>
@@ -91,7 +96,7 @@ function StudyPlanner() {
         <div className="mx-auto max-w-5xl p-6 lg:p-10">
           <div className="flex flex-col gap-8">
             <div className="max-w-2xl">
-              <h1 className="font-display text-3xl font-bold tracking-tight">AI Study Planner</h1>
+              <h1 id="sp-heading" className="font-display text-3xl font-bold tracking-tight">AI Study Planner</h1>
               <p className="mt-2 text-muted-foreground">Generate a personalized revision schedule based on your exam date and current preparation level.</p>
             </div>
 
