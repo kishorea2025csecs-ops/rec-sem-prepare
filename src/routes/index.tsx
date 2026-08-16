@@ -147,7 +147,7 @@ function Landing() {
           </nav>
           <Link
             to="/auth/login"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 neon-glow-cyan"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 py-2.5 text-sm font-bold text-primary-foreground transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-cyan"
           >
             Go to Dashboard
           </Link>
@@ -229,18 +229,20 @@ function Landing() {
                   A sleek, AI-driven preparation interface designed for Rajalakshmi Engineering College. 
                   Turn your unit PDFs into winning strategies and Tamil-supported learning paths.
                 </p>
-                <div id="start" className="mt-9 flex flex-wrap items-center gap-3">
+                <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   <Link
                     to="/auth/login"
-                    className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-bold text-primary-foreground shadow-[var(--shadow-elevated)] transition-all hover:scale-105 active:scale-95 neon-glow-cyan"
+                    className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-10 py-5 text-base font-black text-primary-foreground shadow-[var(--shadow-elevated)] transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-cyan"
                   >
-                    <Upload className="size-4" /> Start Your Orbit
+                    <Upload className="size-5 transition-transform group-hover:-translate-y-1" /> 
+                    <span>Start Your Orbit</span>
                   </Link>
                   <a
                     href="#how"
-                    className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-foreground transition-colors hover:bg-surface"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md px-10 py-5 text-base font-bold text-foreground transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:scale-105 active:scale-95"
                   >
-                    <Play className="size-4 text-accent" /> How it works
+                    <Play className="size-5 text-accent" /> 
+                    <span>How it works</span>
                   </a>
                 </div>
               </motion.div>
