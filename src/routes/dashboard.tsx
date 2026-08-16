@@ -847,27 +847,47 @@ function Dashboard() {
                     <Sparkles className="size-3.5 text-accent" />
                   </div>
                   <div className="p-5">
-                    <div className="aspect-square w-full relative rounded-2xl bg-surface/30 overflow-hidden group cursor-crosshair border border-border">
-                      <iframe
-                        src="https://my.spline.design/widgetscarouselcopycopy-cfc7yNWcEtRgYFIXmHzEZWoV-JSW/"
-                        frameBorder="0"
-                        width="100%"
-                        height="100%"
-                        className="h-full w-full pointer-events-none opacity-80 transition-transform duration-500 group-hover:scale-110"
-                        title="3D Design Analysis"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent flex flex-col justify-end p-4">
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-primary">Live 3D Model</p>
-                        <p className="text-[9px] text-muted-foreground">Interact with your learning path</p>
+                    <div className="space-y-6">
+                      <div className="aspect-[4/3] w-full relative rounded-2xl bg-surface/30 overflow-hidden group cursor-crosshair border border-border">
+                        <iframe
+                          src="https://my.spline.design/widgetscarouselcopycopy-cfc7yNWcEtRgYFIXmHzEZWoV-JSW/"
+                          frameBorder="0"
+                          width="100%"
+                          height="100%"
+                          className="h-full w-full pointer-events-none opacity-90 transition-transform duration-500 group-hover:scale-105"
+                          title="3D Design Analysis"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent flex flex-col justify-end p-5">
+                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Interactive Orbit</p>
+                          <h4 className="mt-1 text-sm font-bold">Preparation Roadmap</h4>
+                        </div>
                       </div>
-                    </div>
-                    <div className="mt-4 p-4 rounded-2xl bg-surface/50 border border-border">
-                      <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest mb-3">
-                        <span className="text-muted-foreground">Revision KPI</span>
-                        <span className="text-accent">Active</span>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="rounded-2xl bg-surface/50 border border-border p-4">
+                          <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Selection Rate</p>
+                          <p className="mt-1 text-lg font-black text-accent">84%</p>
+                          <div className="mt-2 h-1 w-full bg-border rounded-full overflow-hidden">
+                            <div className="h-full bg-accent w-[84%]" />
+                          </div>
+                        </div>
+                        <div className="rounded-2xl bg-surface/50 border border-border p-4">
+                          <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Accuracy</p>
+                          <p className="mt-1 text-lg font-black text-primary">92%</p>
+                          <div className="mt-2 h-1 w-full bg-border rounded-full overflow-hidden">
+                            <div className="h-full bg-primary w-[92%]" />
+                          </div>
+                        </div>
                       </div>
-                      <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
-                        <div className="h-full bg-accent w-[72%] rounded-full shadow-[0_0_8px_rgba(var(--accent),0.5)]" />
+
+                      <div className="p-4 rounded-2xl bg-surface/50 border border-border">
+                        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest mb-3">
+                          <span className="text-muted-foreground">Revision KPI</span>
+                          <span className="text-accent">Active</span>
+                        </div>
+                        <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
+                          <div className="h-full bg-accent w-[72%] rounded-full shadow-[0_0_8px_rgba(var(--accent),0.5)]" />
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -235,30 +235,26 @@ function Landing() {
               className="relative hidden lg:block"
             >
               <div className="glass-card rounded-[2.5rem] p-8 transition-transform duration-200 ease-out border-white/10 overflow-hidden relative group">
-                {/* Internal card glow */}
                 <div className="absolute -inset-24 bg-gradient-radial from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 
                 <div className="relative z-10">
                   <div className="flex items-center justify-between border-b border-white/10 pb-6">
                     <div className="flex items-center gap-3">
                       <div className="size-12 rounded-2xl bg-gradient-to-br from-accent to-primary flex items-center justify-center text-primary-foreground shadow-lg">
-                        <FileText className="size-6" />
+                        <BrainCircuit className="size-6" />
                       </div>
                       <div>
-                        <p className="text-sm font-bold">CS3491 — Unit III</p>
-                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Neural Networks Analysis</p>
+                        <p className="text-sm font-bold">Smart Analysis</p>
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">AI Preparation Engine</p>
                       </div>
                     </div>
-                    <span className="rounded-full bg-accent/20 px-3 py-1 text-[11px] font-bold text-accent border border-accent/30">
-                      LIVE ORBIT
-                    </span>
                   </div>
 
                   <div className="mt-8 space-y-4">
                     {[
-                      { topic: "Bayesian Networks", freq: "High priority — 5/6 sem", mark: "15m", icon: Target },
-                      { topic: "Markov Models", freq: "Frequently asked — 4/6 sem", mark: "13m", icon: BrainCircuit },
-                      { topic: "Naive Bayes", freq: "Worth preparing — 3/6 sem", mark: "13m", icon: Sparkles },
+                      { topic: "Pattern Recognition", freq: "AU Regulation Aware", mark: "AI", icon: Target },
+                      { topic: "Note Extraction", freq: "PDF to Concept Map", mark: "PDF", icon: BrainCircuit },
+                      { topic: "Tamil Tutorials", freq: "Handpicked Lectures", mark: "TV", icon: Youtube },
                     ].map((item, i) => (
                       <motion.div
                         key={item.topic}
@@ -280,24 +276,9 @@ function Landing() {
                       </motion.div>
                     ))}
                   </div>
-
-                  <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
-                    <div className="flex -space-x-2">
-                      {[1, 2, 3].map((i) => (
-                        <div key={i} className="size-8 rounded-full border-2 border-background bg-surface flex items-center justify-center">
-                          <Youtube className="size-3 text-red-500" />
-                        </div>
-                      ))}
-                      <div className="size-8 rounded-full border-2 border-background bg-accent text-[10px] font-bold flex items-center justify-center">
-                        +5
-                      </div>
-                    </div>
-                    <p className="text-[10px] font-bold text-muted-foreground">Tamil Tutorials Ready</p>
-                  </div>
                 </div>
               </div>
 
-              {/* Decorative 3D elements attached to the card */}
               <div className="absolute -top-6 -right-6 size-20 rounded-2xl bg-gradient-to-br from-accent/40 to-primary/40 blur-xl animate-pulse-glow" />
               <div className="absolute -bottom-6 -left-6 size-24 rounded-full bg-gradient-to-tr from-primary/40 to-accent/40 blur-xl animate-pulse-glow" />
             </motion.div>
