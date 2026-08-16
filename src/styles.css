@@ -72,6 +72,7 @@
 }
 
 :root {
+  scroll-behavior: smooth;
   --radius: 0.9rem;
   --background: oklch(0.08 0.02 260); /* Deeper midnight background */
   --foreground: oklch(0.97 0.008 250);
