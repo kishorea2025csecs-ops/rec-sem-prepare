@@ -15,6 +15,7 @@ import {
   Youtube,
 } from "lucide-react";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
+import bgVideoAsset from "@/assets/bg-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 
@@ -154,13 +155,27 @@ function Landing() {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Background Gradient & Glows */}
-          <div className="absolute inset-0 z-0">
+          {/* Background Video & Glows */}
+          <div className="absolute inset-0 z-0 overflow-hidden">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover opacity-40 mix-blend-screen brightness-125 saturate-150"
+              style={{ 
+                filter: "drop-shadow(0 0 15px color-mix(in oklab, var(--neon-cyan) 30%, transparent)) hue-rotate(-10deg)" 
+              }}
+            >
+              <source src={bgVideoAsset.url} type="video/mp4" />
+            </video>
             <div
-              className="pointer-events-none absolute inset-0 z-10"
+              className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-b from-background/20 via-background/40 to-background"
               style={{ backgroundImage: "var(--gradient-hero)" }}
               aria-hidden="true"
             />
+            {/* Additional Glows to integrate video */}
+            <div className="absolute inset-0 z-5 bg-[radial-gradient(circle_at_50%_50%,rgba(0,210,255,0.1),transparent_70%)] animate-pulse-glow" />
           </div>
 
           {/* Floating 3D Elements (Native CSS/SVG) */}
