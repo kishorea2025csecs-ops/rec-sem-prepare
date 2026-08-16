@@ -23,6 +23,12 @@ import {
   MessageSquare,
   BarChart3,
   Loader2,
+  Settings,
+  Wrench,
+  Rocket,
+  PlusCircle,
+  ShieldCheck,
+  Share2,
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
@@ -113,6 +119,7 @@ function Dashboard() {
   const [activeSubject] = useState(subjects[0]);
   const [activeUnit] = useState(3);
   const [activeTab, setActiveTab] = useState("Preparation Plan");
+  const [activeLessonStep, setActiveLessonStep] = useState(0);
   const [analysisStatus, setAnalysisStatus] = useState<"idle" | "uploading" | "analyzing" | "complete">("idle");
   const [processingProgress, setProcessingProgress] = useState(0);
 
@@ -264,6 +271,68 @@ function Dashboard() {
                       Start studying <ArrowRight className="size-3" />
                     </button>
                   </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Lesson Progress Stepper */}
+            <div className="rounded-3xl border border-border bg-card overflow-hidden">
+              <div className="bg-surface/50 px-6 py-4 border-b border-border flex items-center justify-between">
+                <div>
+                  <h3 className="text-sm font-bold">Lesson Roadmap</h3>
+                  <p className="text-[10px] text-muted-foreground">Complete these 7 steps to master the lesson</p>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs font-bold text-primary">{Math.round((activeLessonStep / 6) * 100)}%</span>
+                  <div className="w-24 h-1.5 rounded-full bg-surface overflow-hidden">
+                    <div 
+                      className="h-full bg-primary transition-all duration-500" 
+                      style={{ width: `${(activeLessonStep / 6) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="p-6">
+                <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
+                  {[
+                    { title: "Meet the Basics", icon: BookOpen, desc: "Learn the core ideas", color: "from-blue-500/20 to-blue-600/20" },
+                    { title: "Set Up Tools", icon: Wrench, desc: "Prepare your workspace fast", color: "from-purple-500/20 to-purple-600/20" },
+                    { title: "Build First Steps", icon: Rocket, desc: "Create your first small piece", color: "from-emerald-500/20 to-emerald-600/20" },
+                    { title: "Add New Skills", icon: PlusCircle, desc: "Expand what you can do", color: "from-amber-500/20 to-amber-600/20" },
+                    { title: "Fix Mistakes", icon: AlertCircle, desc: "Find and solve problems", color: "from-red-500/20 to-red-600/20" },
+                    { title: "Finish Project", icon: ShieldCheck, desc: "Put everything together safely", color: "from-indigo-500/20 to-indigo-600/20" },
+                    { title: "Share Your Work", icon: Share2, desc: "Show your results to others", color: "from-pink-500/20 to-pink-600/20" },
+                  ].map((step, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setActiveLessonStep(i)}
+                      className={`group relative flex flex-col items-center text-center p-3 rounded-2xl transition-all ${
+                        activeLessonStep === i 
+                          ? "bg-surface ring-2 ring-primary/50 shadow-lg -translate-y-1" 
+                          : "hover:bg-surface/50 opacity-60 hover:opacity-100"
+                      }`}
+                    >
+                      <div className={`relative flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${step.color} border border-white/10 shadow-inner group-hover:scale-110 transition-transform duration-300`}>
+                        <step.icon className={`size-6 ${activeLessonStep === i ? "text-primary" : "text-foreground"}`} />
+                        {activeLessonStep > i && (
+                          <div className="absolute -top-1 -right-1 size-4 bg-emerald-500 rounded-full flex items-center justify-center border-2 border-background">
+                            <CheckCircle2 className="size-2.5 text-white" />
+                          </div>
+                        )}
+                      </div>
+                      <div className="mt-3">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Step 0{i+1}</p>
+                        <p className="mt-1 text-xs font-bold leading-tight">{step.title}</p>
+                      </div>
+                      {activeLessonStep === i && (
+                        <div className="mt-2 absolute -bottom-16 left-1/2 -translate-x-1/2 w-48 z-20 pointer-events-none">
+                          <div className="bg-popover border border-border rounded-lg p-2 shadow-xl animate-in fade-in zoom-in duration-200">
+                            <p className="text-[10px] text-foreground leading-snug">{step.desc}</p>
+                          </div>
+                        </div>
+                      )}
+                    </button>
+                  ))}
                 </div>
               </div>
             </div>
