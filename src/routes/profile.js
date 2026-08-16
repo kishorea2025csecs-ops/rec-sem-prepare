@@ -1,0 +1,178 @@
+import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { User, Mail, ShieldCheck, CreditCard, Key, ArrowLeft, Loader2, Camera } from "lucide-react";
+export const Route = createFileRoute("/profile")({
+    head: () => ({
+        meta: [
+            { title: "My Profile | SemPrep AI" },
+            { name: "description", content: "Manage your personal information and account settings." },
+        ],
+    }),
+    component: ProfilePage,
+});
+function ProfilePage() {
+    const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [profile, setProfile] = useState(null);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        const getProfile = async () => {
+            setLoading(true);
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                navigate({ to: "/auth/login" });
+                return;
+            }
+            setUser(session.user);
+            const { data: profileData } = await supabase
+                .from("profiles")
+                .select("*")
+                .eq("id", session.user.id)
+                .single();
+            if (profileData) {
+                setProfile(profileData);
+            }
+            setLoading(false);
+        };
+        getProfile();
+    }, [navigate]);
+    if (loading) {
+        return (<div className="flex min-h-screen items-center justify-center bg-background">
+        <Loader2 className="size-8 animate-spin text-primary"/>
+      </div>);
+    }
+    return (<div className="min-h-screen bg-background text-foreground pb-20">
+      {/* Header */}
+      <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
+        <button onClick={() => navigate({ to: "/dashboard" })} className="mr-4 flex size-9 items-center justify-center rounded-full border border-border bg-surface text-muted-foreground transition-colors hover:text-foreground">
+          <ArrowLeft className="size-4"/>
+        </button>
+        <h1 className="font-display text-lg font-bold tracking-tight">Account Settings</h1>
+      </header>
+
+      <main className="mx-auto max-w-2xl p-6 lg:p-10">
+        <div className="space-y-10">
+          {/* Profile Section */}
+          <section className="space-y-6">
+            <div>
+              <h2 className="font-display text-xl font-bold">Personal Information</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Your static account details managed by SemPrep AI.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-border bg-card p-8">
+              <div className="flex flex-col sm:flex-row items-center gap-6 mb-10">
+                <div className="relative group">
+                  {profile?.avatar_url || user?.user_metadata?.avatar_url ? (<img src={profile?.avatar_url || user?.user_metadata?.avatar_url} alt="Avatar" className="size-24 rounded-3xl object-cover border-4 border-surface shadow-xl"/>) : (<div className="size-24 rounded-3xl bg-gradient-to-tr from-accent to-primary flex items-center justify-center text-primary-foreground text-3xl font-black border-4 border-surface shadow-xl">
+                      {(profile?.full_name || user?.user_metadata?.full_name || "S").charAt(0)}
+                    </div>)}
+                  <button className="absolute -bottom-2 -right-2 size-8 bg-foreground text-background rounded-full flex items-center justify-center border-2 border-background shadow-lg transition-transform hover:scale-110">
+                    <Camera className="size-4"/>
+                  </button>
+                </div>
+                <div className="text-center sm:text-left">
+                  <h3 className="text-xl font-bold">
+                    {profile?.full_name || user?.user_metadata?.full_name || "Student Name"}
+                  </h3>
+                  <p className="text-sm text-muted-foreground flex items-center justify-center sm:justify-start gap-1.5 mt-1">
+                    <ShieldCheck className="size-3.5 text-accent"/> REC Student Account
+                  </p>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div className="grid gap-2">
+                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground px-1">Full Name</label>
+                  <div className="relative">
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground"/>
+                    <input type="text" readOnly value={profile?.full_name || user?.user_metadata?.full_name || ""} className="w-full rounded-2xl border border-border bg-surface px-11 py-3 text-sm focus:outline-none cursor-default"/>
+                  </div>
+                </div>
+
+                <div className="grid gap-2">
+                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground px-1">Official Email Address</label>
+                  <div className="relative">
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground"/>
+                    <input type="email" readOnly value={user?.email || ""} className="w-full rounded-2xl border border-border bg-surface px-11 py-3 text-sm focus:outline-none cursor-default"/>
+                  </div>
+                  <p className="text-[10px] text-accent font-medium px-1 flex items-center gap-1">
+                    <ShieldCheck className="size-3"/> Verified by Rajalakshmi Engineering College
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Security Section */}
+          <section className="space-y-6">
+            <div>
+              <h2 className="font-display text-xl font-bold">Security</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Manage your password and authentication methods.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-border bg-card p-6 space-y-4">
+              <button className="flex w-full items-center justify-between rounded-2xl border border-border bg-surface p-4 transition-all hover:border-primary/50">
+                <div className="flex items-center gap-3">
+                  <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                    <Key className="size-5"/>
+                  </div>
+                  <div className="text-left">
+                    <p className="text-sm font-bold">Change Password</p>
+                    <p className="text-xs text-muted-foreground">Update your REC portal login password</p>
+                  </div>
+                </div>
+                <div className="size-8 rounded-full bg-border/20 flex items-center justify-center">
+                  <span className="text-xs">→</span>
+                </div>
+              </button>
+            </div>
+          </section>
+
+          {/* Subscription Section */}
+          <section className="space-y-6">
+            <div>
+              <h2 className="font-display text-xl font-bold">Plan & Subscription</h2>
+              <p className="text-sm text-muted-foreground mt-1">
+                Your current access level to SemPrep AI features.
+              </p>
+            </div>
+
+            <div className="rounded-3xl border border-border bg-card p-6">
+              <div className="flex items-center justify-between rounded-2xl bg-gradient-to-br from-accent to-primary p-6 text-primary-foreground">
+                <div>
+                  <h3 className="font-display text-lg font-bold">Academic Pro</h3>
+                  <p className="text-xs opacity-80 mt-1 uppercase tracking-widest font-bold">Active Student License</p>
+                </div>
+                <div className="size-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center">
+                  <CreditCard className="size-6"/>
+                </div>
+              </div>
+              
+              <div className="mt-6 flex items-center justify-between px-2">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Renewal Date</p>
+                  <p className="text-sm font-bold mt-1">Aug 16, 2027</p>
+                </div>
+                <button onClick={() => toast.info("Managed by Rajalakshmi Engineering College IT Department")} className="text-xs font-bold text-accent hover:underline">
+                  Manage Billing
+                </button>
+              </div>
+            </div>
+          </section>
+
+          {/* Note from semantics */}
+          <div className="rounded-2xl bg-surface/50 border border-border p-5">
+            <p className="text-[11px] leading-relaxed text-muted-foreground italic text-center">
+              "Profile is reserved for static personal information. For live analytics, 
+              interactive models, and system metrics, please visit your Dashboard."
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>);
+}
