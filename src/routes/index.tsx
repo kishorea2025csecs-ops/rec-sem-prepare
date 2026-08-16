@@ -406,7 +406,7 @@ function Landing() {
         </section>
 
         {/* Features */}
-        <section id="features" className="relative z-10 py-20 bg-background overflow-hidden" aria-labelledby="features-heading">
+        <section id="features" className="scroll-section py-20 bg-background" aria-labelledby="features-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -452,7 +452,7 @@ function Landing() {
         </section>
 
         {/* Social Proof / Testimonials Section */}
-        <section id="community" className="relative z-10 py-24 bg-background/40 backdrop-blur-sm border-b border-white/10 overflow-hidden" aria-labelledby="community-heading">
+        <section id="community" className="scroll-section py-24 bg-background/40 backdrop-blur-sm border-b border-white/10" aria-labelledby="community-heading">
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
               animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
@@ -497,7 +497,7 @@ function Landing() {
         </section>
 
         {/* Tamil */}
-        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="tamil-heading">
+        <section id="tamil" className="scroll-section border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="tamil-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -546,7 +546,7 @@ function Landing() {
         </section>
 
         {/* CTA */}
-        <section className="py-24" aria-labelledby="cta-heading">
+        <section className="scroll-section py-24 flex items-center justify-center" aria-labelledby="cta-heading">
           <div className="mx-auto max-w-4xl px-5 text-center">
             <h2 id="cta-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Semester exams start soon. Your plan can start now.
