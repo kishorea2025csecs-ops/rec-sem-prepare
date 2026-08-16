@@ -140,10 +140,10 @@ function Landing() {
             </div>
             <span className="font-display text-xl font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">SemPrep AI</span>
           </a>
-          <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
-            <a className="transition-colors hover:text-foreground" href="#how">How it works</a>
-            <a className="transition-colors hover:text-foreground" href="#features">Features</a>
-            <a className="transition-colors hover:text-foreground" href="#tamil">Tamil help</a>
+          <nav className="hidden items-center gap-4 text-xs font-bold md:flex uppercase tracking-wider">
+            <a className="transition-all duration-300 hover:text-white px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 backdrop-blur-md" href="#how">How it works</a>
+            <a className="transition-all duration-300 hover:text-white px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 backdrop-blur-md" href="#features">Features</a>
+            <a className="transition-all duration-300 hover:text-white px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 backdrop-blur-md" href="#tamil">Tamil help</a>
           </nav>
           <Link
             to="/auth/login"
