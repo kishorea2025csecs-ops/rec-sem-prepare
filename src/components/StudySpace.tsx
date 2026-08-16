@@ -139,14 +139,15 @@ export const StudySpace = () => {
     
     // Parallax movement - more dramatic for depth
     // Map scroll Y to a range that keeps objects in view but moving
-    const targetY = -(currentScrollY * 0.01);
-    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.1);
+    const targetY = -(currentScrollY * 0.015); // Increased sensitivity slightly
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.05); // Smoother lerp
     
     // Subtly tilt camera based on scroll velocity for organic feel
-    state.camera.rotation.x = THREE.MathUtils.lerp(state.camera.rotation.x, scrollVelocity.current * 0.001, 0.05);
+    state.camera.rotation.x = THREE.MathUtils.lerp(state.camera.rotation.x, scrollVelocity.current * 0.0005, 0.05);
     
-    // Keep Z constant or move slightly for depth
-    state.camera.position.z = 10 + Math.sin(currentScrollY * 0.001) * 0.5;
+    // Maintain a stable Z position but allow slight depth variation based on total scroll
+    // This ensures objects don't disappear due to Z clipping
+    state.camera.position.z = 10 + Math.sin(currentScrollY * 0.0005) * 0.2;
   });
 
   const objects = [
