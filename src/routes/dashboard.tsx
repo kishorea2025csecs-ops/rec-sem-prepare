@@ -86,7 +86,7 @@ function DashboardPage() {
       .select("id,title,subject,unit,kind,status,analysis,created_at,file_path")
       .order("created_at", { ascending: false });
     setMaterials((data as Material[]) ?? []);
-    if (data && data.length && !activeId) setActiveId(data[0].id);
+    if (data && data.length && !activeId) setActiveId(data[0]!.id);
   }, [activeId]);
 
   const loadProgress = useCallback(async () => {
@@ -465,7 +465,7 @@ function DashboardPage() {
                                 </span>
                               </button>
                               <div className="flex items-center gap-2">
-                                <span className={`rounded-full border px-3 py-1 text-[10px] font-black uppercase ${priorityStyles[t.priority] ?? priorityStyles.low}`}>
+                                <span className={`rounded-full border px-3 py-1 text-[10px] font-black uppercase ${priorityStyles[t.priority] ?? priorityStyles["low"]}`}>
                                   {t.priority} priority
                                 </span>
                                 <span className="rounded-full bg-white/5 px-3 py-1 text-[10px] font-bold">{t.marks}</span>
@@ -510,7 +510,7 @@ function DashboardPage() {
                           <li key={i} className="rounded-2xl border border-white/10 bg-black/30 p-4">
                             <div className="flex items-start justify-between gap-4">
                               <p className="text-sm">{q.question}</p>
-                              <span className={`shrink-0 rounded-full border px-3 py-1 text-[10px] font-black uppercase ${priorityStyles[q.priority] ?? priorityStyles.low}`}>
+                              <span className={`shrink-0 rounded-full border px-3 py-1 text-[10px] font-black uppercase ${priorityStyles[q.priority] ?? priorityStyles["low"]}`}>
                                 {q.marks}
                               </span>
                             </div>
