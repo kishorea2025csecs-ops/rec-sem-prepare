@@ -334,7 +334,9 @@ function Dashboard() {
             {/* Subject Info & Progress */}
             <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
               <div>
-                <h1 className="font-display text-3xl font-bold tracking-tight">{activeSubject.name}</h1>
+                <h1 className="font-display text-3xl font-bold tracking-tight uppercase">
+                  {activeSubject.name}
+                </h1>
                 <p className="mt-2 text-muted-foreground">
                   Rajalakshmi Engineering College · {profile?.full_name || "Semester 4"}
                 </p>
