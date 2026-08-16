@@ -156,6 +156,24 @@
       filter: brightness(1.1);
     }
   }
+  .neon-glow-pink {
+    box-shadow: 0 0 15px -2px var(--neon-pink), 0 0 30px -5px color-mix(in oklab, var(--neon-pink) 50%, transparent);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover {
+      box-shadow: 0 0 25px 0px var(--neon-pink), 0 0 50px 0px color-mix(in oklab, var(--neon-pink) 60%, transparent);
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(1.1);
+    }
+  }
+  .neon-glow-yellow {
+    box-shadow: 0 0 15px -2px var(--neon-yellow), 0 0 30px -5px color-mix(in oklab, var(--neon-yellow) 50%, transparent);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover {
+      box-shadow: 0 0 25px 0px var(--neon-yellow), 0 0 50px 0px color-mix(in oklab, var(--neon-yellow) 60%, transparent);
+      transform: translateY(-2px) scale(1.02);
+      filter: brightness(1.1);
+    }
+  }
   .pro-glow-logo {
     filter: drop-shadow(0 0 10px color-mix(in oklab, var(--neon-cyan) 50%, transparent)) drop-shadow(0 0 20px color-mix(in oklab, var(--neon-purple) 30%, transparent));
   }
