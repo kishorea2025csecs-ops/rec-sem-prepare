@@ -361,8 +361,8 @@ function Dashboard() {
                     <h3 className="font-display font-semibold">Study Recommendation</h3>
                     <AlertCircle className="size-4 text-accent" />
                   </div>
-                  <div className="mt-4 flex items-start gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-4">
-                    <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground shadow-lg">
+                  <div className="mt-4 flex items-start gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-4 neon-border-purple">
+                    <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground shadow-lg neon-glow-purple">
                       <TrendingUp className="size-5" />
                     </div>
                     <div>
@@ -416,7 +416,7 @@ function Dashboard() {
                           : "hover:bg-surface/50 opacity-60 hover:opacity-100"
                       }`}
                     >
-                      <div className={`relative flex size-14 items-center justify-center rounded-xl bg-gradient-to-br ${step.color} border border-white/5 overflow-hidden transition-transform duration-300 group-hover:scale-105`}>
+                      <div className={`relative flex size-14 items-center justify-center rounded-xl bg-gradient-to-br ${step.color} border border-white/5 overflow-hidden transition-transform duration-300 group-hover:scale-105 ${activeLessonStep === i ? 'neon-glow-cyan border-primary/50' : ''}`}>
                         <img 
                           src={step.img} 
                           alt={step.title} 
@@ -828,7 +828,7 @@ function Dashboard() {
                     <div className="mt-4 flex flex-col gap-2">
                       <button 
                         onClick={startAnalysis}
-                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-2.5 text-xs font-bold text-primary-foreground shadow-sm hover:-translate-y-0.5 transition-transform"
+                        className="flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-2.5 text-xs font-bold text-primary-foreground shadow-sm hover:-translate-y-0.5 transition-transform neon-glow-cyan"
                       >
                         <Upload className="size-3.5" /> Upload New Notes
                       </button>
