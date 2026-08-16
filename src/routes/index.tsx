@@ -77,26 +77,6 @@ const steps = [
 ];
 
 const features = [
-  ... keep existing features
-];
-
-const testimonials = [
-  {
-    name: "Aravind Kumar",
-    dept: "Computer Science",
-    text: "SemPrep saved my Unit 3 internal. The Tamil explanation for Bayesian Networks was a lifesaver at 2 AM.",
-  },
-  {
-    name: "Divya S.",
-    dept: "Information Technology",
-    text: "The way it highlights repeat questions from last 5 years makes revision so much more focused.",
-  },
-  {
-    name: "Rohan M.",
-    dept: "Electronics & Communication",
-    text: "Finally a tool that understands REC regulation papers. The writing structure tips are solid.",
-  },
-];
   {
     icon: ListChecks,
     title: "Repeat-question radar",
@@ -116,6 +96,24 @@ const testimonials = [
     icon: Sparkles,
     title: "Answer coach",
     body: "Write your answer, get instant feedback on structure, keywords and diagrams the examiner expects.",
+  },
+];
+
+const testimonials = [
+  {
+    name: "Aravind Kumar",
+    dept: "Computer Science",
+    text: "SemPrep saved my Unit 3 internal. The Tamil explanation for Bayesian Networks was a lifesaver at 2 AM.",
+  },
+  {
+    name: "Divya S.",
+    dept: "Information Technology",
+    text: "The way it highlights repeat questions from last 5 years makes revision so much more focused.",
+  },
+  {
+    name: "Rohan M.",
+    dept: "Electronics & Communication",
+    text: "Finally a tool that understands REC regulation papers. The writing structure tips are solid.",
   },
 ];
 
