@@ -200,8 +200,8 @@ const Scene = ({ scrollY }: { scrollY: number }) => {
   useFrame(() => {
     // Smoother persistent camera movement
     // Adjust camera position and zoom for mobile to ensure objects aren't clipped
-    const targetZ = isMobile ? 18 - scrollProgress * 5 : 10 - scrollProgress * 3;
-    const targetY = isMobile ? -scrollProgress * 6 + 1 : -scrollProgress * 4;
+    const targetZ = isMobile ? 12 - scrollProgress * 5 : 10 - scrollProgress * 3;
+    const targetY = isMobile ? -scrollProgress * 6 + 0.5 : -scrollProgress * 4;
     
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
     camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
