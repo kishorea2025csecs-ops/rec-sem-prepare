@@ -327,7 +327,7 @@ function Landing() {
               {steps.map((step, i) => (
                 <li
                   key={step.title}
-                  className="group rounded-3xl border border-border bg-card p-6 transition-colors hover:border-accent/50"
+                  className="group rounded-3xl border border-border bg-card p-6 transition-colors hover:border-accent/50 pro-card-hover"
                 >
                   <div className="flex items-center justify-between">
                     <span className="grid size-11 place-items-center rounded-2xl bg-accent/15 text-accent neon-glow-purple border border-accent/20">
@@ -371,7 +371,7 @@ function Landing() {
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
               {features.map((f) => (
-                <div key={f.title} className="rounded-3xl border border-border bg-card p-6">
+                <div key={f.title} className="rounded-3xl border border-border bg-card p-6 pro-card-hover">
                   <span className="grid size-11 place-items-center rounded-2xl bg-primary/15 text-primary">
                     <f.icon className="size-5" />
                   </span>
