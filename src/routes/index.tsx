@@ -179,7 +179,8 @@ function Landing() {
               className="pointer-events-none absolute inset-0 z-20"
               style={{ 
                 background: "radial-gradient(circle at 50% 50%, transparent 0%, var(--background) 100%)",
-                backgroundImage: "var(--gradient-hero)" 
+                backgroundImage: "var(--gradient-hero)",
+                mixBlendMode: "overlay"
               }}
               aria-hidden="true"
             />
