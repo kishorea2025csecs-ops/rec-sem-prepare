@@ -97,6 +97,32 @@ const features = [
 ];
 
 function Landing() {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["17.5deg", "-17.5deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-17.5deg", "17.5deg"]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
   return (
     <div className="min-h-screen bg-background font-sans text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
@@ -122,17 +148,21 @@ function Landing() {
       </header>
 
       <main id="top">
-        {/* Hero */}
-        <section className="relative overflow-hidden min-h-[600px] lg:min-h-[800px] flex items-center">
-          {/* Spline 3D Design Background */}
+        {/* Hero Section with The Learner Orbit */}
+        <section 
+          className="relative overflow-hidden min-h-[700px] lg:min-h-[900px] flex items-center"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+        >
+          {/* Background Spline Widget Carousel */}
           <div className="absolute inset-0 z-0">
             <iframe
-              src="https://my.spline.design/room-bec3f548-ef95-486b-ac90-d11b131772e5/"
+              src="https://my.spline.design/widgetscarouselcopycopy-cfc7yNWcEtRgYFIXmHzEZWoV-JSW/"
               frameBorder="0"
               width="100%"
               height="100%"
-              className="h-full w-full pointer-events-none opacity-40 lg:opacity-60"
-              title="3D Background Design"
+              className="h-full w-full pointer-events-none opacity-30 lg:opacity-50"
+              title="3D Background Orbit"
             />
             <div
               className="pointer-events-none absolute inset-0 z-10"
@@ -140,93 +170,137 @@ function Landing() {
               aria-hidden="true"
             />
           </div>
-          <div className="relative z-20 mx-auto grid max-w-6xl gap-14 px-5 pb-20 pt-16 md:pt-24 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+
+          {/* Floating 3D Elements (Native CSS/SVG) */}
+          <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
+            <motion.div 
+              animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute top-[20%] left-[15%] size-32 rounded-full bg-gradient-to-tr from-[#00D2FF]/20 to-transparent blur-2xl animate-pulse-glow"
+            />
+            <motion.div 
+              animate={{ y: [0, 40, 0], rotate: [0, -15, 0] }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute bottom-[25%] right-[10%] size-48 rounded-full bg-gradient-to-tr from-[#9D4EDD]/20 to-transparent blur-3xl animate-pulse-glow"
+            />
+            <div className="absolute top-[40%] right-[20%] size-16 border-2 border-[#00D2FF]/30 rounded-full animate-float opacity-40" />
+            <div className="absolute bottom-[30%] left-[25%] size-20 border-2 border-[#9D4EDD]/30 rotate-45 animate-float opacity-30" />
+          </div>
+
+          <div className="relative z-20 mx-auto grid max-w-6xl gap-14 px-5 pb-20 pt-16 md:pt-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
-                <Sparkles className="size-3.5" /> Built for REC students
-              </span>
-              <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl">
-                Your unit notes in.
-                <br />
-                <span className="bg-[image:var(--gradient-brand)] bg-clip-text text-transparent">
-                  An exam strategy out.
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                  <Sparkles className="size-3.5" /> Built for REC students
                 </span>
-              </h1>
-              <p className="mt-6 max-w-xl text-lg text-muted-foreground">
-                SemPrep AI reads your unit PDFs, cross-checks a decade of previous-year question
-                papers, and tells you exactly what to study, in what order, and how to write it for
-                full marks — with Tamil YouTube tutorials for the concepts that refuse to click.
-              </p>
-              <div id="start" className="mt-9 flex flex-wrap items-center gap-3">
-                <Link
-                  to="/auth/login"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elevated)] transition-transform hover:-translate-y-0.5"
-                >
-                  <Upload className="size-4" /> Open Dashboard
-                </Link>
-                <a
-                  href="#tamil"
-                  className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-surface"
-                >
-                  <Play className="size-4" /> See Tamil tutorials
-                </a>
-              </div>
-              <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6">
-                {[
-                  ["Units", "Detailed Analysis"],
-                  ["Papers", "PYQ Mapped"],
-                  ["Results", "High Scoring Strategy"],
-                ].map(([value, label]) => (
-                  <div key={label}>
-                    <dt className="font-display text-2xl font-bold text-accent">{value}</dt>
-                    <dd className="mt-1 text-xs text-muted-foreground">{label}</dd>
-                  </div>
-                ))}
-              </dl>
+                <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl">
+                  Master your exams 
+                  <br />
+                  <span className="bg-[image:var(--gradient-brand)] bg-clip-text text-transparent">
+                    with The Learner Orbit.
+                  </span>
+                </h1>
+                <p className="mt-6 max-w-xl text-lg text-muted-foreground/90">
+                  A sleek, AI-driven preparation interface designed for Rajalakshmi Engineering College. 
+                  Turn your unit PDFs into winning strategies and Tamil-supported learning paths.
+                </p>
+                <div id="start" className="mt-9 flex flex-wrap items-center gap-3">
+                  <Link
+                    to="/auth/login"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-bold text-primary-foreground shadow-[var(--shadow-elevated)] transition-all hover:scale-105 active:scale-95"
+                  >
+                    <Upload className="size-4" /> Start Your Orbit
+                  </Link>
+                  <a
+                    href="#how"
+                    className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-foreground transition-colors hover:bg-surface"
+                  >
+                    <Play className="size-4 text-accent" /> How it works
+                  </a>
+                </div>
+              </motion.div>
             </div>
 
-            <div className="rounded-3xl border border-border bg-card/80 p-5 shadow-[var(--shadow-elevated)] backdrop-blur">
-              <div className="flex items-center justify-between border-b border-border pb-4">
-                <div className="flex items-center gap-2 text-sm font-semibold">
-                  <FileText className="size-4 text-accent" />
-                  CS3491 — Unit III Notes.pdf
-                </div>
-                <span className="rounded-full bg-accent/15 px-2.5 py-1 text-[11px] font-semibold text-accent">
-                  Analysed
-                </span>
-              </div>
-              <ul className="mt-4 space-y-3">
-                {[
-                  ["Bayesian Networks — inference", "Asked 5 / last 6 semesters", "15 marks"],
-                  ["Hidden Markov Models", "Asked 4 / last 6 semesters", "13 marks"],
-                  ["Naive Bayes classifier", "Asked 3 / last 6 semesters", "13 marks"],
-                  ["Approximate inference", "Rare — skip if short on time", "2 marks"],
-                ].map(([topic, freq, mark], i) => (
-                  <li
-                    key={topic}
-                    className="flex items-start justify-between gap-3 rounded-2xl border border-border bg-surface/60 p-4"
-                  >
-                    <div>
-                      <p className="text-sm font-semibold">{topic}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">{freq}</p>
+            {/* Interactive 3D Parallax Card */}
+            <motion.div 
+              style={{
+                rotateX,
+                rotateY,
+                transformStyle: "preserve-3d",
+              }}
+              className="relative hidden lg:block"
+            >
+              <div className="glass-card rounded-[2.5rem] p-8 transition-transform duration-200 ease-out border-white/10 overflow-hidden relative group">
+                {/* Internal card glow */}
+                <div className="absolute -inset-24 bg-gradient-radial from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                
+                <div className="relative z-10">
+                  <div className="flex items-center justify-between border-b border-white/10 pb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="size-12 rounded-2xl bg-gradient-to-br from-accent to-primary flex items-center justify-center text-primary-foreground shadow-lg">
+                        <FileText className="size-6" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-bold">CS3491 — Unit III</p>
+                        <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Neural Networks Analysis</p>
+                      </div>
                     </div>
-                    <span
-                      className={
-                        i === 3
-                          ? "shrink-0 rounded-full bg-muted px-2.5 py-1 text-[11px] font-semibold text-muted-foreground"
-                          : "shrink-0 rounded-full bg-primary/20 px-2.5 py-1 text-[11px] font-semibold text-primary"
-                      }
-                    >
-                      {mark}
+                    <span className="rounded-full bg-accent/20 px-3 py-1 text-[11px] font-bold text-accent border border-accent/30">
+                      LIVE ORBIT
                     </span>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-4 flex items-center gap-2 rounded-2xl border border-accent/30 bg-accent/10 p-4 text-xs text-foreground">
-                <Youtube className="size-4 shrink-0 text-accent" />
-                3 Tamil tutorials attached for Bayesian inference.
+                  </div>
+
+                  <div className="mt-8 space-y-4">
+                    {[
+                      { topic: "Bayesian Networks", freq: "High priority — 5/6 sem", mark: "15m", icon: Target },
+                      { topic: "Markov Models", freq: "Frequently asked — 4/6 sem", mark: "13m", icon: BrainCircuit },
+                      { topic: "Naive Bayes", freq: "Worth preparing — 3/6 sem", mark: "13m", icon: Sparkles },
+                    ].map((item, i) => (
+                      <motion.div
+                        key={item.topic}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.1 + 0.5 }}
+                        className="flex items-center justify-between gap-4 rounded-2xl border border-white/5 bg-white/5 p-4 hover:bg-white/10 transition-colors cursor-default"
+                      >
+                        <div className="flex items-center gap-3">
+                          <item.icon className="size-4 text-accent" />
+                          <div>
+                            <p className="text-sm font-bold">{item.topic}</p>
+                            <p className="text-[10px] text-muted-foreground">{item.freq}</p>
+                          </div>
+                        </div>
+                        <span className="text-xs font-black text-primary bg-primary/10 px-2 py-1 rounded-lg">
+                          {item.mark}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  <div className="mt-8 pt-6 border-t border-white/10 flex items-center justify-between">
+                    <div className="flex -space-x-2">
+                      {[1, 2, 3].map((i) => (
+                        <div key={i} className="size-8 rounded-full border-2 border-background bg-surface flex items-center justify-center">
+                          <Youtube className="size-3 text-red-500" />
+                        </div>
+                      ))}
+                      <div className="size-8 rounded-full border-2 border-background bg-accent text-[10px] font-bold flex items-center justify-center">
+                        +5
+                      </div>
+                    </div>
+                    <p className="text-[10px] font-bold text-muted-foreground">Tamil Tutorials Ready</p>
+                  </div>
+                </div>
               </div>
-            </div>
+
+              {/* Decorative 3D elements attached to the card */}
+              <div className="absolute -top-6 -right-6 size-20 rounded-2xl bg-gradient-to-br from-accent/40 to-primary/40 blur-xl animate-pulse-glow" />
+              <div className="absolute -bottom-6 -left-6 size-24 rounded-full bg-gradient-to-tr from-primary/40 to-accent/40 blur-xl animate-pulse-glow" />
+            </motion.div>
           </div>
         </section>
 
