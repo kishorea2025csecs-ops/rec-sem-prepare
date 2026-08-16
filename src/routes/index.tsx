@@ -411,7 +411,7 @@ function Landing() {
         </section>
 
         {/* SECTION 2: STUDY MATERIAL */}
-        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/30 backdrop-blur-[2px] py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
+        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/5 backdrop-blur-none py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
