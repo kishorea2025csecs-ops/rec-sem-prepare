@@ -295,13 +295,13 @@ function Dashboard() {
               <div className="p-6">
                 <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-4">
                   {[
-                    { title: "Meet the Basics", icon: BookOpen, desc: "Learn the core ideas", color: "from-blue-500/20 to-blue-600/20" },
-                    { title: "Set Up Tools", icon: Wrench, desc: "Prepare your workspace fast", color: "from-purple-500/20 to-purple-600/20" },
-                    { title: "Build First Steps", icon: Rocket, desc: "Create your first small piece", color: "from-emerald-500/20 to-emerald-600/20" },
-                    { title: "Add New Skills", icon: PlusCircle, desc: "Expand what you can do", color: "from-amber-500/20 to-amber-600/20" },
-                    { title: "Fix Mistakes", icon: AlertCircle, desc: "Find and solve problems", color: "from-red-500/20 to-red-600/20" },
-                    { title: "Finish Project", icon: ShieldCheck, desc: "Put everything together safely", color: "from-indigo-500/20 to-indigo-600/20" },
-                    { title: "Share Your Work", icon: Share2, desc: "Show your results to others", color: "from-pink-500/20 to-pink-600/20" },
+                    { title: "Meet the Basics", icon: BookOpen, desc: "1: Meet the Basics – Learn the core ideas.", color: "from-blue-500/20 to-blue-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/learning-2601726-2184144.png?f=webp&w=256" },
+                    { title: "Set Up Tools", icon: Wrench, desc: "2: Set Up Tools – Prepare your workspace fast.", color: "from-purple-500/20 to-purple-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/tools-box-3171358-2641031.png?f=webp&w=256" },
+                    { title: "Build First Steps", icon: Rocket, desc: "3: Build First Steps – Create your first small piece.", color: "from-emerald-500/20 to-emerald-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/startup-2601728-2184146.png?f=webp&w=256" },
+                    { title: "Add New Skills", icon: PlusCircle, desc: "4: Add New Skills – Expand what you can do.", color: "from-amber-500/20 to-amber-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/growth-2601724-2184142.png?f=webp&w=256" },
+                    { title: "Fix Mistakes", icon: AlertCircle, desc: "5: Fix Common Mistakes – Find and solve simple problems.", color: "from-red-500/20 to-red-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/problem-solving-2601727-2184145.png?f=webp&w=256" },
+                    { title: "Finish Project", icon: ShieldCheck, desc: "6: Finish the Project – Put everything together safely.", color: "from-indigo-500/20 to-indigo-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/success-2601729-2184147.png?f=webp&w=256" },
+                    { title: "Share Your Work", icon: Share2, desc: "7: Share Your Work – Show your results to others.", color: "from-pink-500/20 to-pink-600/20", img: "https://cdn.iconscout.com/icon/premium/png-512-thumb/sharing-2601725-2184143.png?f=webp&w=256" },
                   ].map((step, i) => (
                     <button
                       key={i}
@@ -312,22 +312,28 @@ function Dashboard() {
                           : "hover:bg-surface/50 opacity-60 hover:opacity-100"
                       }`}
                     >
-                      <div className={`relative flex size-12 items-center justify-center rounded-xl bg-gradient-to-br ${step.color} border border-white/10 shadow-inner group-hover:scale-110 transition-transform duration-300`}>
-                        <step.icon className={`size-6 ${activeLessonStep === i ? "text-primary" : "text-foreground"}`} />
+                      <div className={`relative flex size-14 items-center justify-center rounded-xl bg-gradient-to-br ${step.color} border border-white/5 overflow-hidden transition-transform duration-300 group-hover:scale-105`}>
+                        <img 
+                          src={step.img} 
+                          alt={step.title} 
+                          className="size-10 object-contain transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110" 
+                        />
+                        <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                        
                         {activeLessonStep > i && (
-                          <div className="absolute -top-1 -right-1 size-4 bg-emerald-500 rounded-full flex items-center justify-center border-2 border-background">
+                          <div className="absolute -top-1 -right-1 size-4 bg-emerald-500 rounded-full flex items-center justify-center border-2 border-background shadow-sm">
                             <CheckCircle2 className="size-2.5 text-white" />
                           </div>
                         )}
                       </div>
                       <div className="mt-3">
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Step 0{i+1}</p>
-                        <p className="mt-1 text-xs font-bold leading-tight">{step.title}</p>
+                        <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Step 0{i+1}</p>
+                        <p className="mt-1 text-[11px] font-bold leading-tight line-clamp-2">{step.title}</p>
                       </div>
                       {activeLessonStep === i && (
-                        <div className="mt-2 absolute -bottom-16 left-1/2 -translate-x-1/2 w-48 z-20 pointer-events-none">
-                          <div className="bg-popover border border-border rounded-lg p-2 shadow-xl animate-in fade-in zoom-in duration-200">
-                            <p className="text-[10px] text-foreground leading-snug">{step.desc}</p>
+                        <div className="mt-2 absolute -bottom-20 left-1/2 -translate-x-1/2 w-48 z-20 pointer-events-none">
+                          <div className="bg-popover/90 backdrop-blur-md border border-primary/30 rounded-xl p-3 shadow-2xl animate-in fade-in zoom-in slide-in-from-top-2 duration-300">
+                            <p className="text-[10px] text-foreground leading-relaxed font-medium">{step.desc}</p>
                           </div>
                         </div>
                       )}
