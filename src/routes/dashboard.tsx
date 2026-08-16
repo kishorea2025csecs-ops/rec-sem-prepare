@@ -253,9 +253,9 @@ function Dashboard() {
                     <TrendingUp className="size-5" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-foreground">Priority: Hidden Markov Models</p>
+                    <p className="text-sm font-semibold text-foreground">Priority: Topic Recommendation</p>
                     <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      This topic appeared in 4 out of the last 6 papers. Based on your progress, mastering this now gives you the highest scoring potential.
+                      Run AI analysis on your notes to see personalized study priorities based on exam patterns.
                     </p>
                     <button className="mt-3 inline-flex items-center gap-2 text-xs font-bold text-accent hover:underline">
                       Start studying <ArrowRight className="size-3" />
