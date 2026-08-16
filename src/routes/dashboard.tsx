@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   BookOpen,
   Layout,
@@ -16,6 +16,12 @@ import {
   Clock,
   MoreVertical,
   Sparkles,
+  History,
+  Zap,
+  Image as ImageIcon,
+  MessageSquare,
+  BarChart3,
+  Loader2,
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
