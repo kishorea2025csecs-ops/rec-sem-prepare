@@ -434,7 +434,7 @@ function Landing() {
         </section>
 
         {/* SECTION 4: IMPORTANT QUESTIONS & TAMIL HELP */}
-        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="tamil-heading">
+        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/30 backdrop-blur-[2px] py-20 overflow-hidden" aria-labelledby="tamil-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
