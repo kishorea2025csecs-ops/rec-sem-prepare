@@ -127,7 +127,7 @@
   --sidebar-border: oklch(1 0 0 / 8%);
   --sidebar-ring: var(--neon-cyan);
   
-  --gradient-hero: radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--neon-cyan) 15%, transparent), transparent 70%);
+  --gradient-hero: radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--neon-cyan) 8%, transparent), transparent 70%);
   --gradient-brand: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
   --shadow-elevated: 0 0 30px -10px color-mix(in oklab, var(--neon-cyan) 40%, transparent);
 }
