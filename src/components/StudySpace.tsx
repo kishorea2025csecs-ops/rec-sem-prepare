@@ -43,7 +43,7 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
       floatIntensity={2}
       floatingRange={[-0.5, 0.5]}
     >
-      <group position={position}>
+      <group position={position} {...({} as any)}>
         <mesh
           ref={meshRef}
           onPointerOver={(e) => {
@@ -64,9 +64,11 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
             }
           }}
           scale={active ? 1.4 : hovered ? 1.1 : 1}
+          {...({} as any)}
         >
           {geometry}
           <meshPhysicalMaterial 
+            {...({} as any)}
             transmission={0.95}
             thickness={2}
             roughness={0.05}
@@ -159,10 +161,14 @@ export const StudySpace = () => {
       <Canvas 
         camera={{ position: [0, 0, 10], fov: 45 }}
         dpr={[1, 2]}
+        // Prevent R3F from trying to apply data attributes from the React devtools or other extensions
+        onCreated={({ gl }) => {
+          gl.setClearColor(new THREE.Color('#020205'), 0);
+        }}
       >
-        <ambientLight intensity={0.4} />
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow />
-        <pointLight position={[-10, -10, -10]} intensity={0.5} />
+        <ambientLight intensity={0.4} {...({} as any)} />
+        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow {...({} as any)} />
+        <pointLight position={[-10, -10, -10]} intensity={0.5} {...({} as any)} />
         
         <PresentationControls
           global
