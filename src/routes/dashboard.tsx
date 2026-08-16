@@ -434,7 +434,7 @@ function Dashboard() {
                     <div className="flex items-center justify-between">
                       <h2 className="font-display text-xl font-bold">PYQ Analysis & Patterns</h2>
                       <div className="flex items-center gap-2 rounded-xl bg-accent/10 px-3 py-1.5 text-[10px] font-bold text-accent border border-accent/20">
-                        <BarChart3 className="size-3" /> Data from last 6 semesters
+                        <BarChart3 className="size-3" /> Based on historical patterns
                       </div>
                     </div>
 
