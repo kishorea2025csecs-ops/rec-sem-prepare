@@ -216,7 +216,7 @@ function Landing() {
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                   <Sparkles className="size-3.5" /> Built for REC students
                 </span>
-                <h1 id="hero-heading" className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl uppercase">
+                <h1 id="hero-heading" className="mt-6 font-display text-4xl font-black leading-[0.95] tracking-tighter sm:text-6xl lg:text-8xl uppercase">
                   Master your exams 
                   <br />
                   <span className="bg-[image:var(--gradient-brand)] bg-clip-text text-transparent neon-text-cyan font-display tracking-tighter">
