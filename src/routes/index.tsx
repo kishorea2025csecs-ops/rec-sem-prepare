@@ -186,7 +186,7 @@ function Landing() {
           {isAuthenticated ? (
             isVerifiedRec ? (
               <Link
-                to="/auth/login"
+                to="/dashboard"
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
               >
                 Go to Dashboard
