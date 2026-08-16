@@ -135,7 +135,7 @@ function Landing() {
               <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative flex size-12 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none" />
-                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain relative z-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain relative z-10 pro-glow-logo" />
               </div>
             </div>
             <span className="font-display text-xl font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">SemPrep AI</span>
