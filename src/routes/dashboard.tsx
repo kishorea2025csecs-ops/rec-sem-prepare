@@ -332,36 +332,38 @@ function Dashboard() {
                 <div className="mt-8 grid grid-cols-3 gap-4">
                   {[
                     { label: "Completion", value: `${activeSubject.progress}%`, color: "text-primary" },
-                    { label: "Topics Studied", value: "Topics List", color: "text-accent" },
-                    { label: "Exam Date", value: "Upcoming", color: "text-foreground" },
+                    { label: "Topics Prepared", value: "8 / 10", color: "text-accent" },
+                    { label: "Practice Rate", value: "72%", color: "text-foreground" },
                   ].map((stat) => (
                     <div key={stat.label} className="rounded-2xl border border-border bg-card p-4">
-                      <p className="text-xs font-medium text-muted-foreground">{stat.label}</p>
+                      <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{stat.label}</p>
                       <p className={`mt-1 text-xl font-bold ${stat.color}`}>{stat.value}</p>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-border bg-surface/30 p-6">
-                <div className="flex items-center justify-between">
-                  <h3 className="font-display font-semibold">Study Recommendation</h3>
-                  <AlertCircle className="size-4 text-accent" />
-                </div>
-                <div className="mt-4 flex items-start gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-4">
-                  <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground shadow-lg">
-                    <TrendingUp className="size-5" />
+              <div className="rounded-3xl border border-border bg-surface/30 p-6 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-display font-semibold">Study Recommendation</h3>
+                    <AlertCircle className="size-4 text-accent" />
                   </div>
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">Priority: Topic Recommendation</p>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      Run AI analysis on your notes to see personalized study priorities based on exam patterns.
-                    </p>
-                    <button className="mt-3 inline-flex items-center gap-2 text-xs font-bold text-accent hover:underline">
-                      Start studying <ArrowRight className="size-3" />
-                    </button>
+                  <div className="mt-4 flex items-start gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-4">
+                    <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground shadow-lg">
+                      <TrendingUp className="size-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">Next Task: Bayesian Networks</p>
+                      <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">
+                        High-priority Part-C topic. Recommended to watch the Tamil visualization before reading notes.
+                      </p>
+                    </div>
                   </div>
                 </div>
+                <Link to="/study-planner" className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-card px-4 py-2 text-xs font-bold border border-border hover:bg-surface transition-all">
+                  Open Planner <Calendar className="size-3.5" />
+                </Link>
               </div>
             </div>
 

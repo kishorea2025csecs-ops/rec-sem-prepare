@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as QuestionBankRouteImport } from './routes/question-bank'
+import { Route as StudyPlannerRouteImport } from './routes/study-planner'
 import { Route as TopicsRouteImport } from './routes/topics'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
@@ -29,6 +30,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const QuestionBankRoute = QuestionBankRouteImport.update({
   id: '/question-bank',
   path: '/question-bank',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StudyPlannerRoute = StudyPlannerRouteImport.update({
+  id: '/study-planner',
+  path: '/study-planner',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TopicsRoute = TopicsRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/question-bank': typeof QuestionBankRoute
+  '/study-planner': typeof StudyPlannerRoute
   '/topics': typeof TopicsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/question-bank': typeof QuestionBankRoute
+  '/study-planner': typeof StudyPlannerRoute
   '/topics': typeof TopicsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/question-bank': typeof QuestionBankRoute
+  '/study-planner': typeof StudyPlannerRoute
   '/topics': typeof TopicsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/question-bank'
+    | '/study-planner'
     | '/topics'
     | '/auth/callback'
     | '/auth/login'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/question-bank'
+    | '/study-planner'
     | '/topics'
     | '/auth/callback'
     | '/auth/login'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/dashboard'
     | '/question-bank'
+    | '/study-planner'
     | '/topics'
     | '/auth/callback'
     | '/auth/login'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DashboardRoute: typeof DashboardRoute
   QuestionBankRoute: typeof QuestionBankRoute
+  StudyPlannerRoute: typeof StudyPlannerRoute
   TopicsRoute: typeof TopicsRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -129,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/question-bank'
       fullPath: '/question-bank'
       preLoaderRoute: typeof QuestionBankRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/study-planner': {
+      id: '/study-planner'
+      path: '/study-planner'
+      fullPath: '/study-planner'
+      preLoaderRoute: typeof StudyPlannerRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/topics': {
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DashboardRoute: DashboardRoute,
   QuestionBankRoute: QuestionBankRoute,
+  StudyPlannerRoute: StudyPlannerRoute,
   TopicsRoute: TopicsRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthLoginRoute: AuthLoginRoute,
