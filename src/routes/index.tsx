@@ -12,6 +12,7 @@ import {
   Target,
   Timer,
   Upload,
+  Search,
   Youtube,
 } from "lucide-react";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
