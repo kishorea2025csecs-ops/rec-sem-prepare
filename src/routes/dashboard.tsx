@@ -45,8 +45,10 @@ import { motion } from "framer-motion";
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Student Dashboard | SemPrep AI" },
-      { name: "description", content: "Manage your subjects, units and exam preparation progress." },
+      { title: "Student Dashboard | SemPrep AI - Rajalakshmi Engineering College" },
+      { name: "description", content: "Access your personalized exam preparation dashboard. Manage subjects, unit notes, and track your progress for REC engineering exams." },
+      { property: "og:title", content: "Student Dashboard | SemPrep AI" },
+      { property: "og:description", content: "AI-powered exam preparation dashboard for REC students." },
     ],
   }),
   component: Dashboard,
