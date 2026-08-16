@@ -129,7 +129,7 @@ function Landing() {
   return (
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
       <header className="sticky top-4 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 md:px-5 py-3 md:py-4">
           <a href="#top" className="flex items-center gap-3 group">
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -147,7 +147,7 @@ function Landing() {
           </nav>
           <Link
             to="/auth/login"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-6 py-2.5 text-sm font-bold text-primary-foreground transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-cyan"
+            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary to-accent px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-primary-foreground transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-cyan shrink-0 whitespace-nowrap"
           >
             Go to Dashboard
           </Link>
