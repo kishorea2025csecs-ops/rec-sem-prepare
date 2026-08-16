@@ -450,7 +450,7 @@ function Dashboard() {
                                   {item.importance} Priority
                                 </span>
                                 <span className="text-[10px] font-medium text-muted-foreground flex items-center gap-1">
-                                  <History className="size-3" /> Appeared {item.appearances} times
+                                  <History className="size-3" /> Frequently asked in PYQs
                                 </span>
                               </div>
                               
