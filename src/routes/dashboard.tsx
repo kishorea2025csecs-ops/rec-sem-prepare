@@ -344,7 +344,7 @@ function Dashboard() {
                     { label: "Topics Prepared", value: "8 / 10", color: "text-accent" },
                     { label: "Practice Rate", value: "72%", color: "text-foreground" },
                   ].map((stat) => (
-                    <div key={stat.label} className="rounded-2xl border border-border bg-card p-4 hover:border-primary/30 transition-colors group">
+                    <div key={stat.label} className="rounded-2xl border border-border bg-card p-4 hover:border-primary/50 transition-colors group neon-border-cyan">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{stat.label}</p>
                       <div className="mt-1 flex items-baseline justify-between">
                         <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
