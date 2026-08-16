@@ -128,7 +128,7 @@ function Landing() {
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
-      <header className="sticky top-0 z-40 border-b border-white/10 glass-morphism">
+      <header className="sticky top-4 z-40 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="flex items-center gap-3 group">
             <div className="relative">
