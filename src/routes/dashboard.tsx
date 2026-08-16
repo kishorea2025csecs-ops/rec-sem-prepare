@@ -78,6 +78,34 @@ const topics = [
 function Dashboard() {
   const [activeSubject] = useState(subjects[0]);
   const [activeUnit] = useState(3);
+  const [activeTab, setActiveTab] = useState("Preparation Plan");
+  const [analysisStatus, setAnalysisStatus] = useState<"idle" | "uploading" | "analyzing" | "complete">("idle");
+  const [processingProgress, setProcessingProgress] = useState(0);
+
+  const startAnalysis = () => {
+    setAnalysisStatus("uploading");
+    setProcessingProgress(0);
+  };
+
+  useEffect(() => {
+    if (analysisStatus === "uploading" || analysisStatus === "analyzing") {
+      const timer = setInterval(() => {
+        setProcessingProgress((prev) => {
+          if (prev >= 100) {
+            if (analysisStatus === "uploading") {
+              setAnalysisStatus("analyzing");
+              return 0;
+            }
+            setAnalysisStatus("complete");
+            clearInterval(timer);
+            return 100;
+          }
+          return prev + 5;
+        });
+      }, 100);
+      return () => clearInterval(timer);
+    }
+  }, [analysisStatus]);
 
   if (!activeSubject) return null;
 
