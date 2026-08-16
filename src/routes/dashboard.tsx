@@ -375,7 +375,11 @@ function Dashboard() {
                     <h3 className="font-display font-semibold">Study Recommendation</h3>
                     <AlertCircle className="size-4 text-accent" />
                   </div>
-                  <div className="mt-4 flex items-start gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-4 neon-border-purple">
+                  <motion.div 
+                    animate={{ y: [0, -4, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="mt-4 flex items-start gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-4 neon-border-purple"
+                  >
                     <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-accent text-accent-foreground shadow-lg neon-glow-purple">
                       <TrendingUp className="size-5" />
                     </div>
@@ -385,7 +389,7 @@ function Dashboard() {
                         High-priority Part-C topic. Recommended to watch the Tamil visualization before reading notes.
                       </p>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
                 <Link to="/study-planner" className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-card px-4 py-2 text-xs font-bold border border-border hover:bg-surface transition-all">
                   Open Planner <Calendar className="size-3.5" />
