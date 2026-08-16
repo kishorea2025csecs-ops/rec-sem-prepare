@@ -165,7 +165,7 @@ function Landing() {
 
       <main id="top" className="relative">
         {/* Persistent 3D Background */}
-        <div className="fixed inset-0 z-0 opacity-60 pointer-events-none">
+        <div className="fixed inset-0 z-0 opacity-80 pointer-events-none">
           <Suspense fallback={null}>
             <StudySpace />
           </Suspense>
@@ -343,7 +343,7 @@ function Landing() {
         </section>
 
         {/* SECTION 2: STUDY MATERIAL */}
-        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
+        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/30 backdrop-blur-[2px] py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
