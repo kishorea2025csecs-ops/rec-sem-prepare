@@ -15,6 +15,7 @@ import {
   ChevronRight,
   Clock,
   MoreVertical,
+  Sparkles,
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
@@ -69,8 +70,10 @@ const topics = [
 ];
 
 function Dashboard() {
-  const [activeSubject, setActiveSubject] = useState(subjects[0]);
-  const [activeUnit, setActiveUnit] = useState(3);
+  const [activeSubject] = useState(subjects[0]);
+  const [activeUnit] = useState(3);
+
+  if (!activeSubject) return null;
 
   return (
     <div className="flex min-h-screen bg-background text-foreground">
