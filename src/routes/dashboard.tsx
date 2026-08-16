@@ -39,6 +39,7 @@ import {
   Star,
   Brain,
 } from "lucide-react";
+import { ModelViewer } from "@/components/ModelViewer";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
