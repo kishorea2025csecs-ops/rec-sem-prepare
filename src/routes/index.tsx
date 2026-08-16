@@ -186,7 +186,7 @@ function Landing() {
           {isAuthenticated ? (
             isVerifiedRec ? (
               <Link
-                to="/auth/login"
+                to="/dashboard"
                 className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
               >
                 Go to Dashboard
@@ -302,7 +302,7 @@ function Landing() {
                   {isAuthenticated ? (
                     isVerifiedRec ? (
                       <Link
-                        to="/auth/login"
+                        to="/dashboard"
                         className="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-10 py-5 text-base font-black text-white shadow-[0_0_25px_rgba(121,40,202,0.4)] transition-all duration-500 hover:scale-105 active:scale-95 hover:shadow-[0_0_50px_rgba(0,112,243,0.6)] border border-white/20 overflow-hidden"
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
@@ -527,13 +527,16 @@ function Landing() {
             </div>
             <div className="space-y-4">
               {[
-                ["Bayesian Networks விளக்கம்", "Tamil Tutorials Available"],
-                ["Hidden Markov Model எளிமையாக", "Tamil Tutorials Available"],
-                ["Naive Bayes problem solving", "Tamil Tutorials Available"],
-              ].map(([title, meta]) => (
-                <div
+                ["Bayesian Networks விளக்கம்", "Bayesian network tamil explanation"],
+                ["Hidden Markov Model எளிமையாக", "hidden markov model tamil"],
+                ["Naive Bayes problem solving", "naive bayes problem solving tamil"],
+              ].map(([title, query]) => (
+                <a
                   key={title}
-                  className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4"
+                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(query!)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 transition-all duration-300 hover:scale-[1.02] hover:border-amber-400/50 hover:shadow-[0_0_25px_rgba(251,191,36,0.2)]"
                 >
                   <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary">
                     <Play className="size-5" />
@@ -541,12 +544,13 @@ function Landing() {
                   <div className="min-w-0">
                     <p className="truncate text-sm font-semibold">{title}</p>
                     <p className="mt-1 text-xs text-muted-foreground">
-                      {meta}
+                      Open Tamil tutorials on YouTube
                     </p>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
+
           </div>
         </section>
 
@@ -559,12 +563,12 @@ function Landing() {
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
               Upload one unit and see the important-question list in under two minutes.
             </p>
-            <a
-              href="#start"
+            <Link
+              to={isVerifiedRec ? "/dashboard" : "/auth/login"}
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-cyan"
             >
-              Get started free <ArrowRight className="size-4" />
-            </a>
+              {isVerifiedRec ? "Open your dashboard" : "Get started free"} <ArrowRight className="size-4" />
+            </Link>
           </div>
         </section>
       </main>
