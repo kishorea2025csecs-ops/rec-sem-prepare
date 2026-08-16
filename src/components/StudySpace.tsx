@@ -1,6 +1,6 @@
 import React, { useRef, useState, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Text, MeshDistortMaterial, Environment, ContactShadows, PresentationControls, Html } from '@react-three/drei';
+import { Float, MeshDistortMaterial, Environment, ContactShadows, PresentationControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -140,7 +140,6 @@ export const StudySpace = () => {
         
         <PresentationControls
           global
-          config={{ mass: 2, tension: 500 }}
           snap
           rotation={[0, 0, 0]}
           polar={[-Math.PI / 6, Math.PI / 6]}
