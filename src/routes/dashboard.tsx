@@ -305,7 +305,10 @@ function Dashboard() {
                     <p className="mt-0.5 truncate text-xs font-medium">{user?.email}</p>
                   </div>
                   <div className="p-1.5">
-                    <button className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-xs font-medium hover:bg-surface transition-colors">
+                    <button 
+                      onClick={() => navigate({ to: "/profile" })}
+                      className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-xs font-medium hover:bg-surface transition-colors"
+                    >
                       <User className="size-3.5" /> Profile
                     </button>
                     <button className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-xs font-medium hover:bg-surface transition-colors">
