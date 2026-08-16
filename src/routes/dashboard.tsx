@@ -898,23 +898,35 @@ function Dashboard() {
                       </motion.div>
 
                       <div className="grid grid-cols-2 gap-3">
-                        <div className="rounded-2xl bg-surface/50 border border-border p-4">
+                        <motion.div 
+                          animate={{ y: [0, -3, 0] }}
+                          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.2 }}
+                          className="rounded-2xl bg-surface/50 border border-border p-4"
+                        >
                           <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Selection Rate</p>
                           <p className="mt-1 text-lg font-black text-accent">84%</p>
                           <div className="mt-2 h-1 w-full bg-border rounded-full overflow-hidden">
                             <div className="h-full bg-accent w-[84%]" />
                           </div>
-                        </div>
-                        <div className="rounded-2xl bg-surface/50 border border-border p-4">
+                        </motion.div>
+                        <motion.div 
+                          animate={{ y: [0, -3, 0] }}
+                          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.4 }}
+                          className="rounded-2xl bg-surface/50 border border-border p-4"
+                        >
                           <p className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">Accuracy</p>
                           <p className="mt-1 text-lg font-black text-primary">92%</p>
                           <div className="mt-2 h-1 w-full bg-border rounded-full overflow-hidden">
                             <div className="h-full bg-primary w-[92%]" />
                           </div>
-                        </div>
+                        </motion.div>
                       </div>
 
-                      <div className="p-4 rounded-2xl bg-surface/50 border border-border">
+                      <motion.div 
+                        animate={{ y: [0, -2, 0] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.6 }}
+                        className="p-4 rounded-2xl bg-surface/50 border border-border"
+                      >
                         <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest mb-3">
                           <span className="text-muted-foreground">Revision KPI</span>
                           <span className="text-accent">Active</span>
@@ -922,7 +934,7 @@ function Dashboard() {
                         <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
                           <div className="h-full bg-accent w-[72%] rounded-full shadow-[0_0_8px_rgba(var(--accent),0.5)]" />
                         </div>
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
                 </div>
