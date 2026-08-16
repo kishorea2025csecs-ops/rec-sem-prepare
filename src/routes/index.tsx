@@ -527,13 +527,16 @@ function Landing() {
             </div>
             <div className="space-y-4">
               {[
-                ["Bayesian Networks விளக்கம்", "Tamil Tutorials Available"],
-                ["Hidden Markov Model எளிமையாக", "Tamil Tutorials Available"],
-                ["Naive Bayes problem solving", "Tamil Tutorials Available"],
-              ].map(([title, meta]) => (
-                <div
+                ["Bayesian Networks விளக்கம்", "Bayesian network tamil explanation"],
+                ["Hidden Markov Model எளிமையாக", "hidden markov model tamil"],
+                ["Naive Bayes problem solving", "naive bayes problem solving tamil"],
+              ].map(([title, query]) => (
+                <a
                   key={title}
-                  className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4"
+                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(query!)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 transition-all duration-300 hover:scale-[1.02] hover:border-amber-400/50 hover:shadow-[0_0_25px_rgba(251,191,36,0.2)]"
                 >
                   <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary">
                     <Play className="size-5" />
@@ -541,12 +544,13 @@ function Landing() {
                   <div className="min-w-0">
                     <p className="truncate text-sm font-semibold">{title}</p>
                     <p className="mt-1 text-xs text-muted-foreground">
-                      {meta}
+                      Open Tamil tutorials on YouTube
                     </p>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
+
           </div>
         </section>
 
