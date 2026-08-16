@@ -128,7 +128,7 @@ function Landing() {
 
   return (
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
-      <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 border-b border-white/10 glass-morphism">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="flex items-center gap-3 group">
             <div className="relative">
@@ -163,17 +163,18 @@ function Landing() {
           onMouseLeave={handleMouseLeave}
         >
           {/* Background Video & Glows */}
-          <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+          <div className="absolute inset-0 z-0 overflow-hidden bg-[#020205]">
             <video 
               src={backgroundVideoAsset.url} 
               autoPlay 
               loop 
               muted 
               playsInline
-              className="absolute inset-0 h-full w-full object-cover opacity-30 grayscale"
+              className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale scale-110"
               aria-hidden="true"
             />
-            <div className="absolute inset-0 z-10 bg-black/40 backdrop-blur-[2px]" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-[#020205]/40 to-[#020205]" />
+            <div className="absolute inset-0 z-10 backdrop-blur-[1px]" />
             <div
               className="pointer-events-none absolute inset-0 z-20"
               style={{ 
@@ -213,7 +214,7 @@ function Landing() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 glass-morphism px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-accent">
                   <Sparkles className="size-3.5" /> Built for REC students
                 </span>
                 <h1 id="hero-heading" className="mt-6 font-display text-4xl font-black leading-[0.95] tracking-tighter sm:text-6xl lg:text-8xl uppercase">
@@ -262,7 +263,7 @@ function Landing() {
               }}
               className="relative hidden lg:block"
             >
-              <div className="glass-card rounded-[2.5rem] p-8 transition-transform duration-200 ease-out border-white/10 overflow-hidden relative group">
+              <div className="glass-morphism rounded-[2.5rem] p-8 transition-transform duration-200 ease-out border-white/10 overflow-hidden relative group">
                 <div className="absolute -inset-24 bg-gradient-radial from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 
                 <div className="relative z-10">
@@ -314,7 +315,7 @@ function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="border-y border-border bg-surface/40 py-20" aria-labelledby="how-it-works-heading">
+        <section id="how" className="border-y border-white/10 bg-black/40 py-20" aria-labelledby="how-it-works-heading">
           <div className="mx-auto max-w-6xl px-5">
             <h2 id="how-it-works-heading" className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
               From a PDF to a plan in six moves
@@ -327,7 +328,7 @@ function Landing() {
               {steps.map((step, i) => (
                 <li
                   key={step.title}
-                  className="group rounded-3xl border border-border bg-card p-6 transition-colors hover:border-accent/50 pro-card-hover"
+                  className="group rounded-3xl border border-white/10 glass-morphism p-6 transition-colors hover:border-accent/50 pro-card-hover"
                 >
                   <div className="flex items-center justify-between">
                     <span className="grid size-11 place-items-center rounded-2xl bg-accent/15 text-accent neon-glow-purple border border-accent/20">
@@ -371,7 +372,7 @@ function Landing() {
             </div>
             <div className="grid gap-5 sm:grid-cols-2">
               {features.map((f) => (
-                <div key={f.title} className="rounded-3xl border border-border bg-card p-6 pro-card-hover">
+                <div key={f.title} className="rounded-3xl border border-white/10 glass-morphism p-6 pro-card-hover">
                   <span className="grid size-11 place-items-center rounded-2xl bg-primary/15 text-primary">
                     <f.icon className="size-5" />
                   </span>
@@ -384,10 +385,10 @@ function Landing() {
         </section>
 
         {/* Tamil */}
-        <section id="tamil" className="border-y border-border bg-surface/40 py-20" aria-labelledby="tamil-heading">
+        <section id="tamil" className="border-y border-white/10 bg-black/40 py-20" aria-labelledby="tamil-heading">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/10 glass-morphism px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
                 <Youtube className="size-3.5" /> தமிழ் tutorials
               </span>
               <h2 id="tamil-heading" className="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">
