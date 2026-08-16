@@ -491,7 +491,7 @@ function Landing() {
             </p>
             <a
               href="#start"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-primary-foreground shadow-[var(--shadow-elevated)] transition-transform hover:-translate-y-0.5"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 px-7 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-cyan"
             >
               Get started free <ArrowRight className="size-4" />
             </a>

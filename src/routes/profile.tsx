@@ -71,10 +71,10 @@ function ProfilePage() {
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
       {/* Header */}
-      <header className="sticky top-0 z-30 flex h-16 items-center border-b border-border/60 bg-background/80 px-6 backdrop-blur-xl">
+      <header className="sticky top-4 z-30 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-2xl flex h-16 items-center px-6 backdrop-blur-xl">
         <button 
           onClick={() => navigate({ to: "/" })}
-          className="mr-4 flex size-9 items-center justify-center rounded-full border border-border bg-surface text-muted-foreground transition-colors hover:text-foreground"
+          className="mr-4 flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-muted-foreground transition-all duration-300 hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:text-white hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] backdrop-blur-md"
         >
           <ArrowLeft className="size-4" />
         </button>
@@ -106,7 +106,7 @@ function ProfilePage() {
                       {(profile?.full_name || user?.user_metadata?.full_name || "S").charAt(0)}
                     </div>
                   )}
-                  <button className="absolute -bottom-2 -right-2 size-8 bg-foreground text-background rounded-full flex items-center justify-center border-2 border-background shadow-lg transition-transform hover:scale-110">
+                  <button className="absolute -bottom-2 -right-2 size-8 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full flex items-center justify-center border-2 border-[#020205] shadow-[0_0_15px_rgba(236,72,153,0.4)] transition-all duration-300 hover:scale-110">
                     <Camera className="size-4" />
                   </button>
                 </div>
@@ -163,18 +163,18 @@ function ProfilePage() {
             </div>
 
             <div className="rounded-3xl border border-border bg-card p-6 space-y-4">
-              <button className="flex w-full items-center justify-between rounded-2xl border border-border bg-surface p-4 transition-all hover:border-primary/50">
+              <button className="flex w-full items-center justify-between rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-500 hover:bg-purple-500/10 hover:border-purple-400/50 hover:shadow-[0_0_20px_rgba(192,132,252,0.2)] backdrop-blur-md group">
                 <div className="flex items-center gap-3">
-                  <div className="size-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                  <div className="size-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
                     <Key className="size-5" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-bold">Change Password</p>
+                    <p className="text-sm font-bold group-hover:text-white transition-colors">Change Password</p>
                     <p className="text-xs text-muted-foreground">Update your REC portal login password</p>
                   </div>
                 </div>
-                <div className="size-8 rounded-full bg-border/20 flex items-center justify-center">
-                  <span className="text-xs">→</span>
+                <div className="size-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-purple-500/20 group-hover:border-purple-400/30 transition-all">
+                  <span className="text-xs group-hover:translate-x-0.5 transition-transform">→</span>
                 </div>
               </button>
             </div>
@@ -207,7 +207,7 @@ function ProfilePage() {
                 </div>
                 <button 
                   onClick={() => toast.info("Managed by Rajalakshmi Engineering College IT Department")}
-                  className="text-xs font-bold text-accent hover:underline"
+                  className="text-xs font-black uppercase tracking-widest text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] backdrop-blur-md transition-all duration-300"
                 >
                   Manage Billing
                 </button>
