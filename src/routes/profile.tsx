@@ -78,10 +78,10 @@ function ProfilePage() {
         >
           <ArrowLeft className="size-4" />
         </button>
-        <h1 className="font-display text-lg font-bold tracking-tight">Account Settings</h1>
+        <h1 id="profile-heading" className="font-display text-lg font-bold tracking-tight">Account Settings</h1>
       </header>
 
-      <main className="mx-auto max-w-2xl p-6 lg:p-10">
+      <main className="mx-auto max-w-2xl p-6 lg:p-10" aria-labelledby="profile-heading">
         <div className="space-y-10">
           {/* Profile Section */}
           <section className="space-y-6">
