@@ -15,6 +15,7 @@ import {
   Youtube,
 } from "lucide-react";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
+import brainVideoAsset from "@/assets/brain-video.png.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 
@@ -154,11 +155,21 @@ function Landing() {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Background Gradient & Glows */}
-          <div className="absolute inset-0 z-0">
+          {/* Background Video & Glows */}
+          <div className="absolute inset-0 z-0 overflow-hidden bg-black">
+            <img 
+              src={brainVideoAsset.url} 
+              alt="" 
+              className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale"
+              aria-hidden="true"
+            />
+            <div className="absolute inset-0 z-10 bg-black/40 backdrop-blur-[2px]" />
             <div
-              className="pointer-events-none absolute inset-0 z-10"
-              style={{ backgroundImage: "var(--gradient-hero)" }}
+              className="pointer-events-none absolute inset-0 z-20"
+              style={{ 
+                background: "radial-gradient(circle at 50% 50%, transparent 0%, var(--background) 100%)",
+                backgroundImage: "var(--gradient-hero)" 
+              }}
               aria-hidden="true"
             />
           </div>
