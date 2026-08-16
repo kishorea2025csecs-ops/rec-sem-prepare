@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import logoAsset from "@/assets/logo-clean.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
+import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef } from "react";
 
@@ -125,7 +126,7 @@ function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans text-foreground">
+    <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <a href="#top" className="flex items-center gap-3">
@@ -151,16 +152,20 @@ function Landing() {
       <main id="top">
         {/* Hero Section with The Learner Orbit */}
         <section 
+          aria-labelledby="hero-heading"
           className="relative overflow-hidden min-h-[700px] lg:min-h-[900px] flex items-center"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
           {/* Background Video & Glows */}
           <div className="absolute inset-0 z-0 overflow-hidden bg-black">
-            <img 
-              src={brainVideoAsset.url} 
-              alt="" 
-              className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale"
+            <video 
+              src={backgroundVideoAsset.url} 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover opacity-30 grayscale"
               aria-hidden="true"
             />
             <div className="absolute inset-0 z-10 bg-black/40 backdrop-blur-[2px]" />
@@ -200,7 +205,7 @@ function Landing() {
                 <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-accent">
                   <Sparkles className="size-3.5" /> Built for REC students
                 </span>
-                <h1 className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl uppercase">
+                <h1 id="hero-heading" className="mt-6 font-display text-4xl font-extrabold leading-[1.05] tracking-tight sm:text-5xl lg:text-7xl uppercase">
                   Master your exams 
                   <br />
                   <span className="bg-[image:var(--gradient-brand)] bg-clip-text text-transparent neon-text-cyan font-display tracking-tighter">
@@ -298,9 +303,9 @@ function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="border-y border-border bg-surface/40 py-20">
+        <section id="how" className="border-y border-border bg-surface/40 py-20" aria-labelledby="how-it-works-heading">
           <div className="mx-auto max-w-6xl px-5">
-            <h2 className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 id="how-it-works-heading" className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
               From a PDF to a plan in six moves
             </h2>
             <p className="mt-4 max-w-2xl text-muted-foreground">
@@ -330,10 +335,10 @@ function Landing() {
         </section>
 
         {/* Features */}
-        <section id="features" className="py-20">
+        <section id="features" className="py-20" aria-labelledby="features-heading">
           <div className="mx-auto grid max-w-6xl gap-12 px-5 lg:grid-cols-[0.9fr_1.1fr]">
             <div>
-              <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+              <h2 id="features-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
                 Study like the paper is already in front of you
               </h2>
               <p className="mt-4 text-muted-foreground">
@@ -368,13 +373,13 @@ function Landing() {
         </section>
 
         {/* Tamil */}
-        <section id="tamil" className="border-y border-border bg-surface/40 py-20">
+        <section id="tamil" className="border-y border-border bg-surface/40 py-20" aria-labelledby="tamil-heading">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
                 <Youtube className="size-3.5" /> தமிழ் tutorials
               </span>
-              <h2 className="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+              <h2 id="tamil-heading" className="mt-6 font-display text-3xl font-bold tracking-tight sm:text-4xl">
                 When English textbooks stop making sense
               </h2>
               <p className="mt-4 text-muted-foreground">
@@ -409,9 +414,9 @@ function Landing() {
         </section>
 
         {/* CTA */}
-        <section className="py-24">
+        <section className="py-24" aria-labelledby="cta-heading">
           <div className="mx-auto max-w-4xl px-5 text-center">
-            <h2 className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+            <h2 id="cta-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Semester exams start soon. Your plan can start now.
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
@@ -427,10 +432,10 @@ function Landing() {
         </section>
       </main>
 
-      <footer className="border-t border-border py-8">
+      <footer className="border-t border-border py-8" role="contentinfo">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 text-sm text-muted-foreground sm:flex-row">
-          <p>SemPrep AI · Made for Rajalakshmi Engineering College</p>
-          <p>© {new Date().getFullYear()} SemPrep AI</p>
+          <p>SemPrep AI · Made for Rajalakshmi Engineering College (REC)</p>
+          <p>© {new Date().getFullYear()} SemPrep AI. All rights reserved.</p>
         </div>
       </footer>
     </div>

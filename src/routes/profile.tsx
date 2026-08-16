@@ -16,8 +16,10 @@ import {
 export const Route = createFileRoute("/profile")({
   head: () => ({
     meta: [
-      { title: "My Profile | SemPrep AI" },
-      { name: "description", content: "Manage your personal information and account settings." },
+      { title: "My Profile | SemPrep AI - Account Settings" },
+      { name: "description", content: "Manage your SemPrep AI profile and account settings. Secure academic portal for Rajalakshmi Engineering College students." },
+      { property: "og:title", content: "Student Profile | SemPrep AI" },
+      { property: "og:description", content: "Manage your account settings on SemPrep AI." },
     ],
   }),
   component: ProfilePage,
