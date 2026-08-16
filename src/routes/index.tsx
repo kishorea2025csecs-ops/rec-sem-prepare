@@ -224,14 +224,14 @@ function Landing() {
           onMouseLeave={handleMouseLeave}
         >
           {/* Background Video & Glows */}
-          <div className="absolute inset-0 z-0 overflow-hidden bg-[#020205]">
+          <div className="absolute inset-0 z-0 overflow-hidden">
             <video 
               src={backgroundVideoAsset.url} 
               autoPlay 
               loop 
               muted 
               playsInline
-              className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale scale-110"
+              className="absolute inset-0 h-full w-full object-cover opacity-10 grayscale scale-110"
               aria-hidden="true"
             />
             <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-transparent" />
@@ -239,7 +239,7 @@ function Landing() {
             <div
               className="pointer-events-none absolute inset-0 z-20"
               style={{ 
-                background: "radial-gradient(circle at 50% 50%, transparent 0%, var(--background) 100%)",
+                background: "radial-gradient(circle at 50% 50%, transparent 0%, rgba(2, 2, 5, 0.4) 100%)",
                 backgroundImage: "var(--gradient-hero)",
                 mixBlendMode: "overlay"
               }}
