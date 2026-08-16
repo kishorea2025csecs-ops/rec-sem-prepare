@@ -140,10 +140,19 @@ function Landing() {
             </div>
             <span className="font-display text-xl font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">SemPrep AI</span>
           </a>
-          <nav className="hidden items-center gap-4 text-xs font-bold md:flex uppercase tracking-wider">
-            <a className="transition-all duration-300 hover:text-white px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 backdrop-blur-md" href="#how">How it works</a>
-            <a className="transition-all duration-300 hover:text-white px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 backdrop-blur-md" href="#features">Features</a>
-            <a className="transition-all duration-300 hover:text-white px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 backdrop-blur-md" href="#tamil">Tamil help</a>
+          <nav className="hidden items-center gap-4 text-[10px] font-black md:flex uppercase tracking-[0.15em]">
+            <a className="transition-all duration-500 hover:text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md relative group overflow-hidden" href="#how">
+              <span className="relative z-10">How it works</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/10 to-cyan-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            </a>
+            <a className="transition-all duration-500 hover:text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-purple-500/10 hover:border-purple-400/50 hover:shadow-[0_0_20px_rgba(192,132,252,0.3)] backdrop-blur-md relative group overflow-hidden" href="#features">
+              <span className="relative z-10">Features</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-400/0 via-purple-400/10 to-purple-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            </a>
+            <a className="transition-all duration-500 hover:text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-amber-500/10 hover:border-amber-400/50 hover:shadow-[0_0_20px_rgba(251,191,36,0.3)] backdrop-blur-md relative group overflow-hidden" href="#tamil">
+              <span className="relative z-10">Tamil help</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-amber-400/10 to-amber-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            </a>
           </nav>
           <Link
             to="/auth/login"
