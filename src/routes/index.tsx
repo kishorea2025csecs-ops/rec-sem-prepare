@@ -432,7 +432,15 @@ function Landing() {
         </section>
 
         {/* Tamil */}
-        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="tamil-heading">
+        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="tamil-heading">
+          {/* Animated Background Objects for Section */}
+          <div className="absolute inset-0 pointer-events-none">
+            <motion.div 
+              animate={{ x: [0, 30, 0], rotate: [0, 15, 0] }}
+              transition={{ duration: 12, repeat: Infinity }}
+              className="absolute top-0 left-[20%] size-64 bg-amber-500/5 rounded-full blur-[100px]" 
+            />
+          </div>
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 glass-morphism px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-primary">
