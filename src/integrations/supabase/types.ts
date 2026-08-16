@@ -44,6 +44,78 @@ export type Database = {
         }
         Relationships: []
       }
+      study_materials: {
+        Row: {
+          analysis: Json | null
+          created_at: string
+          extracted_text: string | null
+          file_path: string | null
+          id: string
+          kind: string
+          status: string
+          subject: string
+          title: string
+          unit: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          analysis?: Json | null
+          created_at?: string
+          extracted_text?: string | null
+          file_path?: string | null
+          id?: string
+          kind?: string
+          status?: string
+          subject?: string
+          title: string
+          unit?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          analysis?: Json | null
+          created_at?: string
+          extracted_text?: string | null
+          file_path?: string | null
+          id?: string
+          kind?: string
+          status?: string
+          subject?: string
+          title?: string
+          unit?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      study_progress: {
+        Row: {
+          completed: boolean
+          created_at: string
+          id: string
+          subject: string
+          topic: string
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean
+          created_at?: string
+          id?: string
+          subject?: string
+          topic: string
+          user_id: string
+        }
+        Update: {
+          completed?: boolean
+          created_at?: string
+          id?: string
+          subject?: string
+          topic?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
