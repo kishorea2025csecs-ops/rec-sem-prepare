@@ -315,7 +315,7 @@ function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="border-y border-border bg-surface/40 py-20" aria-labelledby="how-it-works-heading">
+        <section id="how" className="border-y border-white/10 bg-black/40 py-20" aria-labelledby="how-it-works-heading">
           <div className="mx-auto max-w-6xl px-5">
             <h2 id="how-it-works-heading" className="max-w-2xl font-display text-3xl font-bold tracking-tight sm:text-4xl">
               From a PDF to a plan in six moves
@@ -385,7 +385,7 @@ function Landing() {
         </section>
 
         {/* Tamil */}
-        <section id="tamil" className="border-y border-border bg-surface/40 py-20" aria-labelledby="tamil-heading">
+        <section id="tamil" className="border-y border-white/10 bg-black/40 py-20" aria-labelledby="tamil-heading">
           <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 lg:grid-cols-2">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-primary">
