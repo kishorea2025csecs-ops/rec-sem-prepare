@@ -517,7 +517,7 @@ function Dashboard() {
                          </div>
                          <div className="min-w-0">
                            <p className="text-xs font-semibold truncate">Unit_3_Notes.pdf</p>
-                           <p className="text-[10px] text-muted-foreground">Uploaded 2 days ago</p>
+                           <p className="text-[10px] text-muted-foreground">PDF Document</p>
                          </div>
                       </div>
                     </div>
