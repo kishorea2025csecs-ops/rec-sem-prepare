@@ -14,8 +14,7 @@ import {
   Upload,
   Youtube,
 } from "lucide-react";
-import logoAsset from "@/assets/logo-clean.png.asset.json";
-import logoV2Asset from "@/assets/logo-v2.png.asset.json";
+import logoAsset from "@/assets/logo-glow.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
 import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
@@ -131,11 +130,15 @@ function Landing() {
     <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <a href="#top" className="flex items-center gap-3">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-accent/10 p-1 border border-accent/20">
-              <img src={logoV2Asset.url} alt="REC Logo" className="size-full object-contain" />
+          <a href="#top" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative flex size-12 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none" />
+                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain relative z-10 drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]" />
+              </div>
             </div>
-            <span className="font-display text-lg font-bold tracking-tight">SemPrep AI</span>
+            <span className="font-display text-xl font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">SemPrep AI</span>
           </a>
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
             <a className="transition-colors hover:text-foreground" href="#how">How it works</a>
