@@ -217,7 +217,7 @@ export const StudySpace = ({ scrollY = 0 }: { scrollY?: number }) => {
   );
 };
 
-export const StudySpaceCanvas = () => {
+export const StudySpaceCanvas = ({ scrollY = 0 }: { scrollY?: number }) => {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none bg-[#020205]">
       <Canvas 
@@ -233,7 +233,7 @@ export const StudySpaceCanvas = () => {
         <pointLight position={[-10, -10, -10]} intensity={0.5} {...({} as any)} />
         
         <Suspense fallback={null}>
-          <StudySpace />
+          <StudySpace scrollY={scrollY} />
         </Suspense>
 
         <ContactShadows 
