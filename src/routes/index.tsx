@@ -407,40 +407,55 @@ function Landing() {
                   </div>
                   <input
                     type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search subjects (e.g., Data Structures)..."
                     className="w-full bg-card/50 border border-border rounded-2xl py-3.5 pl-11 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all backdrop-blur-sm"
                   />
                   <div className="mt-3 flex flex-wrap gap-2">
                     {["CSE", "ECE", "IT", "EEE", "MECH"].map((dept) => (
-                      <button key={dept} className="text-[10px] font-bold px-2 py-1 rounded-md bg-white/5 border border-white/10 hover:border-primary/40 transition-colors">
+                      <button 
+                        key={dept} 
+                        onClick={() => setSearchQuery(dept)}
+                        className={`text-[10px] font-bold px-2 py-1 rounded-md border transition-colors ${searchQuery.toUpperCase() === dept ? 'bg-primary border-primary text-primary-foreground' : 'bg-white/5 border-white/10 hover:border-primary/40'}`}
+                      >
                         {dept}
                       </button>
                     ))}
+                    {searchQuery && (
+                      <button 
+                        onClick={() => setSearchQuery("")}
+                        className="text-[10px] font-bold px-2 py-1 rounded-md bg-white/5 border border-white/10 hover:text-primary transition-colors"
+                      >
+                        Clear
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
               <div className="space-y-4">
-                {[
-                  ["Data Structures விளக்கம்", "4G Silver — AU Syllabus"],
-                  ["Digital Electronics எளிமையாக", "4G Silver — AU Syllabus"],
-                  ["Control Systems problem solving", "4G Silver — AU Syllabus"],
-                  ["Python Programming Basics", "4G Silver — AU Syllabus"],
-                ].map(([title, meta]) => (
-                  <div
-                    key={title}
-                    className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 hover:border-primary/30 transition-all cursor-pointer group"
-                  >
-                    <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
-                      <Play className="size-5" />
-                    </span>
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold">{title}</p>
-                      <p className="mt-1 text-xs text-muted-foreground">
-                        {meta}
-                      </p>
+                {filteredTutorials.length > 0 ? (
+                  filteredTutorials.map((tutorial) => (
+                    <div
+                      key={tutorial.title}
+                      className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 hover:border-primary/30 transition-all cursor-pointer group"
+                    >
+                      <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-primary/15 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all">
+                        <Play className="size-5" />
+                      </span>
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-semibold">{tutorial.title}</p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          {tutorial.meta} • <span className="text-primary/70">{tutorial.dept}</span>
+                        </p>
+                      </div>
                     </div>
+                  ))
+                ) : (
+                  <div className="py-12 text-center border border-dashed border-border rounded-3xl">
+                    <p className="text-sm text-muted-foreground">No tutorials found for "{searchQuery}"</p>
                   </div>
-                ))}
+                )}
               </div>
             </div>
           </div>
