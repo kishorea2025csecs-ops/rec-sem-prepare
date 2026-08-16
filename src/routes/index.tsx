@@ -224,6 +224,15 @@ function Landing() {
                 rotateY,
                 transformStyle: "preserve-3d",
               }}
+              animate={{ 
+                y: [0, -10, 0],
+                rotateZ: [0, 1, 0]
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
               className="relative hidden lg:block"
             >
               <div className="glass-card rounded-[2.5rem] p-8 transition-transform duration-200 ease-out border-white/10 overflow-hidden relative group">
