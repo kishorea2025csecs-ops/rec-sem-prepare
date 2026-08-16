@@ -337,15 +337,18 @@ function Dashboard() {
                   Rajalakshmi Engineering College · {profile?.full_name || "Semester 4"}
                 </p>
                 
-                <div className="mt-8 grid grid-cols-3 gap-4">
+                <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
                   {[
                     { label: "Completion", value: `${activeSubject.progress}%`, color: "text-primary" },
                     { label: "Topics Prepared", value: "8 / 10", color: "text-accent" },
                     { label: "Practice Rate", value: "72%", color: "text-foreground" },
                   ].map((stat) => (
-                    <div key={stat.label} className="rounded-2xl border border-border bg-card p-4">
+                    <div key={stat.label} className="rounded-2xl border border-border bg-card p-4 hover:border-primary/30 transition-colors group">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{stat.label}</p>
-                      <p className={`mt-1 text-xl font-bold ${stat.color}`}>{stat.value}</p>
+                      <div className="mt-1 flex items-baseline justify-between">
+                        <p className={`text-xl font-bold ${stat.color}`}>{stat.value}</p>
+                        <BarChart3 className="size-3.5 text-muted-foreground/30 group-hover:text-primary transition-colors" />
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -834,6 +837,38 @@ function Dashboard() {
                       >
                         <Youtube className="size-3.5" /> Open Tamil Lectures
                       </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="rounded-3xl border border-border bg-card overflow-hidden">
+                  <div className="bg-surface/50 p-5 border-b border-border flex items-center justify-between">
+                    <h3 className="text-sm font-bold">Preparation Analytics</h3>
+                    <Sparkles className="size-3.5 text-accent" />
+                  </div>
+                  <div className="p-5">
+                    <div className="aspect-square w-full relative rounded-2xl bg-surface/30 overflow-hidden group cursor-crosshair border border-border">
+                      <iframe
+                        src="https://my.spline.design/widgetscarouselcopycopy-cfc7yNWcEtRgYFIXmHzEZWoV-JSW/"
+                        frameBorder="0"
+                        width="100%"
+                        height="100%"
+                        className="h-full w-full pointer-events-none opacity-80 transition-transform duration-500 group-hover:scale-110"
+                        title="3D Design Analysis"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent flex flex-col justify-end p-4">
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-primary">Live 3D Model</p>
+                        <p className="text-[9px] text-muted-foreground">Interact with your learning path</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 p-4 rounded-2xl bg-surface/50 border border-border">
+                      <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-widest mb-3">
+                        <span className="text-muted-foreground">Revision KPI</span>
+                        <span className="text-accent">Active</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-border rounded-full overflow-hidden">
+                        <div className="h-full bg-accent w-[72%] rounded-full shadow-[0_0_8px_rgba(var(--accent),0.5)]" />
+                      </div>
                     </div>
                   </div>
                 </div>
