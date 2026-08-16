@@ -68,6 +68,7 @@
   --font-display: "Syne", "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-sans: "Plus Jakarta Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
   --font-modern: "Outfit", sans-serif;
+  --z-index-3d-space: 25;
 }
 
 :root {

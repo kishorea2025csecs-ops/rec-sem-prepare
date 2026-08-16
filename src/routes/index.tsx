@@ -19,7 +19,8 @@ import logoV2Asset from "@/assets/logo-v2.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
 import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, Suspense } from "react";
+import { StudySpace } from "@/components/StudySpace";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -178,9 +179,17 @@ function Landing() {
               }}
               aria-hidden="true"
             />
+            {/* Interactive 3D Study Space */}
+            <div className="absolute inset-0 z-[25] opacity-60 pointer-events-none">
+              <Suspense fallback={null}>
+                <div className="size-full pointer-events-auto">
+                  <StudySpace />
+                </div>
+              </Suspense>
+            </div>
           </div>
 
-          {/* Floating 3D Elements (Native CSS/SVG) */}
+          {/* Floating Glows */}
           <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
             <motion.div 
               animate={{ y: [0, -30, 0], rotate: [0, 10, 0] }}
@@ -192,8 +201,6 @@ function Landing() {
               transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
               className="absolute bottom-[25%] right-[10%] size-48 rounded-full bg-gradient-to-tr from-[#9D4EDD]/20 to-transparent blur-3xl animate-pulse-glow"
             />
-            <div className="absolute top-[40%] right-[20%] size-16 border-2 border-[#00D2FF]/30 rounded-full animate-float opacity-40" />
-            <div className="absolute bottom-[30%] left-[25%] size-20 border-2 border-[#9D4EDD]/30 rotate-45 animate-float opacity-30" />
           </div>
 
           <div className="relative z-20 mx-auto grid max-w-6xl gap-14 px-5 pb-20 pt-16 md:pt-24 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
