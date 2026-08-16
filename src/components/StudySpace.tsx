@@ -118,6 +118,15 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
 };
 
 export const StudySpace = () => {
+  const scrollRef = useRef(0);
+  
+  // Update scroll value for camera parallax
+  useFrame((state) => {
+    scrollRef.current = window.scrollY;
+    const targetY = -(scrollRef.current * 0.005);
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.1);
+  });
+
   const objects = [
     { 
       color: "#9D4EDD", 
@@ -157,11 +166,35 @@ export const StudySpace = () => {
   ];
 
   return (
-    <div className="absolute inset-0 z-0 pointer-events-auto">
+    <PresentationControls
+      global
+      snap
+      rotation={[0, 0, 0]}
+      polar={[-Math.PI / 6, Math.PI / 6]}
+      azimuth={[-Math.PI / 4, Math.PI / 4]}
+    >
+      {objects.map((obj, i) => (
+        <StudyObject 
+          key={i}
+          index={i}
+          position={obj.pos as [number, number, number]}
+          color={obj.color}
+          label={obj.label}
+          tip={obj.tip}
+          path={obj.path}
+        />
+      ))}
+    </PresentationControls>
+  );
+};
+
+export const StudySpaceCanvas = () => {
+  return (
+    <div className="fixed inset-0 z-0 pointer-events-none bg-[#020205]">
       <Canvas 
         camera={{ position: [0, 0, 10], fov: 45 }}
         dpr={[1, 2]}
-        // Prevent R3F from trying to apply data attributes from the React devtools or other extensions
+        gl={{ alpha: true, antialias: true }}
         onCreated={({ gl }) => {
           gl.setClearColor(new THREE.Color('#020205'), 0);
         }}
@@ -170,25 +203,9 @@ export const StudySpace = () => {
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow {...({} as any)} />
         <pointLight position={[-10, -10, -10]} intensity={0.5} {...({} as any)} />
         
-        <PresentationControls
-          global
-          snap
-          rotation={[0, 0, 0]}
-          polar={[-Math.PI / 6, Math.PI / 6]}
-          azimuth={[-Math.PI / 4, Math.PI / 4]}
-        >
-          {objects.map((obj, i) => (
-            <StudyObject 
-              key={i}
-              index={i}
-              position={obj.pos as [number, number, number]}
-              color={obj.color}
-              label={obj.label}
-              tip={obj.tip}
-              path={obj.path}
-            />
-          ))}
-        </PresentationControls>
+        <Suspense fallback={null}>
+          <StudySpace />
+        </Suspense>
 
         <ContactShadows 
           position={[0, -5, 0]} 
