@@ -140,7 +140,7 @@ function Landing() {
           </nav>
           <Link
             to="/auth/login"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:-translate-y-0.5 neon-glow-cyan"
           >
             Go to Dashboard
           </Link>
@@ -211,7 +211,7 @@ function Landing() {
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-3">
                   <Link
                     to="/auth/login"
-                    className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-bold text-primary-foreground shadow-[var(--shadow-elevated)] transition-all hover:scale-105 active:scale-95"
+                    className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-bold text-primary-foreground shadow-[var(--shadow-elevated)] transition-all hover:scale-105 active:scale-95 neon-glow-cyan"
                   >
                     <Upload className="size-4" /> Start Your Orbit
                   </Link>
@@ -302,7 +302,7 @@ function Landing() {
                   className="group rounded-3xl border border-border bg-card p-6 transition-colors hover:border-accent/50"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="grid size-11 place-items-center rounded-2xl bg-accent/15 text-accent">
+                    <span className="grid size-11 place-items-center rounded-2xl bg-accent/15 text-accent neon-glow-purple border border-accent/20">
                       <step.icon className="size-5" />
                     </span>
                     <span className="font-display text-sm font-bold text-muted-foreground">
