@@ -268,14 +268,18 @@ function Dashboard() {
             {/* Content Tabs */}
             <div className="border-b border-border">
               <nav className="-mb-px flex gap-8">
-                {["Preparation Plan", "Unit Notes", "Previous Papers", "Tamil Tutorials"].map((tab, i) => (
+                {["Preparation Plan", "Unit Notes", "Previous Papers", "Tamil Tutorials"].map((tab) => (
                   <button
                     key={tab}
-                    className={`pb-4 text-sm font-medium transition-colors ${
-                      i === 0 ? "border-b-2 border-primary text-primary" : "text-muted-foreground hover:text-foreground"
+                    onClick={() => setActiveTab(tab)}
+                    className={`pb-4 text-sm font-medium transition-colors relative ${
+                      activeTab === tab ? "text-primary" : "text-muted-foreground hover:text-foreground"
                     }`}
                   >
                     {tab}
+                    {activeTab === tab && (
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary" />
+                    )}
                   </button>
                 ))}
               </nav>
