@@ -153,7 +153,7 @@ function Landing() {
   return (
     <div className="h-screen bg-[#020205] font-sans text-foreground selection:bg-primary selection:text-primary-foreground overflow-hidden">
       <StudySpaceCanvas scrollY={scrollY} />
-      <header className="fixed top-4 left-0 right-0 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
+      <header className="fixed top-4 left-0 right-0 z-50 border border-white/5 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-2xl bg-black/20 shadow-2xl shadow-black/50">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 md:px-5 py-3 md:py-4">
           <a href="#top" className="flex items-center gap-3 group">
             <div className="relative">
@@ -204,7 +204,7 @@ function Landing() {
               loop 
               muted 
               playsInline
-              className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale scale-110"
+              className="absolute inset-0 h-full w-full object-cover opacity-15 grayscale contrast-125 scale-110"
               aria-hidden="true"
             />
             <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-[#020205]/40 to-[#020205]" />
@@ -223,9 +223,9 @@ function Landing() {
           {/* Floating Glows & 3D Objects Across Home Screen */}
           <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
             {/* Animated Orbiting Glow Balls */}
-            <div className="absolute top-[15%] left-[10%] size-96 rounded-full bg-cyan-500/20 blur-[120px] animate-orbit-glow" />
-            <div className="absolute top-[40%] right-[15%] size-[500px] rounded-full bg-purple-600/15 blur-[150px] animate-orbit-glow [animation-delay:-5s]" />
-            <div className="absolute bottom-[20%] left-[20%] size-80 rounded-full bg-pink-500/15 blur-[100px] animate-orbit-glow [animation-delay:-10s]" />
+            <div className="absolute top-[15%] left-[10%] size-96 rounded-full bg-cyan-500/10 blur-[120px] animate-orbit-glow" />
+            <div className="absolute top-[40%] right-[15%] size-[500px] rounded-full bg-purple-600/10 blur-[150px] animate-orbit-glow [animation-delay:-5s]" />
+            <div className="absolute bottom-[20%] left-[20%] size-80 rounded-full bg-pink-500/10 blur-[100px] animate-orbit-glow [animation-delay:-10s]" />
             
             {/* Primary Hero Accents */}
             <motion.div 
