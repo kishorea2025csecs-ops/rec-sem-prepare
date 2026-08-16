@@ -39,6 +39,7 @@ import {
   Star,
   Brain,
 } from "lucide-react";
+import { ModelViewer } from "@/components/ModelViewer";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -849,17 +850,12 @@ function Dashboard() {
                   <div className="p-5">
                     <div className="space-y-6">
                       <div className="aspect-[4/3] w-full relative rounded-2xl bg-surface/30 overflow-hidden group cursor-crosshair border border-border">
-                        <iframe
-                          src="https://my.spline.design/widgetscarouselcopycopy-cfc7yNWcEtRgYFIXmHzEZWoV-JSW/"
-                          frameBorder="0"
-                          width="100%"
-                          height="100%"
-                          className="h-full w-full pointer-events-none opacity-90 transition-transform duration-500 group-hover:scale-105"
-                          title="3D Design Analysis"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent flex flex-col justify-end p-5">
-                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Interactive Orbit</p>
-                          <h4 className="mt-1 text-sm font-bold">Preparation Roadmap</h4>
+                        <div className="h-full w-full opacity-90 transition-transform duration-500 group-hover:scale-105">
+                          <ModelViewer />
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-transparent to-transparent flex flex-col justify-end p-5 pointer-events-none">
+                          <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Interactive 3D Model</p>
+                          <h4 className="mt-1 text-sm font-bold">Concept Analysis</h4>
                         </div>
                       </div>
 
