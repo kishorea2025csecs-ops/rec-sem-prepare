@@ -19,7 +19,7 @@ import brainVideoAsset from "@/assets/brain-video.png.asset.json";
 import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef, Suspense } from "react";
-import { StudySpaceCanvas } from "@/components/StudySpace";
+import { StudySpace } from "@/components/StudySpace";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -99,29 +99,9 @@ const features = [
   },
 ];
 
-const testimonials = [
-  {
-    name: "Aravind Kumar",
-    dept: "Computer Science",
-    text: "SemPrep saved my Unit 3 internal. The Tamil explanation for Bayesian Networks was a lifesaver at 2 AM.",
-  },
-  {
-    name: "Divya S.",
-    dept: "Information Technology",
-    text: "The way it highlights repeat questions from last 5 years makes revision so much more focused.",
-  },
-  {
-    name: "Rohan M.",
-    dept: "Electronics & Communication",
-    text: "Finally a tool that understands REC regulation papers. The writing structure tips are solid.",
-  },
-];
-
 function Landing() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [scrollY, setScrollY] = useState(0);
 
   const mouseXSpring = useSpring(x);
   const mouseYSpring = useSpring(y);
@@ -146,14 +126,9 @@ function Landing() {
     y.set(0);
   };
 
-  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    setScrollY(e.currentTarget.scrollTop);
-  };
-
   return (
-    <div className="h-screen bg-[#020205] font-sans text-foreground selection:bg-primary selection:text-primary-foreground overflow-hidden">
-      <StudySpaceCanvas scrollY={scrollY} />
-      <header className="fixed top-4 left-0 right-0 z-50 border border-white/5 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-2xl bg-black/20 shadow-2xl shadow-black/50">
+    <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
+      <header className="sticky top-4 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 md:px-5 py-3 md:py-4">
           <a href="#top" className="flex items-center gap-3 group">
             <div className="relative">
@@ -188,23 +163,23 @@ function Landing() {
         </div>
       </header>
 
-      <main id="top" ref={scrollContainerRef} onScroll={handleScroll} className="section-scroll-container">
+      <main id="top" className="relative">
         {/* Hero Section with The Learner Orbit */}
         <section 
           aria-labelledby="hero-heading"
-          className="scroll-section flex items-center"
+          className="relative overflow-hidden min-h-[700px] lg:min-h-[900px] flex items-center"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
           {/* Background Video & Glows */}
-          <div className="absolute inset-0 z-0 overflow-hidden">
+          <div className="absolute inset-0 z-0 overflow-hidden bg-[#020205]">
             <video 
               src={backgroundVideoAsset.url} 
               autoPlay 
               loop 
               muted 
               playsInline
-              className="absolute inset-0 h-full w-full object-cover opacity-15 grayscale contrast-125 scale-110"
+              className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale scale-110"
               aria-hidden="true"
             />
             <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-[#020205]/40 to-[#020205]" />
@@ -214,18 +189,26 @@ function Landing() {
               style={{ 
                 background: "radial-gradient(circle at 50% 50%, transparent 0%, var(--background) 100%)",
                 backgroundImage: "var(--gradient-hero)",
-                mixBlendMode: "soft-light"
+                mixBlendMode: "overlay"
               }}
               aria-hidden="true"
             />
+            {/* Interactive 3D Study Space */}
+            <div className="absolute inset-0 z-[25] opacity-60 pointer-events-none">
+              <Suspense fallback={null}>
+                <div className="size-full pointer-events-auto">
+                  <StudySpace />
+                </div>
+              </Suspense>
+            </div>
           </div>
 
           {/* Floating Glows & 3D Objects Across Home Screen */}
           <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none">
             {/* Animated Orbiting Glow Balls */}
-            <div className="absolute top-[15%] left-[10%] size-96 rounded-full bg-cyan-500/10 blur-[120px] animate-orbit-glow" />
-            <div className="absolute top-[40%] right-[15%] size-[500px] rounded-full bg-purple-600/10 blur-[150px] animate-orbit-glow [animation-delay:-5s]" />
-            <div className="absolute bottom-[20%] left-[20%] size-80 rounded-full bg-pink-500/10 blur-[100px] animate-orbit-glow [animation-delay:-10s]" />
+            <div className="absolute top-[15%] left-[10%] size-96 rounded-full bg-cyan-500/20 blur-[120px] animate-orbit-glow" />
+            <div className="absolute top-[40%] right-[15%] size-[500px] rounded-full bg-purple-600/15 blur-[150px] animate-orbit-glow [animation-delay:-5s]" />
+            <div className="absolute bottom-[20%] left-[20%] size-80 rounded-full bg-pink-500/15 blur-[100px] animate-orbit-glow [animation-delay:-10s]" />
             
             {/* Primary Hero Accents */}
             <motion.div 
@@ -361,7 +344,7 @@ function Landing() {
         </section>
 
         {/* How it works */}
-        <section id="how" className="scroll-section border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="how-it-works-heading">
+        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -406,7 +389,7 @@ function Landing() {
         </section>
 
         {/* Features */}
-        <section id="features" className="scroll-section py-20 bg-background" aria-labelledby="features-heading">
+        <section id="features" className="relative z-10 py-20 bg-background overflow-hidden" aria-labelledby="features-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -451,53 +434,8 @@ function Landing() {
           </div>
         </section>
 
-        {/* Social Proof / Testimonials Section */}
-        <section id="community" className="scroll-section py-24 bg-background/40 backdrop-blur-sm border-b border-white/10" aria-labelledby="community-heading">
-          <div className="absolute inset-0 pointer-events-none">
-            <motion.div 
-              animate={{ scale: [1, 1.3, 1], opacity: [0.2, 0.4, 0.2] }}
-              transition={{ duration: 15, repeat: Infinity }}
-              className="absolute top-0 right-0 size-[500px] bg-pink-500/5 rounded-full blur-[120px]" 
-            />
-          </div>
-          <div className="mx-auto max-w-6xl px-5">
-            <div className="text-center mb-16">
-              <h2 id="community-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl uppercase">
-                Trusted by REC Students
-              </h2>
-              <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
-                Join hundreds of engineering students who are already using AI to master their semester exams.
-              </p>
-            </div>
-            
-            <div className="grid gap-6 md:grid-cols-3">
-              {testimonials.map((t, i) => (
-                <motion.div
-                  key={t.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1 }}
-                  className="rounded-3xl border border-white/10 glass-morphism p-8 pro-card-hover"
-                >
-                  <p className="text-lg italic text-foreground/90 mb-6">"{t.text}"</p>
-                  <div className="flex items-center gap-4">
-                    <div className="size-10 rounded-full bg-gradient-to-tr from-accent to-primary flex items-center justify-center text-xs font-black">
-                      {t.name.split(' ').map(n => n[0]).join('')}
-                    </div>
-                    <div>
-                      <p className="font-bold text-sm">{t.name}</p>
-                      <p className="text-[10px] text-muted-foreground uppercase tracking-widest">{t.dept}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* Tamil */}
-        <section id="tamil" className="scroll-section border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20" aria-labelledby="tamil-heading">
+        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/60 backdrop-blur-md py-20 overflow-hidden" aria-labelledby="tamil-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -546,7 +484,7 @@ function Landing() {
         </section>
 
         {/* CTA */}
-        <section className="scroll-section py-24 flex items-center justify-center" aria-labelledby="cta-heading">
+        <section className="py-24" aria-labelledby="cta-heading">
           <div className="mx-auto max-w-4xl px-5 text-center">
             <h2 id="cta-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Semester exams start soon. Your plan can start now.

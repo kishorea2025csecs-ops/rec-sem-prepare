@@ -1,4 +1,4 @@
-import React, { useRef, useState, useMemo, Suspense } from 'react';
+import React, { useRef, useState, useMemo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, MeshDistortMaterial, Environment, ContactShadows, PresentationControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
@@ -19,16 +19,11 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
   const [active, setActive] = useState(false);
   const navigate = useNavigate();
 
-  // Rotate items slowly, reacting to scroll
-  useFrame((state, delta) => {
+  // Rotate items slowly
+  useFrame((state) => {
     if (meshRef.current && !active) {
-      // Get scroll values from parent state or global window
-      // Base rotation + scroll-induced boost
-      const scrollY = window.scrollY;
-      const rotationSpeed = 0.005 + (index * 0.002) + (Math.abs(scrollY) * 0.00005);
-      
-      meshRef.current.rotation.x += rotationSpeed;
-      meshRef.current.rotation.y += rotationSpeed * 0.5;
+      meshRef.current.rotation.x += 0.005 + (index * 0.002);
+      meshRef.current.rotation.y += 0.005 + (index * 0.001);
     }
   });
 
@@ -122,33 +117,7 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
   );
 };
 
-export const StudySpace = ({ scrollY = 0 }: { scrollY?: number }) => {
-  const scrollRef = useRef(0);
-  const scrollVelocity = useRef(0);
-  const lastScrollY = useRef(scrollY);
-  
-  // Update scroll value for camera parallax and velocity for object rotation
-  useFrame((state, delta) => {
-    const currentScrollY = scrollY;
-    
-    // Calculate velocity with smoothing
-    const diff = currentScrollY - lastScrollY.current;
-    const velocity = diff / (delta * 1000); // pixels per ms
-    scrollVelocity.current = THREE.MathUtils.lerp(scrollVelocity.current, velocity, 0.1);
-    lastScrollY.current = currentScrollY;
-    
-    // Parallax movement - more dramatic for depth
-    // Map scroll Y to a range that keeps objects in view but moving
-    const targetY = -(currentScrollY * 0.01);
-    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, targetY, 0.1);
-    
-    // Subtly tilt camera based on scroll velocity for organic feel
-    state.camera.rotation.x = THREE.MathUtils.lerp(state.camera.rotation.x, scrollVelocity.current * 0.001, 0.05);
-    
-    // Keep Z constant or move slightly for depth
-    state.camera.position.z = 10 + Math.sin(currentScrollY * 0.001) * 0.5;
-  });
-
+export const StudySpace = () => {
   const objects = [
     { 
       color: "#9D4EDD", 
@@ -161,69 +130,38 @@ export const StudySpace = ({ scrollY = 0 }: { scrollY?: number }) => {
       color: "#00D2FF", 
       label: "PYQ Analysis", 
       tip: "Historical weighting analysis identifies which topics are trending for this semester.",
-      pos: [5, -5, 0],
+      pos: [5, -2, 0],
       path: "/question-bank"
     },
     { 
       color: "#FFB703", 
       label: "Important Topics", 
       tip: "Bayesian Networks and Neural Architecture are marked as 'High Priority' for Unit 3.",
-      pos: [1, -15, -3],
+      pos: [1, 3.5, -3],
       path: "/topics"
     },
     { 
       color: "#FB8500", 
       label: "Tamil Help", 
       tip: "Difficult concepts? We map specific timestamps in Tamil tutorials to your notes.",
-      pos: [-4, -25, 1],
+      pos: [-4, -3, 1],
       path: "/dashboard"
     },
     { 
       color: "#F15BB5", 
       label: "Study Planner", 
       tip: "Targeted writing structure: Point-wise presentation and diagram placement tips.",
-      pos: [3, -35, -1],
+      pos: [3, 2, -1],
       path: "/study-planner"
-    },
-    { 
-      color: "#00F5D4", 
-      label: "Community", 
-      tip: "Connect with REC students who passed these papers with flying colors.",
-      pos: [-2, -45, -2],
-      path: "/dashboard"
     }
   ];
 
   return (
-    <PresentationControls
-      global
-      snap
-      rotation={[0, 0, 0]}
-      polar={[-Math.PI / 6, Math.PI / 6]}
-      azimuth={[-Math.PI / 4, Math.PI / 4]}
-    >
-      {objects.map((obj, i) => (
-        <StudyObject 
-          key={i}
-          index={i}
-          position={obj.pos as [number, number, number]}
-          color={obj.color}
-          label={obj.label}
-          tip={obj.tip}
-          path={obj.path}
-        />
-      ))}
-    </PresentationControls>
-  );
-};
-
-export const StudySpaceCanvas = ({ scrollY = 0 }: { scrollY?: number }) => {
-  return (
-    <div className="fixed inset-0 z-0 pointer-events-none bg-[#020205]">
+    <div className="absolute inset-0 z-0 pointer-events-auto">
       <Canvas 
         camera={{ position: [0, 0, 10], fov: 45 }}
         dpr={[1, 2]}
-        gl={{ alpha: true, antialias: true }}
+        // Prevent R3F from trying to apply data attributes from the React devtools or other extensions
         onCreated={({ gl }) => {
           gl.setClearColor(new THREE.Color('#020205'), 0);
         }}
@@ -232,9 +170,25 @@ export const StudySpaceCanvas = ({ scrollY = 0 }: { scrollY?: number }) => {
         <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={1} castShadow {...({} as any)} />
         <pointLight position={[-10, -10, -10]} intensity={0.5} {...({} as any)} />
         
-        <Suspense fallback={null}>
-          <StudySpace scrollY={scrollY} />
-        </Suspense>
+        <PresentationControls
+          global
+          snap
+          rotation={[0, 0, 0]}
+          polar={[-Math.PI / 6, Math.PI / 6]}
+          azimuth={[-Math.PI / 4, Math.PI / 4]}
+        >
+          {objects.map((obj, i) => (
+            <StudyObject 
+              key={i}
+              index={i}
+              position={obj.pos as [number, number, number]}
+              color={obj.color}
+              label={obj.label}
+              tip={obj.tip}
+              path={obj.path}
+            />
+          ))}
+        </PresentationControls>
 
         <ContactShadows 
           position={[0, -5, 0]} 

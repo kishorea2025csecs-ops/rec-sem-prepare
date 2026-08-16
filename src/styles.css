@@ -127,9 +127,9 @@
   --sidebar-border: oklch(1 0 0 / 8%);
   --sidebar-ring: var(--neon-cyan);
   
-  --gradient-hero: radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--neon-cyan) 5%, transparent), transparent 70%);
+  --gradient-hero: radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--neon-cyan) 15%, transparent), transparent 70%);
   --gradient-brand: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
-  --shadow-elevated: 0 0 30px -10px color-mix(in oklab, var(--neon-cyan) 30%, transparent);
+  --shadow-elevated: 0 0 30px -10px color-mix(in oklab, var(--neon-cyan) 40%, transparent);
 }
 
 .dark {
@@ -260,34 +260,4 @@
 
 .animate-orbit-glow {
   animation: orbit-glow 15s linear infinite;
-}
-
-.section-scroll-container {
-  height: 100vh;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-}
-
-.scroll-section {
-  height: 100vh;
-  width: 100%;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-  /* Ensure smooth scrolling within sections if they have overflow */
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
-}
-
-.scroll-section::-webkit-scrollbar {
-  width: 6px;
-}
-
-.scroll-section::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
 }
