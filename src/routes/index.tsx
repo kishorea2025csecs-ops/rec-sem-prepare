@@ -156,8 +156,8 @@ function Landing() {
   };
 
   return (
-    <div className="min-h-screen bg-background font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
-      <header className="sticky top-4 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
+    <div className="min-h-screen bg-[#020205] font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
+      <header className="fixed top-4 left-0 right-0 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 md:px-5 py-3 md:py-4">
           <a href="#top" className="flex items-center gap-3 group">
             <div className="relative">
@@ -210,7 +210,7 @@ function Landing() {
 
       <main id="top" className="relative">
         {/* Persistent 3D Background */}
-        <div className="fixed inset-0 z-0 opacity-80 pointer-events-none">
+        <div className="fixed inset-0 z-0 opacity-100 pointer-events-none">
           <Suspense fallback={null}>
             <StudySpace />
           </Suspense>
@@ -224,22 +224,22 @@ function Landing() {
           onMouseLeave={handleMouseLeave}
         >
           {/* Background Video & Glows */}
-          <div className="absolute inset-0 z-0 overflow-hidden bg-[#020205]">
+          <div className="absolute inset-0 z-0 overflow-hidden">
             <video 
               src={backgroundVideoAsset.url} 
               autoPlay 
               loop 
               muted 
               playsInline
-              className="absolute inset-0 h-full w-full object-cover opacity-20 grayscale scale-110"
+              className="absolute inset-0 h-full w-full object-cover opacity-10 grayscale scale-110"
               aria-hidden="true"
             />
-            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-[#020205]/40 to-[#020205]" />
-            <div className="absolute inset-0 z-10 backdrop-blur-[1px]" />
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-transparent" />
+            <div className="absolute inset-0 z-10 backdrop-blur-none" />
             <div
               className="pointer-events-none absolute inset-0 z-20"
               style={{ 
-                background: "radial-gradient(circle at 50% 50%, transparent 0%, var(--background) 100%)",
+                background: "radial-gradient(circle at 50% 50%, transparent 0%, rgba(2, 2, 5, 0.4) 100%)",
                 backgroundImage: "var(--gradient-hero)",
                 mixBlendMode: "overlay"
               }}
@@ -411,7 +411,7 @@ function Landing() {
         </section>
 
         {/* SECTION 2: STUDY MATERIAL */}
-        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/30 backdrop-blur-[2px] py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
+        <section id="how" className="relative z-10 border-y border-white/10 bg-[#020205]/5 backdrop-blur-none py-20 overflow-hidden" aria-labelledby="how-it-works-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -502,7 +502,7 @@ function Landing() {
         </section>
 
         {/* SECTION 4: IMPORTANT QUESTIONS & TAMIL HELP */}
-        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/30 backdrop-blur-[2px] py-20 overflow-hidden" aria-labelledby="tamil-heading">
+        <section id="tamil" className="relative z-10 border-y border-white/10 bg-[#020205]/5 backdrop-blur-none py-20 overflow-hidden" aria-labelledby="tamil-heading">
           {/* Animated Background Objects for Section */}
           <div className="absolute inset-0 pointer-events-none">
             <motion.div 
@@ -551,7 +551,7 @@ function Landing() {
         </section>
 
         {/* SECTION 5 & 6: ANSWER COACH & REVISION */}
-        <section className="relative z-10 py-24 bg-background/20 backdrop-blur-lg" aria-labelledby="cta-heading">
+        <section className="relative z-10 py-24 bg-background/5 backdrop-blur-none" aria-labelledby="cta-heading">
           <div className="mx-auto max-w-4xl px-5 text-center">
             <h2 id="cta-heading" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
               Semester exams start soon. Your plan can start now.
