@@ -98,11 +98,16 @@ function Landing() {
     <div className="min-h-screen bg-background font-sans text-foreground">
       <header className="sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-          <a href="#top" className="flex items-center gap-2">
-            <span className="grid size-9 place-items-center rounded-xl bg-[image:var(--gradient-brand)] text-brand-foreground">
-              <GraduationCap className="size-5" />
-            </span>
-            <span className="font-display text-lg font-bold tracking-tight">SemPrep AI</span>
+          <a href="#top" className="flex items-center gap-3">
+            <img 
+              src="https://www.rajalakshmi.org/images/logo.png" 
+              alt="Rajalakshmi Engineering College Logo" 
+              className="h-10 w-auto object-contain"
+            />
+            <div className="flex flex-col">
+              <span className="font-display text-lg font-bold tracking-tight leading-tight">SemPrep AI</span>
+              <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">REC Edition</span>
+            </div>
           </a>
           <nav className="hidden items-center gap-8 text-sm text-muted-foreground md:flex">
             <a className="transition-colors hover:text-foreground" href="#how">How it works</a>
