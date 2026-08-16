@@ -40,6 +40,41 @@ const subjects = [
   { id: "ma3491", name: "Statistics and Numerical Methods", code: "MA3491", progress: 20 },
 ];
 
+const topics = [
+  {
+    id: "1",
+    name: "Bayesian Networks — inference",
+    importance: "High",
+    marks: 15,
+    frequency: "Asked 5 / last 6 semesters",
+    completed: true,
+  },
+  {
+    id: "2",
+    name: "Hidden Markov Models",
+    importance: "High",
+    marks: 13,
+    frequency: "Asked 4 / last 6 semesters",
+    completed: false,
+  },
+  {
+    id: "3",
+    name: "Naive Bayes classifier",
+    importance: "Medium",
+    marks: 13,
+    frequency: "Asked 3 / last 6 semesters",
+    completed: false,
+  },
+  {
+    id: "4",
+    name: "Approximate inference",
+    importance: "Low",
+    marks: 2,
+    frequency: "Rarely asked",
+    completed: false,
+  },
+];
+
 const pyqData = [
   {
     question: "Explain the working principle of Bayesian Networks with an example.",
