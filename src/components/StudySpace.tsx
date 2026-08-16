@@ -122,14 +122,14 @@ const StudyObject = ({ position, color, label, tip, index, path }: {
   );
 };
 
-export const StudySpace = () => {
+export const StudySpace = ({ scrollY = 0 }: { scrollY?: number }) => {
   const scrollRef = useRef(0);
   const scrollVelocity = useRef(0);
-  const lastScrollY = useRef(typeof window !== 'undefined' ? window.scrollY : 0);
+  const lastScrollY = useRef(scrollY);
   
   // Update scroll value for camera parallax and velocity for object rotation
   useFrame((state, delta) => {
-    const currentScrollY = window.scrollY;
+    const currentScrollY = scrollY;
     
     // Calculate velocity with smoothing
     const diff = currentScrollY - lastScrollY.current;
