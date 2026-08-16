@@ -3,17 +3,21 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, MeshDistortMaterial, Environment, ContactShadows, PresentationControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from '@tanstack/react-router';
+import { ExternalLink } from 'lucide-react';
 
-const StudyObject = ({ position, color, label, tip, index }: { 
+const StudyObject = ({ position, color, label, tip, index, path }: { 
   position: [number, number, number], 
   color: string, 
   label: string, 
   tip: string,
-  index: number
+  index: number,
+  path: string
 }) => {
   const meshRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
   const [active, setActive] = useState(false);
+  const navigate = useNavigate();
 
   // Rotate items slowly
   useFrame((state) => {
@@ -45,11 +49,19 @@ const StudyObject = ({ position, color, label, tip, index }: {
           onPointerOver={(e) => {
             e.stopPropagation();
             setHovered(true);
+            document.body.style.cursor = 'pointer';
           }}
-          onPointerOut={() => setHovered(false)}
+          onPointerOut={() => {
+            setHovered(false);
+            document.body.style.cursor = 'auto';
+          }}
           onClick={(e) => {
             e.stopPropagation();
-            setActive(!active);
+            if (active) {
+               navigate({ to: path });
+            } else {
+               setActive(true);
+            }
           }}
           scale={active ? 1.4 : hovered ? 1.1 : 1}
         >
@@ -75,15 +87,21 @@ const StudyObject = ({ position, color, label, tip, index }: {
                 exit={{ opacity: 0, y: 10, scale: 0.8 }}
                 className="whitespace-nowrap rounded-lg border border-white/20 bg-black/60 px-3 py-1.5 backdrop-blur-md"
               >
-                <p className="text-xs font-black uppercase tracking-widest text-white">{label}</p>
+                <div className="flex items-center gap-2">
+                  <p className="text-xs font-black uppercase tracking-widest text-white">{label}</p>
+                  {active && <ExternalLink className="size-3 text-accent" />}
+                </div>
                 {active && (
-                  <motion.p 
+                  <motion.div 
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
-                    className="mt-1 w-48 text-[10px] leading-relaxed text-accent/90 font-bold"
+                    className="mt-1 w-48"
                   >
-                    {tip}
-                  </motion.p>
+                    <p className="text-[10px] leading-relaxed text-accent/90 font-bold">
+                      {tip}
+                    </p>
+                    <p className="mt-2 text-[8px] uppercase tracking-tighter text-white/40 font-black">Click again to open module</p>
+                  </motion.div>
                 )}
               </motion.div>
             )}
@@ -100,31 +118,36 @@ export const StudySpace = () => {
       color: "#9D4EDD", 
       label: "Unit Notes", 
       tip: "AI extracts key formulas and definitions from your uploaded PDFs instantly.",
-      pos: [-5, 2.5, -2]
+      pos: [-5, 2.5, -2],
+      path: "/dashboard"
     },
     { 
       color: "#00D2FF", 
       label: "PYQ Analysis", 
       tip: "Historical weighting analysis identifies which topics are trending for this semester.",
-      pos: [5, -2, 0]
+      pos: [5, -2, 0],
+      path: "/question-bank"
     },
     { 
       color: "#FFB703", 
       label: "Important Topics", 
       tip: "Bayesian Networks and Neural Architecture are marked as 'High Priority' for Unit 3.",
-      pos: [1, 3.5, -3]
+      pos: [1, 3.5, -3],
+      path: "/topics"
     },
     { 
       color: "#FB8500", 
       label: "Tamil Help", 
       tip: "Difficult concepts? We map specific timestamps in Tamil tutorials to your notes.",
-      pos: [-4, -3, 1]
+      pos: [-4, -3, 1],
+      path: "/dashboard"
     },
     { 
       color: "#F15BB5", 
-      label: "Exam Score", 
+      label: "Study Planner", 
       tip: "Targeted writing structure: Point-wise presentation and diagram placement tips.",
-      pos: [3, 2, -1]
+      pos: [3, 2, -1],
+      path: "/study-planner"
     }
   ];
 
@@ -153,6 +176,7 @@ export const StudySpace = () => {
               color={obj.color}
               label={obj.label}
               tip={obj.tip}
+              path={obj.path}
             />
           ))}
         </PresentationControls>
