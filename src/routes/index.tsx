@@ -214,7 +214,7 @@ function Landing() {
               style={{ 
                 background: "radial-gradient(circle at 50% 50%, transparent 0%, var(--background) 100%)",
                 backgroundImage: "var(--gradient-hero)",
-                mixBlendMode: "overlay"
+                mixBlendMode: "soft-light"
               }}
               aria-hidden="true"
             />
