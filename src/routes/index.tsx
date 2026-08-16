@@ -164,7 +164,14 @@ function Landing() {
       </header>
 
       <main id="top" className="relative">
-        {/* Hero Section with The Learner Orbit */}
+        {/* Persistent 3D Background */}
+        <div className="fixed inset-0 z-0 opacity-60 pointer-events-none">
+          <Suspense fallback={null}>
+            <StudySpace />
+          </Suspense>
+        </div>
+
+        {/* Hero Section */}
         <section 
           aria-labelledby="hero-heading"
           className="relative overflow-hidden min-h-[700px] lg:min-h-[900px] flex items-center"
@@ -193,14 +200,6 @@ function Landing() {
               }}
               aria-hidden="true"
             />
-            {/* Interactive 3D Study Space */}
-            <div className="absolute inset-0 z-[25] opacity-60 pointer-events-none">
-              <Suspense fallback={null}>
-                <div className="size-full pointer-events-auto">
-                  <StudySpace />
-                </div>
-              </Suspense>
-            </div>
           </div>
 
           {/* Floating Glows & 3D Objects Across Home Screen */}
