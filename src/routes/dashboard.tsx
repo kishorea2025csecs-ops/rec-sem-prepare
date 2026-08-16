@@ -35,6 +35,9 @@ import {
   PlusCircle,
   ShieldCheck,
   Share2,
+  Calendar,
+  Star,
+  Brain,
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
@@ -132,6 +135,8 @@ function Dashboard() {
   const [analysisStatus, setAnalysisStatus] = useState<"idle" | "uploading" | "analyzing" | "complete">("idle");
   const [processingProgress, setProcessingProgress] = useState(0);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [selectedQuestion, setSelectedQuestion] = useState<any>(null);
+  const [explanationLevel, setExplanationLevel] = useState<"quick" | "exam" | "revision">("quick");
 
   useEffect(() => {
     const getSession = async () => {
@@ -220,15 +225,15 @@ function Dashboard() {
             <button className="flex w-full items-center gap-3 rounded-xl bg-primary/10 px-3 py-2 text-sm font-semibold text-primary transition-colors">
               <Layout className="size-4" /> Dashboard
             </button>
-            <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-surface hover:text-foreground">
-              <BookOpen className="size-4" /> My Subjects
-            </button>
-            <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-surface hover:text-foreground">
+            <Link to="/topics" className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-surface hover:text-foreground">
+              <Star className="size-4" /> Important Topics
+            </Link>
+            <Link to="/question-bank" className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-surface hover:text-foreground">
               <FileText className="size-4" /> Question Bank
-            </button>
-            <button className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-surface hover:text-foreground">
-              <TrendingUp className="size-4" /> Progress
-            </button>
+            </Link>
+            <Link to="/study-planner" className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-surface hover:text-foreground">
+              <Calendar className="size-4" /> Study Planner
+            </Link>
           </nav>
 
           <div className="border-t border-border p-4">
@@ -471,35 +476,139 @@ function Dashboard() {
                       {topics.map((topic) => (
                         <div
                           key={topic.id}
-                          className="group relative flex items-start justify-between gap-4 rounded-2xl border border-border bg-card p-5 transition-all hover:border-primary/50 hover:shadow-sm"
+                          className="group relative overflow-hidden rounded-2xl border border-border bg-card transition-all hover:border-primary/50"
                         >
-                          <div className="flex gap-4">
-                            <button className={`mt-1 grid size-5 place-items-center rounded border ${topic.completed ? 'bg-primary border-primary text-primary-foreground' : 'border-muted-foreground/30 hover:border-primary'}`}>
-                              {topic.completed && <CheckCircle2 className="size-4" />}
-                            </button>
-                            <div>
-                              <p className={`text-sm font-semibold ${topic.completed ? 'text-muted-foreground line-through' : ''}`}>
-                                {topic.name}
-                              </p>
-                              <div className="mt-2 flex items-center gap-3">
-                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
-                                  topic.importance === 'High' ? 'bg-accent/15 text-accent' : 
-                                  topic.importance === 'Medium' ? 'bg-primary/15 text-primary' : 'bg-muted text-muted-foreground'
-                                }`}>
-                                  {topic.importance} Priority
-                                </span>
-                                <span className="text-[11px] text-muted-foreground flex items-center gap-1">
-                                  <FileText className="size-3" /> {topic.frequency}
-                                </span>
+                          <div className="p-5 flex items-start justify-between gap-4">
+                            <div className="flex gap-4">
+                              <button className={`mt-1 grid size-5 place-items-center rounded border ${topic.completed ? 'bg-primary border-primary text-primary-foreground' : 'border-muted-foreground/30 hover:border-primary'}`}>
+                                {topic.completed && <CheckCircle2 className="size-4" />}
+                              </button>
+                              <div>
+                                <p className={`text-sm font-semibold ${topic.completed ? 'text-muted-foreground line-through' : ''}`}>
+                                  {topic.name}
+                                </p>
+                                <div className="mt-2 flex items-center gap-3">
+                                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${
+                                    topic.importance === 'High' ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 
+                                    topic.importance === 'Medium' ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' : 
+                                    'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
+                                  }`}>
+                                    {topic.importance} Priority
+                                  </span>
+                                  <span className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest flex items-center gap-1">
+                                    <FileText className="size-3" /> {topic.marks} Marks
+                                  </span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                          <div className="text-right">
-                            <p className="text-xs font-bold text-accent">{topic.marks} Marks</p>
-                            <button className="mt-2 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
-                              <MoreVertical className="size-4" />
+                            <button 
+                              onClick={() => setSelectedQuestion(topic)}
+                              className="inline-flex items-center gap-2 rounded-xl bg-surface px-4 py-2 text-xs font-bold border border-border hover:bg-primary hover:text-primary-foreground transition-all"
+                            >
+                              Guide <ArrowRight className="size-3" />
                             </button>
                           </div>
+                          
+                          {selectedQuestion?.id === topic.id && (
+                            <div className="border-t border-border bg-surface/30 p-6 animate-in fade-in slide-in-from-top-4 duration-300">
+                              <div className="grid gap-6 lg:grid-cols-2">
+                                <div className="space-y-6">
+                                  <div>
+                                    <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">Score Guidance</h4>
+                                    <div className="mt-4 space-y-3">
+                                      <div className="rounded-xl border border-border bg-card p-4">
+                                        <p className="text-xs font-bold text-foreground">Examiner Expectations</p>
+                                        <p className="mt-1 text-[11px] text-muted-foreground">Logical flow, clear diagram, and the formula derivation for {topic.name}.</p>
+                                      </div>
+                                      <div className="rounded-xl border border-border bg-card p-4">
+                                        <p className="text-xs font-bold text-foreground">Suggested 13-Mark Structure</p>
+                                        <div className="mt-3 space-y-1.5">
+                                          {[
+                                            { l: "Intro & Def", m: "2m" },
+                                            { l: "Working Principle", m: "3m" },
+                                            { l: "Main Explanation", m: "4m" },
+                                            { l: "Diagram & Label", m: "2m" },
+                                            { l: "Applications", m: "2m" },
+                                          ].map(item => (
+                                            <div key={item.l} className="flex items-center justify-between text-[10px]">
+                                              <span className="text-muted-foreground">{item.l}</span>
+                                              <span className="font-bold text-primary">{item.m}</span>
+                                            </div>
+                                          ))}
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div className="space-y-6">
+                                  <div>
+                                    <div className="flex items-center justify-between">
+                                      <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-accent">AI Explanation</h4>
+                                      <div className="flex gap-1">
+                                        {["quick", "exam", "revision"].map((l: any) => (
+                                          <button 
+                                            key={l}
+                                            onClick={() => setExplanationLevel(l)}
+                                            className={`rounded-lg px-2 py-1 text-[9px] font-bold uppercase tracking-widest border transition-all ${
+                                              explanationLevel === l ? 'bg-primary border-primary text-primary-foreground' : 'bg-surface border-border text-muted-foreground'
+                                            }`}
+                                          >
+                                            {l}
+                                          </button>
+                                        ))}
+                                      </div>
+                                    </div>
+                                    
+                                    <div className="mt-4 rounded-xl border border-border bg-card p-5">
+                                      {explanationLevel === 'quick' && (
+                                        <div className="animate-in fade-in duration-300">
+                                          <p className="text-xs leading-relaxed text-muted-foreground">
+                                            Imagine a flow of logic where every event depends on the one before it. {topic.name} is just a map of these "ifs" and "thens".
+                                          </p>
+                                        </div>
+                                      )}
+                                      {explanationLevel === 'exam' && (
+                                        <div className="animate-in fade-in duration-300 space-y-3">
+                                          <p className="text-xs leading-relaxed text-foreground font-semibold underline decoration-primary/30">Standard Definition:</p>
+                                          <p className="text-xs leading-relaxed text-muted-foreground">
+                                            {topic.name} is a probabilistic graphical model that represents a set of variables and their conditional dependencies via a directed acyclic graph (DAG).
+                                          </p>
+                                        </div>
+                                      )}
+                                      {explanationLevel === 'revision' && (
+                                        <div className="animate-in fade-in duration-300">
+                                          <ul className="space-y-2">
+                                            {["DAG", "Node Dependencies", "CPT Tables"].map(kw => (
+                                              <li key={kw} className="flex items-center gap-2 text-[10px] font-bold">
+                                                <Zap className="size-3 text-amber-400" /> {kw}
+                                              </li>
+                                            ))}
+                                          </ul>
+                                        </div>
+                                      )}
+                                    </div>
+
+                                    <div className="mt-6">
+                                      <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-red-500">Tamil Tutorials</h4>
+                                      <div className="mt-3 space-y-2">
+                                        <div className="flex items-center justify-between rounded-xl bg-red-500/5 border border-red-500/10 p-3">
+                                          <div className="flex items-center gap-3">
+                                            <Youtube className="size-4 text-red-500" />
+                                            <div>
+                                              <p className="text-[10px] font-bold">{topic.name} விளக்கம்</p>
+                                              <p className="text-[9px] text-muted-foreground">Learn Engineering Tamil</p>
+                                            </div>
+                                          </div>
+                                          <button className="text-[9px] font-bold uppercase text-red-500 hover:underline">Watch</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
                         </div>
                       ))}
                       
