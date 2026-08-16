@@ -19,7 +19,8 @@ import logoV2Asset from "@/assets/logo-v2.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
 import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, Suspense } from "react";
+import { StudySpace } from "@/components/StudySpace";
 
 export const Route = createFileRoute("/")({
   head: () => ({
