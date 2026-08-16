@@ -35,9 +35,9 @@ export const Route = createFileRoute("/dashboard")({
 });
 
 const subjects = [
-  { id: "cs3491", name: "Artificial Intelligence and Machine Learning", code: "CS3491", progress: 65 },
-  { id: "cs3492", name: "Database Management Systems", code: "CS3492", progress: 40 },
-  { id: "ma3491", name: "Statistics and Numerical Methods", code: "MA3491", progress: 20 },
+  { id: "cs3491", name: "AI and Machine Learning", code: "CS3491", progress: 65 },
+  { id: "cs3492", name: "DBMS", code: "CS3492", progress: 40 },
+  { id: "ma3491", name: "Stats and Numerical Methods", code: "MA3491", progress: 20 },
 ];
 
 const topics = [
@@ -216,7 +216,7 @@ function Dashboard() {
             <div className="h-8 w-[1px] bg-border" />
             <div className="flex items-center gap-3 rounded-full border border-border bg-surface px-3 py-1.5">
                <div className="size-6 rounded-full bg-gradient-to-tr from-accent to-primary" />
-               <span className="text-sm font-medium">Kishore A</span>
+               <span className="text-sm font-medium">My Account</span>
             </div>
           </div>
         </header>
@@ -232,8 +232,8 @@ function Dashboard() {
                 <div className="mt-8 grid grid-cols-3 gap-4">
                   {[
                     { label: "Completion", value: `${activeSubject.progress}%`, color: "text-primary" },
-                    { label: "Topics Studied", value: "12 / 20", color: "text-accent" },
-                    { label: "Exam Date", value: "12 Jun", color: "text-foreground" },
+                    { label: "Topics Studied", value: "Topics List", color: "text-accent" },
+                    { label: "Exam Date", value: "Upcoming", color: "text-foreground" },
                   ].map((stat) => (
                     <div key={stat.label} className="rounded-2xl border border-border bg-card p-4">
                       <p className="text-xs font-medium text-muted-foreground">{stat.label}</p>
@@ -253,9 +253,9 @@ function Dashboard() {
                     <TrendingUp className="size-5" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-foreground">Priority: Hidden Markov Models</p>
+                    <p className="text-sm font-semibold text-foreground">Priority: Topic Recommendation</p>
                     <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      This topic appeared in 4 out of the last 6 papers. Based on your progress, mastering this now gives you the highest scoring potential.
+                      Run AI analysis on your notes to see personalized study priorities based on exam patterns.
                     </p>
                     <button className="mt-3 inline-flex items-center gap-2 text-xs font-bold text-accent hover:underline">
                       Start studying <ArrowRight className="size-3" />
@@ -434,7 +434,7 @@ function Dashboard() {
                     <div className="flex items-center justify-between">
                       <h2 className="font-display text-xl font-bold">PYQ Analysis & Patterns</h2>
                       <div className="flex items-center gap-2 rounded-xl bg-accent/10 px-3 py-1.5 text-[10px] font-bold text-accent border border-accent/20">
-                        <BarChart3 className="size-3" /> Data from last 6 semesters
+                        <BarChart3 className="size-3" /> Based on historical patterns
                       </div>
                     </div>
 
@@ -450,7 +450,7 @@ function Dashboard() {
                                   {item.importance} Priority
                                 </span>
                                 <span className="text-[10px] font-medium text-muted-foreground flex items-center gap-1">
-                                  <History className="size-3" /> Appeared {item.appearances} times
+                                  <History className="size-3" /> Frequently asked in PYQs
                                 </span>
                               </div>
                               
@@ -517,7 +517,7 @@ function Dashboard() {
                          </div>
                          <div className="min-w-0">
                            <p className="text-xs font-semibold truncate">Unit_3_Notes.pdf</p>
-                           <p className="text-[10px] text-muted-foreground">Uploaded 2 days ago</p>
+                           <p className="text-[10px] text-muted-foreground">PDF Document</p>
                          </div>
                       </div>
                     </div>
@@ -534,7 +534,7 @@ function Dashboard() {
                          </div>
                          <div className="min-w-0">
                            <p className="text-xs font-semibold truncate">PYQ_Bank_2018-24.pdf</p>
-                           <p className="text-[10px] text-muted-foreground">Last updated yesterday</p>
+                           <p className="text-[10px] text-muted-foreground">PDF Question Bank</p>
                          </div>
                       </div>
                     </div>
@@ -562,13 +562,12 @@ function Dashboard() {
                     <p className="mt-1 text-[11px] opacity-80 uppercase tracking-[0.1em]">Semester Assessment 2</p>
                     
                     <div className="mt-6 flex items-baseline gap-1">
-                      <span className="text-4xl font-extrabold tracking-tighter">14</span>
-                      <span className="text-sm font-medium opacity-80">days left</span>
+                      <span className="text-4xl font-extrabold tracking-tighter">--</span>
+                      <span className="text-sm font-medium opacity-80">days</span>
                     </div>
                     
                     <p className="mt-4 text-[10px] leading-relaxed opacity-90">
-                      You've completed 3/5 units. 
-                      Finish Unit 3 by tomorrow to stay on track.
+                      Stay updated with your preparation progress here.
                     </p>
                   </div>
                   <Sparkles className="absolute -bottom-4 -right-4 size-24 opacity-10 group-hover:rotate-12 transition-transform" />

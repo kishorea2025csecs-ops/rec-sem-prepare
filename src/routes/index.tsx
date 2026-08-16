@@ -159,9 +159,9 @@ function Landing() {
               </div>
               <dl className="mt-12 grid max-w-lg grid-cols-3 gap-6">
                 {[
-                  ["12 yrs", "of question papers"],
-                  ["6 depts", "syllabus mapped"],
-                  ["94%", "repeat-question hit rate"],
+                  ["Units", "Detailed Analysis"],
+                  ["Papers", "PYQ Mapped"],
+                  ["Results", "High Scoring Strategy"],
                 ].map(([value, label]) => (
                   <div key={label}>
                     <dt className="font-display text-2xl font-bold text-accent">{value}</dt>
@@ -304,10 +304,10 @@ function Landing() {
             </div>
             <div className="space-y-4">
               {[
-                ["Bayesian Networks விளக்கம்", "12:04 — 18:40", "Tamil · 4.2K views"],
-                ["Hidden Markov Model எளிமையாக", "03:15 — 21:50", "Tamil · 9.8K views"],
-                ["Naive Bayes problem solving", "00:00 — 14:22", "Tamil · 15K views"],
-              ].map(([title, stamp, meta]) => (
+                ["Bayesian Networks விளக்கம்", "Tamil Tutorials Available"],
+                ["Hidden Markov Model எளிமையாக", "Tamil Tutorials Available"],
+                ["Naive Bayes problem solving", "Tamil Tutorials Available"],
+              ].map(([title, meta]) => (
                 <div
                   key={title}
                   className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4"
@@ -318,7 +318,7 @@ function Landing() {
                   <div className="min-w-0">
                     <p className="truncate text-sm font-semibold">{title}</p>
                     <p className="mt-1 text-xs text-muted-foreground">
-                      {stamp} · {meta}
+                      {meta}
                     </p>
                   </div>
                 </div>
