@@ -183,12 +183,28 @@ function Landing() {
               <div className="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-amber-400/10 to-amber-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             </a>
           </nav>
-          <Link
-            to="/auth/login"
-            className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
-          >
-            Go to Dashboard
-          </Link>
+          {isAuthenticated ? (
+            isVerifiedRec ? (
+              <Link
+                to="/auth/login"
+                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
+              >
+                Go to Dashboard
+              </Link>
+            ) : (
+              <div className="flex items-center gap-2 rounded-full bg-red-500/10 border border-red-500/30 px-4 py-2 text-[10px] font-black uppercase text-red-400 backdrop-blur-md">
+                <Lock className="size-3" />
+                <span>Verified REC Only</span>
+              </div>
+            )
+          ) : (
+            <Link
+              to="/auth/login"
+              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
+            >
+              Sign In
+            </Link>
+          )}
         </div>
       </header>
 
