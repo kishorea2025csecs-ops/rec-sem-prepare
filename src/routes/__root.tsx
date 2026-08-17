@@ -121,21 +121,25 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-const DEFAULT_SCENE = "https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode";
+const DEFAULT_SCENE_ID = 'abstract-crystal';
+const SCENES_MAP: Record<string, string> = {
+  'abstract-crystal': 'https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode',
+  'glass-nodes': 'https://prod.spline.design/Kz6xJ-M-5r-oX1-Q/scene.splinecode',
+  'tech-orbit': 'https://prod.spline.design/ATw-M-y5K7Wk-1P7/scene.splinecode',
+  'modern-box': 'https://prod.spline.design/cW9kF-1O7k-P-v-9/scene.splinecode'
+};
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const location = useLocation();
   const [sceneUrl, setSceneUrl] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('semprep_scene_id');
-      // Minimal validation - normally we'd check against SCENES but here we just use what was set
-      // The SceneSelector handleSelect sends the URL, we'll listen for that too.
-      // For initial load, we might just default if we don't have the URL mapping easily accessible
-      // but let's just use DEFAULT_SCENE as fallback.
-      return DEFAULT_SCENE;
+      const savedId = localStorage.getItem('semprep_scene_id');
+      if (savedId && SCENES_MAP[savedId]) {
+        return SCENES_MAP[savedId];
+      }
     }
-    return DEFAULT_SCENE;
+    return SCENES_MAP[DEFAULT_SCENE_ID] as string;
   });
 
   useEffect(() => {
