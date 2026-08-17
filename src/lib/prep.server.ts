@@ -207,14 +207,17 @@ export async function handleGeneratePlan(
     }
   }
 
-  await supabase
-    .from('study_plans')
-    .upsert({
+  const planInsertData: any = {
       user_id: userId,
       exam_date: config.examDate,
       study_hours_per_day: config.dailyHours,
       updated_at: new Date().toISOString()
-    });
+  };
+
+  await supabase
+    .from('study_plans')
+    .upsert(planInsertData);
 
   return plan;
 }
+
