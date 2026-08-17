@@ -361,12 +361,16 @@ function DashboardPage() {
                   Nothing uploaded yet.
                 </li>
               )}
-              {materials.map((m) => (
-                <li key={m.id}>
+                <motion.li 
+                  key={m.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                >
                   <div
-                    className={`flex items-center gap-3 rounded-2xl border p-3 transition ${
+                    className={`flex items-center gap-3 rounded-2xl border p-3 transition-all duration-300 ${
                       activeId === m.id
-                        ? "border-cyan-400/50 bg-cyan-500/10"
+                        ? "border-cyan-400/50 bg-cyan-500/10 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
                         : "border-white/10 bg-black/30 hover:bg-white/5"
                     }`}
                   >
