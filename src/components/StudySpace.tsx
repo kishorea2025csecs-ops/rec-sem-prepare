@@ -165,6 +165,22 @@ const RevisionCards = ({ scrollProgress }: { scrollProgress: number }) => {
           </mesh>
         </Float>
       ))}
+      {/* Added Stars and Cones for professional animation */}
+      {[...Array(15)].map((_, i) => (
+        <Float key={`extra-${i}`} speed={1.5} rotationIntensity={2} floatIntensity={1} position={[Math.random() * 20 - 10, Math.random() * 20 - 10, -15] as any}>
+          {i % 2 === 0 ? (
+            <mesh>
+              <coneGeometry args={[0.2, 0.5, 32]} />
+              <meshStandardMaterial color="#00D2FF" emissive="#00D2FF" emissiveIntensity={0.5} />
+            </mesh>
+          ) : (
+            <mesh>
+              <octahedronGeometry args={[0.2]} />
+              <meshStandardMaterial color="#FFD700" emissive="#FFD700" emissiveIntensity={0.5} />
+            </mesh>
+          )}
+        </Float>
+      ))}
     </group>
   );
 };
