@@ -111,7 +111,7 @@ export async function handleGetQuestionBank(
     .from('questions')
     .select(`
       *,
-      topic:topics(id, name, importance, subject_id, unit_id)
+      topic:topics(id, title, importance, subject_id, unit_id, marks_weightage, exam_frequency)
     `);
 
   if (error) throw error;
@@ -154,12 +154,68 @@ export async function handleUpdateTopicMastery(
   return updated;
 }
 
+export async function handleGetUnits(supabase: SupabaseClient<Database>) {
+  const { data, error } = await supabase
+    .from('units')
+    .select('id, unit_number, title, subject:subjects(id, code, name)')
+    .order('unit_number');
+  if (error) throw error;
+  return data ?? [];
+}
+
+export async function handleGetStudyPlan(supabase: SupabaseClient<Database>, userId: string) {
+  const { data: plans, error } = await supabase
+    .from('study_plans')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false })
+    .limit(1);
+  if (error) throw error;
+  const plan = plans?.[0];
+  if (!plan) return null;
+
+  const { data: items, error: itemsError } = await supabase
+    .from('study_plan_items')
+    .select('*, topic:topics(id, title, importance, unit_id)')
+    .eq('study_plan_id', plan.id)
+    .order('scheduled_date');
+  if (itemsError) throw itemsError;
+
+  return { plan, items: items ?? [] };
+}
+
+export async function handleToggleStudyTask(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+  data: { itemId: string; completed: boolean }
+) {
+  const { data: updated, error } = await supabase
+    .from('study_plan_items')
+    .update({
+      completed: data.completed,
+      completed_at: data.completed ? new Date().toISOString() : null,
+    })
+    .eq('id', data.itemId)
+    .select('*, topic:topics(id, title, importance, unit_id)')
+    .single();
+  if (error) throw error;
+
+  if (data.completed && updated?.topic_id) {
+    await supabase.from('revision_sessions').insert({
+      user_id: userId,
+      topic_id: updated.topic_id,
+      duration_minutes: updated.duration_minutes ?? 60,
+    });
+  }
+  return updated;
+}
+
 export async function handleGeneratePlan(
   supabase: SupabaseClient<Database>,
   userId: string,
-  config: { examDate: string; dailyHours: number; units: string[] }
+  config: { examDate: string; dailyHours: number; units: string[]; level: string }
 ) {
-  const examDate = new Date(config.examDate);
+  const examDate = startOfDay(new Date(config.examDate));
   const today = startOfDay(new Date());
   const daysAvailable = differenceInDays(examDate, today);
 
@@ -167,57 +223,59 @@ export async function handleGeneratePlan(
     throw new Error("Exam date must be in the future");
   }
 
-  const { data: topics, error } = await supabase
-    .from('topics')
-    .select('*, progress:topic_progress(*)')
-    .in('unit_id', config.units);
+  let query = supabase.from('topics').select('*, progress:topic_progress(*)');
+  if (config.units.length > 0) query = query.in('unit_id', config.units);
+  const { data: topics, error } = await query;
 
   if (error) throw error;
   if (!topics || topics.length === 0) {
-    throw new Error("No topics found for the selected units. Upload notes first.");
+    throw new Error("No topics found for the selected units. Upload your notes first.");
   }
 
-  const prioritizedTopics = [...topics].sort((a, b) => {
-    const aMastery = a.progress?.[0]?.mastery_score || 0;
-    const bMastery = b.progress?.[0]?.mastery_score || 0;
-    const aPriority = (a.importance || 0.5) * (1 - aMastery / 100);
-    const bPriority = (b.importance || 0.5) * (1 - bMastery / 100);
-    return bPriority - aPriority;
+  const prioritized = [...topics].sort((a, b) => {
+    const aMastery = (a as any).progress?.[0]?.mastery_score || 0;
+    const bMastery = (b as any).progress?.[0]?.mastery_score || 0;
+    return ((b.importance || 0.5) * (1 - bMastery / 100)) - ((a.importance || 0.5) * (1 - aMastery / 100));
   });
 
-  const topicsPerDay = Math.ceil(prioritizedTopics.length / daysAvailable);
-  const plan = [];
-
-  for (let i = 0; i < daysAvailable; i++) {
-    const date = addDays(today, i);
-    const dayTopics = prioritizedTopics.slice(i * topicsPerDay, (i + 1) * topicsPerDay);
-    
-    if (dayTopics.length > 0) {
-      plan.push({
-        date: format(date, 'yyyy-MM-dd'),
-        label: `Day ${i + 1}`,
-        tasks: dayTopics.map(t => ({
-          id: t.id,
-          title: t.title || 'Untitled Topic',
-          unit: t.unit_id,
-          priority: (t.importance || 0.5) > 0.7 ? 'high' : 'medium',
-          completed: (t.progress?.[0]?.mastery_score || 0) === 100
-        }))
-      });
-    }
+  // Reset any previous plan so the schedule stays unique per student
+  const { data: oldPlans } = await supabase.from('study_plans').select('id').eq('user_id', userId);
+  const oldIds = (oldPlans ?? []).map((p) => p.id);
+  if (oldIds.length > 0) {
+    await supabase.from('study_plan_items').delete().in('study_plan_id', oldIds);
+    await supabase.from('study_plans').delete().in('id', oldIds);
   }
 
-  const planInsertData: any = {
+  const { data: plan, error: planError } = await supabase
+    .from('study_plans')
+    .insert({
       user_id: userId,
       exam_date: config.examDate,
       study_hours_per_day: config.dailyHours,
-      updated_at: new Date().toISOString()
-  };
+      preparation_level: config.level,
+    })
+    .select()
+    .single();
+  if (planError) throw planError;
 
-  await supabase
-    .from('study_plans')
-    .upsert(planInsertData);
+  const minutesPerDay = Math.max(30, Math.round(config.dailyHours * 60));
+  const topicsPerDay = Math.max(1, Math.ceil(prioritized.length / daysAvailable));
+  const slotMinutes = Math.max(20, Math.floor(minutesPerDay / topicsPerDay));
 
-  return plan;
+  const items = prioritized.map((t, index) => {
+    const dayOffset = Math.floor(index / topicsPerDay);
+    return {
+      study_plan_id: plan.id,
+      topic_id: t.id,
+      scheduled_date: format(addDays(today, dayOffset), 'yyyy-MM-dd'),
+      duration_minutes: slotMinutes,
+      priority: (t.importance || 0.5) > 0.7 ? 'high' : (t.importance || 0.5) > 0.4 ? 'medium' : 'low',
+      completed: false,
+    };
+  });
+
+  const { error: itemsError } = await supabase.from('study_plan_items').insert(items);
+  if (itemsError) throw itemsError;
+
+  return handleGetStudyPlan(supabase, userId);
 }
-

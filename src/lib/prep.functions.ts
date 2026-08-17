@@ -38,3 +38,44 @@ export const updateTopicMastery = createServerFn({ method: "POST" })
     const { handleUpdateTopicMastery } = await import("./prep.server");
     return handleUpdateTopicMastery(context.supabase as any, context.userId, data);
   });
+
+export const getUnits = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { handleGetUnits } = await import("./prep.server");
+    return handleGetUnits(context.supabase as any);
+  });
+
+export const getStudyPlan = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { handleGetStudyPlan } = await import("./prep.server");
+    return handleGetStudyPlan(context.supabase as any, context.userId);
+  });
+
+export const generateStudyPlan = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((data: unknown) =>
+    z
+      .object({
+        examDate: z.string().min(1),
+        dailyHours: z.number().min(0.5).max(16),
+        units: z.array(z.string().uuid()),
+        level: z.enum(["beginner", "intermediate", "advanced"]),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    const { handleGeneratePlan } = await import("./prep.server");
+    return handleGeneratePlan(context.supabase as any, context.userId, data);
+  });
+
+export const toggleStudyTask = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((data: unknown) =>
+    z.object({ itemId: z.string().uuid(), completed: z.boolean() }).parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    const { handleToggleStudyTask } = await import("./prep.server");
+    return handleToggleStudyTask(context.supabase as any, context.userId, data);
+  });
