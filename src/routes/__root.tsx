@@ -139,7 +139,7 @@ function RootComponent() {
         return SCENES_MAP[savedId];
       }
     }
-    return SCENES_MAP[DEFAULT_SCENE_ID];
+    return SCENES_MAP[DEFAULT_SCENE_ID] as string;
   });
 
   useEffect(() => {

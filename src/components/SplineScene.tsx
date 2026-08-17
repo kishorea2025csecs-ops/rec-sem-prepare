@@ -59,11 +59,11 @@ class ErrorBoundary extends React.Component<{ children: React.ReactNode, onError
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error) {
+  override componentDidCatch(error: Error) {
     this.props.onError(error);
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) return null;
     return this.props.children;
   }
