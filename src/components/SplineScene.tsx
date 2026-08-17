@@ -5,7 +5,7 @@ const Spline = lazy(() => import('@splinetool/react-spline'));
 interface SplineSceneProps {
   scene: string;
   className?: string;
-  onLoad?: () => void;
+  onLoad?: (e: any) => void;
 }
 
 export const SplineScene: React.FC<SplineSceneProps> = ({ scene, className, onLoad }) => {
