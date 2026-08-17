@@ -5,7 +5,7 @@ import { Lock } from "lucide-react";
 
 interface HeaderProps {
   isAuthenticated: boolean;
-  isVerifiedRec?: boolean;
+  isVerifiedRec?: boolean | null;
   userEmail?: string | null;
   activeLink?: "dashboard" | "home" | "profile";
 }
