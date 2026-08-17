@@ -9,7 +9,6 @@ import {
   useLocation,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode, Suspense, useState } from "react";
-import { SplineScene } from "@/components/SplineScene";
 import { StudySpace } from "@/components/StudySpace";
 
 import appCss from "../styles.css?url";
