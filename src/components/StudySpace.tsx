@@ -10,10 +10,20 @@ const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
 
   useFrame((state) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += 0.01;
-      groupRef.current.rotation.x += 0.005;
-      const pulse = Math.sin(state.clock.elapsedTime * 2) * 0.05 + 1;
+      // Free flowing rotation
+      groupRef.current.rotation.y += 0.008;
+      groupRef.current.rotation.x += 0.004;
+      groupRef.current.rotation.z += 0.002;
+      
+      // Floating motion
+      groupRef.current.position.y += Math.sin(state.clock.elapsedTime * 0.5) * 0.002;
+      
+      // Scale pulsing
+      const pulse = Math.sin(state.clock.elapsedTime * 1.5) * 0.03 + 1;
       groupRef.current.scale.set(pulse, pulse, pulse);
+      
+      // Reactive scroll rotation influence
+      groupRef.current.rotation.y += scrollProgress * 0.05;
     }
   });
 
