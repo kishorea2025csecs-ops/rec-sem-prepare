@@ -40,7 +40,7 @@ function QuestionsPage() {
         isAuthenticated={!!session}
         isVerifiedRec={!!session?.user?.email?.endsWith("@rajalakshmi.edu.in")}
         userEmail={session?.user?.email}
-        activeLink="dashboard"
+        activeLink="questions"
       />
 
       <Sidebar activeLink="/questions" />

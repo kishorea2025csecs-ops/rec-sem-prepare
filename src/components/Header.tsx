@@ -7,7 +7,7 @@ interface HeaderProps {
   isAuthenticated: boolean;
   isVerifiedRec?: boolean | null | undefined;
   userEmail?: string | null;
-  activeLink?: "dashboard" | "home" | "profile";
+  activeLink?: "dashboard" | "home" | "profile" | "topics" | "questions" | "planner" | "analytics";
 }
 
 export const Header = ({ isAuthenticated, isVerifiedRec, userEmail, activeLink }: HeaderProps) => {

@@ -47,7 +47,7 @@ function AnalyticsPage() {
         isAuthenticated={!!session}
         isVerifiedRec={!!session?.user?.email?.endsWith("@rajalakshmi.edu.in")}
         userEmail={session?.user?.email}
-        activeLink="dashboard"
+        activeLink="analytics"
       />
 
       <Sidebar activeLink="/analytics" />

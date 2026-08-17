@@ -40,7 +40,7 @@ function PlannerPage() {
         isAuthenticated={!!session}
         isVerifiedRec={!!session?.user?.email?.endsWith("@rajalakshmi.edu.in")}
         userEmail={session?.user?.email}
-        activeLink="dashboard"
+        activeLink="planner"
       />
 
       <Sidebar activeLink="/planner" />

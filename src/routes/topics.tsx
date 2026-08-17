@@ -47,7 +47,7 @@ function TopicsPage() {
         isAuthenticated={!!session}
         isVerifiedRec={!!session?.user?.email?.endsWith("@rajalakshmi.edu.in")}
         userEmail={session?.user?.email}
-        activeLink="dashboard"
+        activeLink="topics"
       />
 
       <Sidebar activeLink="/topics" />
