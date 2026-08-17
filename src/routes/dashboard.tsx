@@ -492,9 +492,16 @@ function DashboardPage() {
             <>
               <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
                 <div>
-                  <h1 className="font-display text-2xl font-black uppercase tracking-tight">
-                    {active.title}
-                  </h1>
+                  <div className="flex items-center gap-3">
+                    <h1 className="font-display text-2xl font-black uppercase tracking-tight">
+                      {active.title}
+                    </h1>
+                    {active.status === "ready" && (
+                      <span className="flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-accent border border-accent/20">
+                        <Sparkles className="size-2.5" /> MCP Tool Assisted
+                      </span>
+                    )}
+                  </div>
                   <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
                     {active.subject} · {active.unit} ·{" "}
                     {active.kind === "pyq" ? "Previous-year paper" : "Unit notes"}
