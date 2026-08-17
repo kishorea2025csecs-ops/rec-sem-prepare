@@ -281,8 +281,16 @@ function DashboardPage() {
       </div>
 
       <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-5 py-6">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-white">
-          <ArrowLeft className="size-4" /> Home
+        <Link to="/" className="flex items-center gap-3 group">
+          <div className="relative">
+            <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="relative flex size-10 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none" />
+              {/* Note: In a real project we'd import logoAsset, but for consistency here we'll assume it's available or use a fallback */}
+              <span className="text-white font-black text-xs relative z-10">SP</span>
+            </div>
+          </div>
+          <span className="font-display text-lg font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">SemPrep AI</span>
         </Link>
         <div className="flex items-center gap-3">
           <span className="hidden rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-cyan-300 sm:inline">
