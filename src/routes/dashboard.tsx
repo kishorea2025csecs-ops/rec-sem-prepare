@@ -33,7 +33,9 @@ import {
   TrendingUp,
   Activity,
   History,
+  Calendar,
 } from "lucide-react";
+
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -360,7 +362,22 @@ function DashboardPage() {
                 {stats?.recommendation ?? "Complete your first practice session to calculate your readiness score."}
               </p>
 
-              <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4">
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link
+                  to="/planner"
+                  className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-6 py-3 text-xs font-black uppercase tracking-widest text-white transition hover:scale-105 active:scale-95 shadow-lg shadow-purple-600/20"
+                >
+                  <Calendar className="size-4" /> Open Planner
+                </Link>
+                <Link
+                  to="/analytics"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-xs font-black uppercase tracking-widest text-white transition hover:bg-white/10"
+                >
+                  <LineChart className="size-4" /> Deep Analytics
+                </Link>
+              </div>
+
+              <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4 border-t border-white/5 pt-10">
                 {[
                   { label: "Topic Coverage", val: stats?.topicCoverage ?? 0, icon: ListChecks, color: "text-cyan-400" },
                   { label: "Question Accuracy", val: stats?.questionAccuracy ?? 0, icon: Activity, color: "text-purple-400" },
@@ -393,7 +410,7 @@ function DashboardPage() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="size-48 rounded-full border border-white/5 bg-white/[0.02]" />
               </div>
-              <div className="relative h-64 w-full">
+              <div className="relative h-64 w-full cursor-pointer" onClick={() => navigate({ to: '/analytics' })}>
                 <Canvas camera={{ position: [0, 0, 8], fov: 35 }}>
                   <ambientLight intensity={0.5} />
                   <pointLight position={[10, 10, 10]} intensity={1} />
@@ -403,6 +420,7 @@ function DashboardPage() {
             </div>
           </div>
         </section>
+
 
         <div className="grid gap-6 lg:grid-cols-[340px_1fr]">
         {/* LEFT: upload + library */}
