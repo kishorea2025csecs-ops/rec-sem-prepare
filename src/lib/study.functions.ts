@@ -5,7 +5,9 @@ import { analyseText, explainTopic } from "./study.server";
 
 export const analyzeMaterial = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .validator((data: unknown) => z.object({ materialId: z.string().uuid() }).parse(data))
+  .validator((data: unknown) =>
+    z.object({ materialId: z.string().uuid(), useMcp: z.boolean().optional() }).parse(data),
+  )
   .handler(async ({ data, context }) => {
     const email = (context.claims.email as string) ?? "";
     if (!email.endsWith("@rajalakshmi.edu.in")) {
@@ -28,13 +30,16 @@ export const analyzeMaterial = createServerFn({ method: "POST" })
     await supabase.from("study_materials").update({ status: "analyzing" }).eq("id", material.id);
 
     try {
-      const analysis = await analyseText({
-        text: material.extracted_text,
-        kind: material.kind as "notes" | "pyq",
-        subject: material.subject,
-        unit: material.unit,
-        title: material.title,
-      });
+      const analysis = await analyseText(
+        {
+          text: material.extracted_text,
+          kind: material.kind as "notes" | "pyq",
+          subject: material.subject,
+          unit: material.unit,
+          title: material.title,
+        },
+        !!data.useMcp,
+      );
 
       await supabase
         .from("study_materials")
