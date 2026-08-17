@@ -198,7 +198,7 @@ function DashboardPage() {
     setBusyId(id);
     setMaterials((prev) => prev.map((m) => (m.id === id ? { ...m, status: "analyzing" } : m)));
     try {
-      const res: any = await runAnalysis({ data: { materialId: id } });
+      const res: any = await runAnalysis({ data: { materialId: id, useMcp } });
       setMaterials((prev) =>
         prev.map((m) => (m.id === id ? { ...m, status: "ready", analysis: res.analysis } : m)),
       );
