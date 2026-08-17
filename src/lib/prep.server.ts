@@ -100,3 +100,42 @@ export async function getPrepAnalytics(supabase: SupabaseClient<Database>, userI
     recommendation
   };
 }
+
+export async function handleGetQuestionBank(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+  filter: { subject?: string; unit?: string }
+) {
+  let query = supabase
+    .from('questions')
+    .select(`
+      *,
+      topic:topics(name, importance, subject_id, subjects(name))
+    `);
+
+  const { data, error } = await query;
+  if (error) throw error;
+  return data;
+}
+
+export async function handleUpdateTopicMastery(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+  data: { topicId: string; masteryScore: number }
+) {
+  const { data: updated, error } = await supabase
+    .from('topic_progress')
+    .upsert({
+      user_id: userId,
+      topic_id: data.topicId,
+      mastery_score: data.masteryScore,
+      status: data.masteryScore > 80 ? 'mastered' : data.masteryScore > 40 ? 'learning' : 'weak',
+      updated_at: new Date().toISOString()
+    })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return updated;
+}
+
