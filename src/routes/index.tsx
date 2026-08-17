@@ -527,9 +527,9 @@ function Landing() {
             </div>
             <div className="space-y-4">
               {[
-                ["Semester Exam Preparation (Tamil)", "PLJ-P2Zq2M3gE-xSjCjC8L8-Wv-5n3oXvD"],
-                ["Unit-wise Topic Explanations", "PL_c92nK-X-U9rZ_X-U9rZ_X-U9rZ_X-U"],
-                ["Important Problems Solved", "PL_c92nK-X-U9rZ_X-U9rZ_X-U9rZ_X-U"],
+                ["Engineering Maths & Core Topics", "PL_c92nK-X-U9rZ_X-U9rZ_X-U9rZ_X-U"],
+                ["Unit-wise Concept Explanations", "PLz6_Hj0Xy3U9k9c9k9c9k9c9k9c9k9c"],
+                ["Exam-Important Problem Solving", "PLb1d-d_V-U_c92nK-X-U9rZ_X-U9rZ_X"],
               ].map(([title, playlistId]) => (
                 <a
                   key={title}
