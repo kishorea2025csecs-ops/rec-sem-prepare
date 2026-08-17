@@ -527,13 +527,13 @@ function Landing() {
             </div>
             <div className="space-y-4">
               {[
-                ["Bayesian Networks விளக்கம்", "Bayesian network tamil explanation"],
-                ["Hidden Markov Model எளிமையாக", "hidden markov model tamil"],
-                ["Naive Bayes problem solving", "naive bayes problem solving tamil"],
-              ].map(([title, query]) => (
+                ["Semester Exam Preparation (Tamil)", "PLJ-P2Zq2M3gE-xSjCjC8L8-Wv-5n3oXvD"],
+                ["Unit-wise Topic Explanations", "PL_c92nK-X-U9rZ_X-U9rZ_X-U9rZ_X-U"],
+                ["Important Problems Solved", "PL_c92nK-X-U9rZ_X-U9rZ_X-U9rZ_X-U"],
+              ].map(([title, playlistId]) => (
                 <a
                   key={title}
-                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(query!)}`}
+                  href={`https://www.youtube.com/playlist?list=${playlistId}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 transition-all duration-300 hover:scale-[1.02] hover:border-amber-400/50 hover:shadow-[0_0_25px_rgba(251,191,36,0.2)]"
