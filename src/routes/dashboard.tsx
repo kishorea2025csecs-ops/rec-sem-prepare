@@ -86,6 +86,7 @@ function DashboardPage() {
   );
   const [explaining, setExplaining] = useState(false);
   const [showProgressOrbit, setShowProgressOrbit] = useState(false);
+  const [useMcp, setUseMcp] = useState(true);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({
