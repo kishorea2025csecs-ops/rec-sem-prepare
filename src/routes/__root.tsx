@@ -159,15 +159,7 @@ function RootComponent() {
       <div className="relative min-h-screen bg-[#020205]">
         {/* Global Persistent 3D Background */}
         <div className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000">
-          <Suspense fallback={null}>
-            <SplineScene
-              key={sceneUrl}
-              scene={sceneUrl}
-              className={`w-full h-full transition-opacity duration-1000 ${
-                location.pathname === "/" ? "opacity-100" : "opacity-60"
-              }`}
-            />
-          </Suspense>
+          <StudySpace />
         </div>
 
         {/* Shared ambient glows */}
