@@ -210,17 +210,7 @@ function Landing() {
       </header>
 
       <main id="top" className="relative">
-        {/* Persistent 3D Background */}
-        <div className="fixed inset-0 z-0 opacity-100 pointer-events-none">
-          <Suspense fallback={null}>
-            <SplineScene 
-              scene="https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode"
-              className="w-full h-full"
-            />
-          </Suspense>
-        </div>
-
-        {/* Hero Section */}
+        {/* Background Video & Glows for Hero */}
         <section 
           aria-labelledby="hero-heading"
           className="relative overflow-hidden min-h-[700px] lg:min-h-[900px] flex items-center"

@@ -276,14 +276,9 @@ function DashboardPage() {
   const done = topics.filter((t: any) => progress[t.topic]).length;
 
   return (
-    <div className="min-h-screen bg-[#020205] pb-20 text-foreground">
-      <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
-        <Suspense fallback={null}>
-          <SplineScene 
-            scene="https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode"
-            className="w-full h-full opacity-60"
-          />
-        </Suspense>
+    <div className="min-h-screen pb-20 text-foreground">
+      {/* Background Video for Hero area context */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden z-[1]">
         <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/10 blur-[140px]" />
         <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/10 blur-[150px]" />
       </div>

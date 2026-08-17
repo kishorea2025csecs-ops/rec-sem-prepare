@@ -73,17 +73,7 @@ function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#020205] text-foreground pb-20 relative overflow-hidden">
-      {/* Persistent 3D Background */}
-      <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-        <Suspense fallback={null}>
-          <SplineScene 
-            scene="https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode"
-            className="w-full h-full"
-          />
-        </Suspense>
-      </div>
-
+    <div className="min-h-screen text-foreground pb-20 relative overflow-hidden">
       <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/5 blur-[140px] pointer-events-none" />
       <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/5 blur-[150px] pointer-events-none" />
       {/* Header */}
