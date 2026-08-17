@@ -617,7 +617,7 @@ function DashboardPage() {
                         {analysis.tamilQueries.map((q: string) => (
                           <a
                             key={q}
-                            href={`https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`}
+                            href={`https://www.youtube.com/results?search_query=${encodeURIComponent(q + " tamil explanation")}`}
                             target="_blank"
                             rel="noreferrer"
                             className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold transition hover:border-amber-400/50 hover:bg-amber-500/10"
