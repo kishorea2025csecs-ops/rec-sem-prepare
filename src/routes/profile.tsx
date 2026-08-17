@@ -8,6 +8,8 @@ import { Suspense } from "react";
 import { toast } from "sonner";
 import { User, Mail, ShieldCheck, CreditCard, Key, ArrowLeft, Loader2, Camera } from "lucide-react";
 import { Header } from "@/components/Header";
+import { Sidebar, MobileNav } from "@/components/Sidebar";
+
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -82,7 +84,11 @@ function ProfilePage() {
         activeLink="profile"
       />
 
-      <main className="mx-auto max-w-2xl p-6 lg:p-10" aria-labelledby="profile-heading">
+      <Sidebar activeLink="/profile" />
+      <MobileNav activeLink="/profile" />
+
+      <main className="mx-auto max-w-2xl p-6 lg:p-10 lg:pl-80" aria-labelledby="profile-heading">
+
         <div className="space-y-10">
           {/* Profile Section */}
           <section className="space-y-6">
