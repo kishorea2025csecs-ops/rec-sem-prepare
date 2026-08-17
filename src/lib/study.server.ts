@@ -189,7 +189,7 @@ export async function explainTopic(
 
 export async function handleAnalyzeMaterial(
   supabase: SupabaseClient<Database>,
-  data: { materialId: string; useMcp?: boolean },
+  data: { materialId: string; useMcp?: boolean | undefined },
   context: any
 ) {
   const email = (context.claims.email as string) ?? "";
