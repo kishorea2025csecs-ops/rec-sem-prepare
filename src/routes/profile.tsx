@@ -87,7 +87,7 @@ function ProfilePage() {
       <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/5 blur-[140px] pointer-events-none" />
       <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/5 blur-[150px] pointer-events-none" />
       {/* Header */}
-      <header className="sticky top-4 z-30 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-2xl flex h-16 items-center px-6 backdrop-blur-xl justify-between">
+      <header className="sticky top-4 z-30 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-2xl flex h-16 items-center px-6 backdrop-blur-xl justify-between relative">
         <div className="flex items-center gap-4">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
