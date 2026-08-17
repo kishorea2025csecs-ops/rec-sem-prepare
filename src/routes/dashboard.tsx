@@ -466,11 +466,13 @@ function DashboardPage() {
                       
                       <div className="size-full max-h-[250px] relative z-0">
                         <Suspense fallback={<Loader2 className="size-8 animate-spin text-accent" />}>
-                          <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
-                            <ambientLight intensity={0.5} />
-                            <pointLight position={[10, 10, 10]} intensity={1} />
-                            <ProgressWheel3D completion={done} totalTopics={topics.length} />
-                          </Canvas>
+                          {showProgressOrbit && (
+                            <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
+                              <ambientLight intensity={0.5} />
+                              <pointLight position={[10, 10, 10]} intensity={1} />
+                              <ProgressWheel3D completion={done} totalTopics={topics.length} />
+                            </Canvas>
+                          )}
                         </Suspense>
                       </div>
 
