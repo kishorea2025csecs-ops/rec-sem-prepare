@@ -122,11 +122,34 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div className="relative min-h-screen bg-[#020205]">
+        {/* Global Persistent 3D Background */}
+        <div className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000">
+          <Suspense fallback={null}>
+            <SplineScene 
+              scene="https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode"
+              className={`w-full h-full transition-opacity duration-1000 ${
+                location.pathname === '/' ? 'opacity-100' : 'opacity-60'
+              }`}
+            />
+          </Suspense>
+        </div>
+        
+        {/* Shared ambient glows */}
+        <div className="pointer-events-none fixed inset-0 overflow-hidden z-[1]">
+          <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/10 blur-[140px]" />
+          <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/10 blur-[150px]" />
+        </div>
+
+        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+        <div className="relative z-10">
+          <Outlet />
+        </div>
+      </div>
     </QueryClientProvider>
   );
 }
