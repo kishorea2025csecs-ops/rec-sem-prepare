@@ -13,6 +13,7 @@ import {
   Timer,
   Upload,
   Youtube,
+  Lock,
 } from "lucide-react";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
@@ -25,7 +26,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getSessionInfo } from "@/lib/auth.functions";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock } from "lucide-react";
+import { Header } from "@/components/Header";
 
 export const Route = createFileRoute("/")({
   head: () => ({

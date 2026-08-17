@@ -10,7 +10,6 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode, Suspense, useState } from "react";
 import { SplineScene } from "@/components/SplineScene";
-import { SceneSelector } from "@/components/SceneSelector";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -177,10 +176,6 @@ function RootComponent() {
           <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/10 blur-[150px]" />
         </div>
 
-        {/* Persistent Scene Selector in Footer or Corner */}
-        <div className="fixed bottom-6 right-6 z-[100] hidden md:block">
-          <SceneSelector />
-        </div>
 
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <div className="relative z-10">

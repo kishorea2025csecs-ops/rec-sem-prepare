@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Canvas } from "@react-three/fiber";
 import { ProgressWheel3D } from "@/components/ProgressWheel3D";
 import { motion, AnimatePresence } from "framer-motion";
+import { Header } from "@/components/Header";
 import {
   ArrowLeft,
   BrainCircuit,
@@ -303,35 +304,12 @@ function DashboardPage() {
         <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/10 blur-[150px]" />
       </div>
 
-      <header className="relative z-10 mx-auto flex max-w-7xl items-center justify-between px-5 py-6">
-        <Link to="/" className="flex items-center gap-3 group">
-          <div className="relative">
-            <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="relative flex size-10 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none" />
-              <img
-                src={logoAsset.url}
-                alt="REC Logo"
-                className="size-full object-contain relative z-10"
-              />
-            </div>
-          </div>
-          <span className="font-display text-lg font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-            SemPrep AI
-          </span>
-        </Link>
-        <div className="flex items-center gap-3">
-          <span className="hidden rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-cyan-300 sm:inline">
-            Verified REC · {email}
-          </span>
-          <Link
-            to="/profile"
-            className="rounded-full border border-white/10 bg-white/5 px-5 py-2 text-xs font-black uppercase tracking-widest backdrop-blur-md transition hover:bg-white/10"
-          >
-            Profile
-          </Link>
-        </div>
-      </header>
+      <Header
+        isAuthenticated={true}
+        isVerifiedRec={isVerified}
+        userEmail={email}
+        activeLink="dashboard"
+      />
 
       <main className="relative z-10 mx-auto grid max-w-7xl gap-6 px-5 lg:grid-cols-[340px_1fr]">
         {/* LEFT: upload + library */}

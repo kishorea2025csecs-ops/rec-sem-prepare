@@ -7,6 +7,7 @@ import { Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { toast } from "sonner";
 import { User, Mail, ShieldCheck, CreditCard, Key, ArrowLeft, Loader2, Camera } from "lucide-react";
+import { Header } from "@/components/Header";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
@@ -74,32 +75,12 @@ function ProfilePage() {
       <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/5 blur-[140px] pointer-events-none" />
       <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/5 blur-[150px] pointer-events-none" />
       {/* Header */}
-      <header className="sticky top-4 z-30 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-2xl flex h-16 items-center px-6 backdrop-blur-xl justify-between relative">
-        <div className="flex items-center gap-4">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative">
-              <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative flex size-9 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none" />
-                <img
-                  src={logoAsset.url}
-                  alt="REC Logo"
-                  className="size-full object-contain relative z-10"
-                />
-              </div>
-            </div>
-            <span className="font-display text-base font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent hidden sm:block">
-              SemPrep AI
-            </span>
-          </Link>
-        </div>
-        <h1
-          id="profile-heading"
-          className="font-display text-sm font-black uppercase tracking-widest text-muted-foreground"
-        >
-          Settings
-        </h1>
-      </header>
+      <Header
+        isAuthenticated={true}
+        isVerifiedRec={!!user?.email?.endsWith("@rajalakshmi.edu.in")}
+        userEmail={user?.email}
+        activeLink="profile"
+      />
 
       <main className="mx-auto max-w-2xl p-6 lg:p-10" aria-labelledby="profile-heading">
         <div className="space-y-10">
