@@ -12,6 +12,8 @@ import { Canvas } from "@react-three/fiber";
 import { ProgressWheel3D } from "@/components/ProgressWheel3D";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/Header";
+import { Sidebar, MobileNav } from "@/components/Sidebar";
+
 import {
   ArrowLeft,
   BrainCircuit,
@@ -315,7 +317,7 @@ function DashboardPage() {
   const done = topics.filter((t: any) => progress[t.topic]).length;
 
   return (
-    <div className="min-h-screen pb-20 text-foreground">
+    <div className="min-h-screen pb-20 text-foreground bg-[#020205]">
       {/* Background Video for Hero area context */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-[1]">
         <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/10 blur-[140px]" />
@@ -329,7 +331,12 @@ function DashboardPage() {
         activeLink="dashboard"
       />
 
-      <main className="relative z-10 mx-auto max-w-7xl px-5 pt-28 pb-20">
+
+      <Sidebar activeLink="/dashboard" />
+      <MobileNav activeLink="/dashboard" />
+
+      <main className="relative z-10 mx-auto max-w-7xl px-5 lg:pl-80 pt-28 pb-20">
+
         {/* TOP: Exam Readiness command center */}
         <section className="mb-10 rounded-[2.5rem] border border-white/10 bg-white/5 p-8 backdrop-blur-2xl">
           <div className="grid gap-10 lg:grid-cols-[1fr_300px]">

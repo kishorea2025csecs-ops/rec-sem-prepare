@@ -10,8 +10,12 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as PlannerRouteImport } from './routes/planner'
 import { Route as ProfileRouteImport } from './routes/profile'
+import { Route as QuestionsRouteImport } from './routes/questions'
+import { Route as TopicsRouteImport } from './routes/topics'
 import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 
@@ -20,14 +24,34 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AnalyticsRoute = AnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlannerRoute = PlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfileRoute = ProfileRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const QuestionsRoute = QuestionsRouteImport.update({
+  id: '/questions',
+  path: '/questions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TopicsRoute = TopicsRouteImport.update({
+  id: '/topics',
+  path: '/topics',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
@@ -43,44 +67,82 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
   '/dashboard': typeof DashboardRoute
+  '/planner': typeof PlannerRoute
   '/profile': typeof ProfileRoute
+  '/questions': typeof QuestionsRoute
+  '/topics': typeof TopicsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
   '/dashboard': typeof DashboardRoute
+  '/planner': typeof PlannerRoute
   '/profile': typeof ProfileRoute
+  '/questions': typeof QuestionsRoute
+  '/topics': typeof TopicsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analytics': typeof AnalyticsRoute
   '/dashboard': typeof DashboardRoute
+  '/planner': typeof PlannerRoute
   '/profile': typeof ProfileRoute
+  '/questions': typeof QuestionsRoute
+  '/topics': typeof TopicsRoute
   '/auth/callback': typeof AuthCallbackRoute
   '/auth/login': typeof AuthLoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/profile' | '/auth/callback' | '/auth/login'
+  fullPaths:
+    | '/'
+    | '/analytics'
+    | '/dashboard'
+    | '/planner'
+    | '/profile'
+    | '/questions'
+    | '/topics'
+    | '/auth/callback'
+    | '/auth/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/profile' | '/auth/callback' | '/auth/login'
+  to:
+    | '/'
+    | '/analytics'
+    | '/dashboard'
+    | '/planner'
+    | '/profile'
+    | '/questions'
+    | '/topics'
+    | '/auth/callback'
+    | '/auth/login'
   id:
     | '__root__'
     | '/'
+    | '/analytics'
     | '/dashboard'
+    | '/planner'
     | '/profile'
+    | '/questions'
+    | '/topics'
     | '/auth/callback'
     | '/auth/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyticsRoute: typeof AnalyticsRoute
   DashboardRoute: typeof DashboardRoute
+  PlannerRoute: typeof PlannerRoute
   ProfileRoute: typeof ProfileRoute
+  QuestionsRoute: typeof QuestionsRoute
+  TopicsRoute: typeof TopicsRoute
   AuthCallbackRoute: typeof AuthCallbackRoute
   AuthLoginRoute: typeof AuthLoginRoute
 }
@@ -94,6 +156,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/analytics': {
+      id: '/analytics'
+      path: '/analytics'
+      fullPath: '/analytics'
+      preLoaderRoute: typeof AnalyticsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dashboard': {
       id: '/dashboard'
       path: '/dashboard'
@@ -101,11 +170,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/planner': {
+      id: '/planner'
+      path: '/planner'
+      fullPath: '/planner'
+      preLoaderRoute: typeof PlannerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profile': {
       id: '/profile'
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/questions': {
+      id: '/questions'
+      path: '/questions'
+      fullPath: '/questions'
+      preLoaderRoute: typeof QuestionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/topics': {
+      id: '/topics'
+      path: '/topics'
+      fullPath: '/topics'
+      preLoaderRoute: typeof TopicsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/callback': {
@@ -127,8 +217,12 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyticsRoute: AnalyticsRoute,
   DashboardRoute: DashboardRoute,
+  PlannerRoute: PlannerRoute,
   ProfileRoute: ProfileRoute,
+  QuestionsRoute: QuestionsRoute,
+  TopicsRoute: TopicsRoute,
   AuthCallbackRoute: AuthCallbackRoute,
   AuthLoginRoute: AuthLoginRoute,
 }
