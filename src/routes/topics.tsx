@@ -58,7 +58,7 @@ function TopicsPage() {
   const loadTopics = async () => {
     setLoading(true);
     try {
-      const data = await fetchTopics({ data: {} });
+      const data = await fetchTopics({ data: undefined });
       setTopics(data || []);
     } catch (err) {
       console.error(err);

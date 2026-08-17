@@ -57,7 +57,7 @@ function QuestionsPage() {
   const loadQuestions = async () => {
     setLoading(true);
     try {
-      const data = await fetchQuestions({ data: {} });
+      const data = await fetchQuestions({ data: { subject: undefined, unit: undefined } });
       setQuestions(data || []);
     } catch (err) {
       console.error(err);
