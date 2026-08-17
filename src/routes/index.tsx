@@ -212,7 +212,10 @@ function Landing() {
         {/* Persistent 3D Background */}
         <div className="fixed inset-0 z-0 opacity-100 pointer-events-none">
           <Suspense fallback={null}>
-            <StudySpace />
+            <SplineScene 
+              scene="https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode"
+              className="w-full h-full"
+            />
           </Suspense>
         </div>
 
