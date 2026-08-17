@@ -1,3 +1,5 @@
+import { callMcpTool } from "./mcp.server";
+
 export type Analysis = {
   summary: string;
   concepts: { name: string; detail: string }[];

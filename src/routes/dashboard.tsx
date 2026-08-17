@@ -86,6 +86,7 @@ function DashboardPage() {
   );
   const [explaining, setExplaining] = useState(false);
   const [showProgressOrbit, setShowProgressOrbit] = useState(false);
+  const [useMcp, setUseMcp] = useState(true);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({
@@ -492,26 +493,50 @@ function DashboardPage() {
             <>
               <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
                 <div>
-                  <h1 className="font-display text-2xl font-black uppercase tracking-tight">
-                    {active.title}
-                  </h1>
+                  <div className="flex items-center gap-3">
+                    <h1 className="font-display text-2xl font-black uppercase tracking-tight">
+                      {active.title}
+                    </h1>
+                    {active.status === "ready" && (
+                      <span className="flex items-center gap-1.5 rounded-full bg-accent/10 px-3 py-1 text-[9px] font-black uppercase tracking-widest text-accent border border-accent/20">
+                        <Sparkles className="size-2.5" /> MCP Tool Assisted
+                      </span>
+                    )}
+                  </div>
                   <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
                     {active.subject} · {active.unit} ·{" "}
                     {active.kind === "pyq" ? "Previous-year paper" : "Unit notes"}
                   </p>
                 </div>
-                <button
-                  onClick={() => analyse(active.id)}
-                  disabled={busyId === active.id}
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 px-6 py-3 text-xs font-black uppercase tracking-widest text-white transition hover:scale-105 active:scale-95 disabled:opacity-60"
-                >
-                  {busyId === active.id ? (
-                    <Loader2 className="size-4 animate-spin" />
-                  ) : (
-                    <BrainCircuit className="size-4" />
-                  )}
-                  {active.status === "ready" ? "Re-run analysis" : "Run AI analysis"}
-                </button>
+                <div className="flex items-center gap-4">
+                  <button
+                    onClick={() =>
+                      setUseMcp((prev) => {
+                        const next = !prev;
+                        toast.info(
+                          next ? "MCP Tool Integration Enabled" : "Running in Standalone Mode",
+                        );
+                        return next;
+                      })
+                    }
+                    className={`flex items-center gap-2 rounded-full border px-4 py-2 text-[10px] font-black uppercase tracking-widest transition-all ${useMcp ? "border-accent/40 bg-accent/10 text-accent" : "border-white/10 bg-white/5 text-muted-foreground"}`}
+                  >
+                    <Sparkles className={`size-3 ${useMcp ? "animate-pulse" : ""}`} />
+                    Tools: {useMcp ? "ON" : "OFF"}
+                  </button>
+                  <button
+                    onClick={() => analyse(active.id)}
+                    disabled={busyId === active.id}
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 px-6 py-3 text-xs font-black uppercase tracking-widest text-white transition hover:scale-105 active:scale-95 disabled:opacity-60"
+                  >
+                    {busyId === active.id ? (
+                      <Loader2 className="size-4 animate-spin" />
+                    ) : (
+                      <BrainCircuit className="size-4" />
+                    )}
+                    {active.status === "ready" ? "Re-run analysis" : "Run AI analysis"}
+                  </button>
+                </div>
               </div>
 
               {busyId === active.id && (
