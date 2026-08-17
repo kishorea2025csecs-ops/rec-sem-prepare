@@ -20,6 +20,7 @@ import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef, Suspense, useEffect } from "react";
 import { StudySpace } from "@/components/StudySpace";
+import { SplineScene } from "@/components/SplineScene";
 import { useServerFn } from "@tanstack/react-start";
 import { getSessionInfo } from "@/lib/auth.functions";
 import { useQuery } from "@tanstack/react-query";
