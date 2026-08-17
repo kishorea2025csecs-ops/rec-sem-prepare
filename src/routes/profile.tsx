@@ -6,22 +6,17 @@ import logoAsset from "@/assets/logo-glow.png.asset.json";
 import { Link } from "@tanstack/react-router";
 import { Suspense } from "react";
 import { toast } from "sonner";
-import { 
-  User, 
-  Mail, 
-  ShieldCheck, 
-  CreditCard, 
-  Key, 
-  ArrowLeft,
-  Loader2,
-  Camera
-} from "lucide-react";
+import { User, Mail, ShieldCheck, CreditCard, Key, ArrowLeft, Loader2, Camera } from "lucide-react";
 
 export const Route = createFileRoute("/profile")({
   head: () => ({
     meta: [
       { title: "My Profile | SemPrep AI - Account Settings" },
-      { name: "description", content: "Manage your SemPrep AI profile and account settings. Secure academic portal for Rajalakshmi Engineering College students." },
+      {
+        name: "description",
+        content:
+          "Manage your SemPrep AI profile and account settings. Secure academic portal for Rajalakshmi Engineering College students.",
+      },
       { property: "og:title", content: "Student Profile | SemPrep AI" },
       { property: "og:description", content: "Manage your account settings on SemPrep AI." },
       { property: "og:type", content: "website" },
@@ -40,27 +35,29 @@ function ProfilePage() {
   useEffect(() => {
     const getProfile = async () => {
       setLoading(true);
-      const { data: { session } } = await supabase.auth.getSession();
-      
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
       if (!session) {
         navigate({ to: "/auth/login" });
         return;
       }
-      
+
       setUser(session.user);
-      
+
       const { data: profileData } = await supabase
         .from("profiles")
         .select("*")
         .eq("id", session.user.id)
         .single();
-      
+
       if (profileData) {
         setProfile(profileData);
       }
       setLoading(false);
     };
-    
+
     getProfile();
   }, [navigate]);
 
@@ -84,13 +81,24 @@ function ProfilePage() {
               <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative flex size-9 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none" />
-                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain relative z-10" />
+                <img
+                  src={logoAsset.url}
+                  alt="REC Logo"
+                  className="size-full object-contain relative z-10"
+                />
               </div>
             </div>
-            <span className="font-display text-base font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent hidden sm:block">SemPrep AI</span>
+            <span className="font-display text-base font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent hidden sm:block">
+              SemPrep AI
+            </span>
           </Link>
         </div>
-        <h1 id="profile-heading" className="font-display text-sm font-black uppercase tracking-widest text-muted-foreground">Settings</h1>
+        <h1
+          id="profile-heading"
+          className="font-display text-sm font-black uppercase tracking-widest text-muted-foreground"
+        >
+          Settings
+        </h1>
       </header>
 
       <main className="mx-auto max-w-2xl p-6 lg:p-10" aria-labelledby="profile-heading">
@@ -108,10 +116,10 @@ function ProfilePage() {
               <div className="flex flex-col sm:flex-row items-center gap-6 mb-10">
                 <div className="relative group">
                   {profile?.avatar_url || user?.user_metadata?.avatar_url ? (
-                    <img 
-                      src={profile?.avatar_url || user?.user_metadata?.avatar_url} 
-                      alt="Avatar" 
-                      className="size-24 rounded-3xl object-cover border-4 border-surface shadow-xl" 
+                    <img
+                      src={profile?.avatar_url || user?.user_metadata?.avatar_url}
+                      alt="Avatar"
+                      className="size-24 rounded-3xl object-cover border-4 border-surface shadow-xl"
                     />
                   ) : (
                     <div className="size-24 rounded-3xl bg-gradient-to-tr from-accent to-primary flex items-center justify-center text-primary-foreground text-3xl font-black border-4 border-surface shadow-xl">
@@ -134,27 +142,31 @@ function ProfilePage() {
 
               <div className="space-y-6">
                 <div className="grid gap-2">
-                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground px-1">Full Name</label>
+                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground px-1">
+                    Full Name
+                  </label>
                   <div className="relative">
                     <User className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                    <input 
-                      type="text" 
-                      readOnly 
+                    <input
+                      type="text"
+                      readOnly
                       value={profile?.full_name || user?.user_metadata?.full_name || ""}
-                      className="w-full rounded-2xl border border-border bg-surface px-11 py-3 text-sm focus:outline-none cursor-default" 
+                      className="w-full rounded-2xl border border-border bg-surface px-11 py-3 text-sm focus:outline-none cursor-default"
                     />
                   </div>
                 </div>
 
                 <div className="grid gap-2">
-                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground px-1">Official Email Address</label>
+                  <label className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground px-1">
+                    Official Email Address
+                  </label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                    <input 
-                      type="email" 
-                      readOnly 
+                    <input
+                      type="email"
+                      readOnly
                       value={user?.email || ""}
-                      className="w-full rounded-2xl border border-border bg-surface px-11 py-3 text-sm focus:outline-none cursor-default" 
+                      className="w-full rounded-2xl border border-border bg-surface px-11 py-3 text-sm focus:outline-none cursor-default"
                     />
                   </div>
                   <p className="text-[10px] text-accent font-medium px-1 flex items-center gap-1">
@@ -181,12 +193,18 @@ function ProfilePage() {
                     <Key className="size-5" />
                   </div>
                   <div className="text-left">
-                    <p className="text-sm font-bold group-hover:text-white transition-colors">Change Password</p>
-                    <p className="text-xs text-muted-foreground">Update your REC portal login password</p>
+                    <p className="text-sm font-bold group-hover:text-white transition-colors">
+                      Change Password
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      Update your REC portal login password
+                    </p>
                   </div>
                 </div>
                 <div className="size-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 group-hover:bg-purple-500/20 group-hover:border-purple-400/30 transition-all">
-                  <span className="text-xs group-hover:translate-x-0.5 transition-transform">→</span>
+                  <span className="text-xs group-hover:translate-x-0.5 transition-transform">
+                    →
+                  </span>
                 </div>
               </button>
             </div>
@@ -205,20 +223,26 @@ function ProfilePage() {
               <div className="flex items-center justify-between rounded-2xl bg-gradient-to-br from-accent to-primary p-6 text-primary-foreground">
                 <div>
                   <h3 className="font-display text-lg font-bold">Academic Pro</h3>
-                  <p className="text-xs opacity-80 mt-1 uppercase tracking-widest font-bold">Active Student License</p>
+                  <p className="text-xs opacity-80 mt-1 uppercase tracking-widest font-bold">
+                    Active Student License
+                  </p>
                 </div>
                 <div className="size-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center">
                   <CreditCard className="size-6" />
                 </div>
               </div>
-              
+
               <div className="mt-6 flex items-center justify-between px-2">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Renewal Date</p>
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                    Renewal Date
+                  </p>
                   <p className="text-sm font-bold mt-1">Aug 16, 2027</p>
                 </div>
-                <button 
-                  onClick={() => toast.info("Managed by Rajalakshmi Engineering College IT Department")}
+                <button
+                  onClick={() =>
+                    toast.info("Managed by Rajalakshmi Engineering College IT Department")
+                  }
                   className="text-xs font-black uppercase tracking-widest text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] backdrop-blur-md transition-all duration-300"
                 >
                   Manage Billing
@@ -230,8 +254,8 @@ function ProfilePage() {
           {/* Note from semantics */}
           <div className="rounded-2xl bg-surface/50 border border-border p-5">
             <p className="text-[11px] leading-relaxed text-muted-foreground italic text-center">
-              "Profile is reserved for static personal information. For live analytics, 
-              interactive models, and system metrics, please visit your Dashboard."
+              "Profile is reserved for static personal information. For live analytics, interactive
+              models, and system metrics, please visit your Dashboard."
             </p>
           </div>
         </div>

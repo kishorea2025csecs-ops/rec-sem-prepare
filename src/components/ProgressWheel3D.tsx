@@ -1,9 +1,15 @@
-import React, { useRef, useMemo } from 'react';
-import { useFrame } from '@react-three/fiber';
-import { Float, Text, MeshDistortMaterial } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { useRef, useMemo } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Float, Text, MeshDistortMaterial } from "@react-three/drei";
+import * as THREE from "three";
 
-export const ProgressWheel3D = ({ completion, totalTopics }: { completion: number; totalTopics: number }) => {
+export const ProgressWheel3D = ({
+  completion,
+  totalTopics,
+}: {
+  completion: number;
+  totalTopics: number;
+}) => {
   const groupRef = useRef<THREE.Group>(null);
   const ringRef = useRef<THREE.Mesh>(null);
   const progressPercent = totalTopics > 0 ? completion / totalTopics : 0;
@@ -30,10 +36,10 @@ export const ProgressWheel3D = ({ completion, totalTopics }: { completion: numbe
         {/* Base Glass Torus */}
         <mesh rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[2, 0.3, 20, 100]} />
-          <meshPhysicalMaterial 
-            color="#00D2FF" 
-            transmission={0.7} 
-            thickness={1.5} 
+          <meshPhysicalMaterial
+            color="#00D2FF"
+            transmission={0.7}
+            thickness={1.5}
             roughness={0.1}
             metalness={0.1}
             ior={1.5}
@@ -42,18 +48,15 @@ export const ProgressWheel3D = ({ completion, totalTopics }: { completion: numbe
             emissiveIntensity={0.2}
           />
         </mesh>
-        
+
         {/* Active Progress Segment */}
         {progressPercent > 0 && (
-          <mesh 
-            ref={ringRef}
-            rotation={[Math.PI / 2, 0, 0]}
-          >
-            <torusGeometry args={[2, 0.35, 20, 100, (Math.PI * 2) * progressPercent]} />
-            <MeshDistortMaterial 
-              color="#FF0080" 
-              speed={2} 
-              distort={0.3} 
+          <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[2, 0.35, 20, 100, Math.PI * 2 * progressPercent]} />
+            <MeshDistortMaterial
+              color="#FF0080"
+              speed={2}
+              distort={0.3}
               radius={1}
               emissive="#FF0080"
               emissiveIntensity={0.5}
@@ -77,10 +80,10 @@ export const ProgressWheel3D = ({ completion, totalTopics }: { completion: numbe
         {/* Subtle Inner Sphere */}
         <mesh>
           <sphereGeometry args={[1.2, 32, 32]} />
-          <meshPhysicalMaterial 
-            color="#7928CA" 
-            transparent 
-            opacity={0.1} 
+          <meshPhysicalMaterial
+            color="#7928CA"
+            transparent
+            opacity={0.1}
             transmission={0.9}
             thickness={2}
           />

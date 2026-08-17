@@ -39,7 +39,8 @@ export const Route = createFileRoute("/dashboard")({
       { property: "og:title", content: "Study Dashboard | SemPrep AI" },
       {
         property: "og:description",
-        content: "Your AI exam-prep workspace: uploads, priority topics, question bank and Tamil help.",
+        content:
+          "Your AI exam-prep workspace: uploads, priority topics, question bank and Tamil help.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -80,12 +81,18 @@ function DashboardPage() {
   const [busyId, setBusyId] = useState<string | null>(null);
   const [uploading, setUploading] = useState<string | null>(null);
   const [progress, setProgress] = useState<Record<string, boolean>>({});
-  const [explain, setExplain] = useState<{ topic: string; level: string; text: string } | null>(null);
+  const [explain, setExplain] = useState<{ topic: string; level: string; text: string } | null>(
+    null,
+  );
   const [explaining, setExplaining] = useState(false);
   const [showProgressOrbit, setShowProgressOrbit] = useState(false);
 
   const fileRef = useRef<HTMLInputElement>(null);
-  const [form, setForm] = useState({ subject: "", unit: "Unit 1", kind: "notes" as "notes" | "pyq" });
+  const [form, setForm] = useState({
+    subject: "",
+    unit: "Unit 1",
+    kind: "notes" as "notes" | "pyq",
+  });
 
   const isVerified = !!email?.endsWith("@rajalakshmi.edu.in");
 
@@ -124,7 +131,10 @@ function DashboardPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const active = useMemo(() => materials.find((m) => m.id === activeId) ?? null, [materials, activeId]);
+  const active = useMemo(
+    () => materials.find((m) => m.id === activeId) ?? null,
+    [materials, activeId],
+  );
 
   const handleUpload = async (file: File) => {
     if (!file) return;
@@ -137,7 +147,9 @@ function DashboardPage() {
       return;
     }
 
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
     if (!session) return navigate({ to: "/auth/login" });
 
     try {
@@ -206,13 +218,15 @@ function DashboardPage() {
   };
 
   const toggleTopic = async (topic: string, subject: string) => {
-    const { data: { session } } = await supabase.auth.getSession();
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
     if (!session) return;
     const next = !progress[topic];
-    
+
     // Optimistic update
     setProgress((p) => ({ ...p, [topic]: next }));
-    
+
     try {
       await supabase
         .from("study_progress")
@@ -220,7 +234,7 @@ function DashboardPage() {
           { user_id: session.user.id, topic, subject, completed: next },
           { onConflict: "user_id,subject,topic" },
         );
-      
+
       if (next) {
         toast.success(`Topic "${topic}" completed!`);
       }
@@ -235,7 +249,9 @@ function DashboardPage() {
     setExplaining(true);
     setExplain({ topic, level, text: "" });
     try {
-      const res: any = await runExplain({ data: { topic, level, subject: active?.subject ?? "General" } });
+      const res: any = await runExplain({
+        data: { topic, level, subject: active?.subject ?? "General" },
+      });
       setExplain({ topic, level, text: res.text });
     } catch (e: any) {
       setExplain(null);
@@ -260,10 +276,13 @@ function DashboardPage() {
           <Lock className="mx-auto size-8 text-red-400" />
           <h1 className="mt-4 font-display text-2xl font-black uppercase">Access restricted</h1>
           <p className="mt-3 text-sm text-muted-foreground">
-            Only verified <span className="text-red-300">@rajalakshmi.edu.in</span> accounts can upload
-            material or view AI results.
+            Only verified <span className="text-red-300">@rajalakshmi.edu.in</span> accounts can
+            upload material or view AI results.
           </p>
-          <Link to="/" className="mt-6 inline-flex rounded-full bg-white/10 px-5 py-2.5 text-sm font-bold">
+          <Link
+            to="/"
+            className="mt-6 inline-flex rounded-full bg-white/10 px-5 py-2.5 text-sm font-bold"
+          >
             Back to home
           </Link>
         </div>
@@ -289,10 +308,16 @@ function DashboardPage() {
             <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative flex size-10 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none" />
-              <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain relative z-10" />
+              <img
+                src={logoAsset.url}
+                alt="REC Logo"
+                className="size-full object-contain relative z-10"
+              />
             </div>
           </div>
-          <span className="font-display text-lg font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">SemPrep AI</span>
+          <span className="font-display text-lg font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
+            SemPrep AI
+          </span>
         </Link>
         <div className="flex items-center gap-3">
           <span className="hidden rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.15em] text-cyan-300 sm:inline">
@@ -311,8 +336,12 @@ function DashboardPage() {
         {/* LEFT: upload + library */}
         <aside className="space-y-6">
           <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-            <h2 className="font-display text-lg font-black uppercase tracking-tight">Upload material</h2>
-            <p className="mt-1 text-xs text-muted-foreground">Text-based PDF notes or previous-year papers.</p>
+            <h2 className="font-display text-lg font-black uppercase tracking-tight">
+              Upload material
+            </h2>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Text-based PDF notes or previous-year papers.
+            </p>
 
             <label className="mt-5 block text-[10px] font-black uppercase tracking-widest text-muted-foreground">
               Subject
@@ -347,11 +376,17 @@ function DashboardPage() {
                 </label>
                 <select
                   value={form.kind}
-                  onChange={(e) => setForm((f) => ({ ...f, kind: e.target.value as "notes" | "pyq" }))}
+                  onChange={(e) =>
+                    setForm((f) => ({ ...f, kind: e.target.value as "notes" | "pyq" }))
+                  }
                   className="mt-2 w-full rounded-2xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm outline-none focus:border-cyan-400/50"
                 >
-                  <option value="notes" className="bg-[#0a0a12]">Notes</option>
-                  <option value="pyq" className="bg-[#0a0a12]">PYQ paper</option>
+                  <option value="notes" className="bg-[#0a0a12]">
+                    Notes
+                  </option>
+                  <option value="pyq" className="bg-[#0a0a12]">
+                    PYQ paper
+                  </option>
                 </select>
               </div>
             </div>
@@ -371,7 +406,11 @@ function DashboardPage() {
               className="group relative mt-5 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-6 py-4 text-sm font-black text-white transition-all duration-500 shadow-[0_0_20px_rgba(121,40,202,0.3)] hover:shadow-[0_0_30px_rgba(0,112,243,0.5)] disabled:opacity-60"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-              {uploading ? <Loader2 className="size-4 animate-spin relative z-10" /> : <Upload className="size-4 relative z-10" />}
+              {uploading ? (
+                <Loader2 className="size-4 animate-spin relative z-10" />
+              ) : (
+                <Upload className="size-4 relative z-10" />
+              )}
               <span className="relative z-10">{uploading ?? "Choose PDF & analyse"}</span>
             </motion.button>
           </section>
@@ -387,7 +426,7 @@ function DashboardPage() {
                 </li>
               )}
               {materials.map((m, i) => (
-                <motion.li 
+                <motion.li
                   key={m.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -400,9 +439,16 @@ function DashboardPage() {
                         : "border-white/10 bg-black/30 hover:bg-white/5"
                     }`}
                   >
-                    <button onClick={() => setActiveId(m.id)} className="flex min-w-0 flex-1 items-center gap-3 text-left">
+                    <button
+                      onClick={() => setActiveId(m.id)}
+                      className="flex min-w-0 flex-1 items-center gap-3 text-left"
+                    >
                       <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-white/5">
-                        {m.kind === "pyq" ? <FileText className="size-4 text-amber-300" /> : <BrainCircuit className="size-4 text-cyan-300" />}
+                        {m.kind === "pyq" ? (
+                          <FileText className="size-4 text-amber-300" />
+                        ) : (
+                          <BrainCircuit className="size-4 text-cyan-300" />
+                        )}
                       </span>
                       <span className="min-w-0">
                         <span className="block truncate text-sm font-bold">{m.title}</span>
@@ -411,7 +457,11 @@ function DashboardPage() {
                         </span>
                       </span>
                     </button>
-                    <button onClick={() => remove(m)} aria-label={`Delete ${m.title}`} className="text-muted-foreground hover:text-red-400">
+                    <button
+                      onClick={() => remove(m)}
+                      aria-label={`Delete ${m.title}`}
+                      className="text-muted-foreground hover:text-red-400"
+                    >
                       <Trash2 className="size-4" />
                     </button>
                   </div>
@@ -427,10 +477,12 @@ function DashboardPage() {
             <div className="grid min-h-[400px] place-items-center rounded-3xl border border-white/10 bg-white/5 p-10 text-center backdrop-blur-xl">
               <div>
                 <Sparkles className="mx-auto size-8 text-accent" />
-                <h2 className="mt-4 font-display text-2xl font-black uppercase">Upload a unit to begin</h2>
+                <h2 className="mt-4 font-display text-2xl font-black uppercase">
+                  Upload a unit to begin
+                </h2>
                 <p className="mt-2 max-w-sm text-sm text-muted-foreground">
-                  The AI reads your PDF, ranks high-priority topics, drafts a question bank and finds Tamil
-                  tutorials.
+                  The AI reads your PDF, ranks high-priority topics, drafts a question bank and
+                  finds Tamil tutorials.
                 </p>
               </div>
             </div>
@@ -440,9 +492,12 @@ function DashboardPage() {
             <>
               <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
                 <div>
-                  <h1 className="font-display text-2xl font-black uppercase tracking-tight">{active.title}</h1>
+                  <h1 className="font-display text-2xl font-black uppercase tracking-tight">
+                    {active.title}
+                  </h1>
                   <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
-                    {active.subject} · {active.unit} · {active.kind === "pyq" ? "Previous-year paper" : "Unit notes"}
+                    {active.subject} · {active.unit} ·{" "}
+                    {active.kind === "pyq" ? "Previous-year paper" : "Unit notes"}
                   </p>
                 </div>
                 <button
@@ -450,7 +505,11 @@ function DashboardPage() {
                   disabled={busyId === active.id}
                   className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 px-6 py-3 text-xs font-black uppercase tracking-widest text-white transition hover:scale-105 active:scale-95 disabled:opacity-60"
                 >
-                  {busyId === active.id ? <Loader2 className="size-4 animate-spin" /> : <BrainCircuit className="size-4" />}
+                  {busyId === active.id ? (
+                    <Loader2 className="size-4 animate-spin" />
+                  ) : (
+                    <BrainCircuit className="size-4" />
+                  )}
                   {active.status === "ready" ? "Re-run analysis" : "Run AI analysis"}
                 </button>
               </div>
@@ -458,37 +517,49 @@ function DashboardPage() {
               {busyId === active.id && (
                 <div className="rounded-3xl border border-white/10 bg-white/5 p-10 text-center backdrop-blur-xl">
                   <Loader2 className="mx-auto size-6 animate-spin text-accent" />
-                  <p className="mt-3 text-sm text-muted-foreground">Reading the unit and mining patterns…</p>
+                  <p className="mt-3 text-sm text-muted-foreground">
+                    Reading the unit and mining patterns…
+                  </p>
                 </div>
               )}
 
               {analysis && busyId !== active.id && (
                 <>
                   <div className="grid gap-6 lg:grid-cols-2">
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
                     >
-                      <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Summary</h2>
-                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{analysis.summary}</p>
+                      <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">
+                        Summary
+                      </h2>
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                        {analysis.summary}
+                      </p>
                     </motion.div>
 
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.1 }}
                       className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl flex flex-col items-center justify-center min-h-[300px] group cursor-pointer"
                     >
                       <div className="absolute top-6 left-6 z-10">
-                        <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Preparation Orbit</h2>
+                        <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">
+                          Preparation Orbit
+                        </h2>
                         <div className="mt-1 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                          <span>{done}/{topics.length} Topics Ready</span>
+                          <span>
+                            {done}/{topics.length} Topics Ready
+                          </span>
                         </div>
                       </div>
-                      
+
                       <div className="size-full max-h-[250px] relative z-0">
-                        <Suspense fallback={<Loader2 className="size-8 animate-spin text-accent" />}>
+                        <Suspense
+                          fallback={<Loader2 className="size-8 animate-spin text-accent" />}
+                        >
                           {showProgressOrbit && (
                             <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
                               <ambientLight intensity={0.5} />
@@ -500,14 +571,18 @@ function DashboardPage() {
                       </div>
 
                       <div className="absolute bottom-6 w-full px-6 flex justify-between gap-4 z-10">
-                         <div className="rounded-2xl bg-black/40 border border-white/5 p-3 flex-1 text-center backdrop-blur-md">
-                            <p className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">Accuracy</p>
-                            <p className="text-sm font-bold text-cyan-400">92%</p>
-                         </div>
-                         <div className="rounded-2xl bg-black/40 border border-white/5 p-3 flex-1 text-center backdrop-blur-md">
-                            <p className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">Selection</p>
-                            <p className="text-sm font-bold text-purple-400">84%</p>
-                         </div>
+                        <div className="rounded-2xl bg-black/40 border border-white/5 p-3 flex-1 text-center backdrop-blur-md">
+                          <p className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">
+                            Accuracy
+                          </p>
+                          <p className="text-sm font-bold text-cyan-400">92%</p>
+                        </div>
+                        <div className="rounded-2xl bg-black/40 border border-white/5 p-3 flex-1 text-center backdrop-blur-md">
+                          <p className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">
+                            Selection
+                          </p>
+                          <p className="text-sm font-bold text-purple-400">84%</p>
+                        </div>
                       </div>
                     </motion.div>
                   </div>
@@ -519,7 +594,10 @@ function DashboardPage() {
                       </h2>
                       <ul className="mt-4 space-y-3">
                         {topics.map((t: any) => (
-                          <li key={t.topic} className="rounded-2xl border border-white/10 bg-black/30 p-4">
+                          <li
+                            key={t.topic}
+                            className="rounded-2xl border border-white/10 bg-black/30 p-4"
+                          >
                             <div className="flex flex-wrap items-center justify-between gap-3">
                               <button
                                 onClick={() => toggleTopic(t.topic, active.subject)}
@@ -528,15 +606,21 @@ function DashboardPage() {
                                 <CheckCircle2
                                   className={`size-5 shrink-0 ${progress[t.topic] ? "text-emerald-400" : "text-white/20"}`}
                                 />
-                                <span className={`text-sm font-bold ${progress[t.topic] ? "line-through opacity-60" : ""}`}>
+                                <span
+                                  className={`text-sm font-bold ${progress[t.topic] ? "line-through opacity-60" : ""}`}
+                                >
                                   {t.topic}
                                 </span>
                               </button>
                               <div className="flex items-center gap-2">
-                                <span className={`rounded-full border px-3 py-1 text-[10px] font-black uppercase ${priorityStyles[t.priority] ?? priorityStyles["low"]}`}>
+                                <span
+                                  className={`rounded-full border px-3 py-1 text-[10px] font-black uppercase ${priorityStyles[t.priority] ?? priorityStyles["low"]}`}
+                                >
                                   {t.priority} priority
                                 </span>
-                                <span className="rounded-full bg-white/5 px-3 py-1 text-[10px] font-bold">{t.marks}</span>
+                                <span className="rounded-full bg-white/5 px-3 py-1 text-[10px] font-bold">
+                                  {t.marks}
+                                </span>
                               </div>
                             </div>
                             <p className="mt-2 pl-8 text-xs text-muted-foreground">{t.reason}</p>
@@ -571,18 +655,26 @@ function DashboardPage() {
                         Question bank
                       </h2>
                       <p className="mt-1 text-[11px] text-muted-foreground">
-                        Ranked by how strongly the material supports them — not a guarantee of what will be asked.
+                        Ranked by how strongly the material supports them — not a guarantee of what
+                        will be asked.
                       </p>
                       <ul className="mt-4 space-y-3">
                         {analysis.questions.map((q: any, i: number) => (
-                          <li key={i} className="rounded-2xl border border-white/10 bg-black/30 p-4">
+                          <li
+                            key={i}
+                            className="rounded-2xl border border-white/10 bg-black/30 p-4"
+                          >
                             <div className="flex items-start justify-between gap-4">
                               <p className="text-sm">{q.question}</p>
-                              <span className={`shrink-0 rounded-full border px-3 py-1 text-[10px] font-black uppercase ${priorityStyles[q.priority] ?? priorityStyles["low"]}`}>
+                              <span
+                                className={`shrink-0 rounded-full border px-3 py-1 text-[10px] font-black uppercase ${priorityStyles[q.priority] ?? priorityStyles["low"]}`}
+                              >
                                 {q.marks}
                               </span>
                             </div>
-                            <p className="mt-2 text-[11px] uppercase tracking-widest text-muted-foreground">{q.source}</p>
+                            <p className="mt-2 text-[11px] uppercase tracking-widest text-muted-foreground">
+                              {q.source}
+                            </p>
                           </li>
                         ))}
                       </ul>
@@ -592,7 +684,9 @@ function DashboardPage() {
                   <div className="grid gap-6 md:grid-cols-2">
                     {analysis.concepts?.length > 0 && (
                       <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-                        <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Key concepts</h2>
+                        <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">
+                          Key concepts
+                        </h2>
                         <ul className="mt-4 space-y-3">
                           {analysis.concepts.map((c: any, i: number) => (
                             <li key={i}>
@@ -605,11 +699,15 @@ function DashboardPage() {
                     )}
                     {analysis.formulas?.length > 0 && (
                       <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-                        <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Formulas</h2>
+                        <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">
+                          Formulas
+                        </h2>
                         <ul className="mt-4 space-y-3">
                           {analysis.formulas.map((f: any, i: number) => (
                             <li key={i} className="rounded-xl bg-black/40 p-3">
-                              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{f.name}</p>
+                              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
+                                {f.name}
+                              </p>
                               <p className="mt-1 font-mono text-sm text-cyan-300">{f.expression}</p>
                             </li>
                           ))}
@@ -660,14 +758,18 @@ function DashboardPage() {
             className="max-h-[80vh] w-full max-w-2xl overflow-y-auto rounded-3xl border border-white/10 bg-[#0a0a12] p-7"
             onClick={(e) => e.stopPropagation()}
           >
-            <p className="text-[10px] font-black uppercase tracking-widest text-accent">{explain.level} explanation</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-accent">
+              {explain.level} explanation
+            </p>
             <h3 className="mt-2 font-display text-xl font-black">{explain.topic}</h3>
             {explaining ? (
               <div className="mt-6 flex items-center gap-3 text-sm text-muted-foreground">
                 <Loader2 className="size-4 animate-spin" /> Writing it out…
               </div>
             ) : (
-              <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-muted-foreground">{explain.text}</p>
+              <p className="mt-4 whitespace-pre-wrap text-sm leading-relaxed text-muted-foreground">
+                {explain.text}
+              </p>
             )}
             <button
               onClick={() => setExplain(null)}

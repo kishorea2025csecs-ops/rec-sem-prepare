@@ -23,7 +23,9 @@ function LoginPage() {
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session) {
         navigate({ to: "/" });
       }
@@ -34,7 +36,7 @@ function LoginPage() {
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     setError(null);
-    
+
     try {
       const result = await lovable.auth.signInWithOAuth("google", {
         redirect_uri: `${window.location.origin}/auth/callback`,
@@ -48,7 +50,7 @@ function LoginPage() {
         setError(result.error.message);
         toast.error("Login failed", { description: result.error.message });
       }
-      
+
       // If result.redirected is true, the browser will navigate away
     } catch (err) {
       const msg = err instanceof Error ? err.message : "An unexpected error occurred";
@@ -62,7 +64,10 @@ function LoginPage() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background px-6">
       <div className="absolute top-8 left-8">
-        <Link to="/" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+        >
           <ArrowLeft className="size-4" /> Back to home
         </Link>
       </div>

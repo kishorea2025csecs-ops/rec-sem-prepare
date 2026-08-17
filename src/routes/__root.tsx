@@ -83,7 +83,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "SemPrep AI — Academic Excellence" },
       { name: "description", content: "AI-powered exam preparation for engineering students." },
       { property: "og:title", content: "SemPrep AI" },
-      { property: "og:description", content: "AI-powered exam preparation for engineering students." },
+      {
+        property: "og:description",
+        content: "AI-powered exam preparation for engineering students.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -121,20 +124,20 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-const DEFAULT_SCENE_ID = 'abstract-crystal';
+const DEFAULT_SCENE_ID = "abstract-crystal";
 const SCENES_MAP: Record<string, string> = {
-  'abstract-crystal': 'https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode',
-  'glass-nodes': 'https://prod.spline.design/Kz6xJ-M-5r-oX1-Q/scene.splinecode',
-  'tech-orbit': 'https://prod.spline.design/ATw-M-y5K7Wk-1P7/scene.splinecode',
-  'modern-box': 'https://prod.spline.design/cW9kF-1O7k-P-v-9/scene.splinecode'
+  "abstract-crystal": "https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode",
+  "glass-nodes": "https://prod.spline.design/Kz6xJ-M-5r-oX1-Q/scene.splinecode",
+  "tech-orbit": "https://prod.spline.design/ATw-M-y5K7Wk-1P7/scene.splinecode",
+  "modern-box": "https://prod.spline.design/cW9kF-1O7k-P-v-9/scene.splinecode",
 };
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const location = useLocation();
   const [sceneUrl, setSceneUrl] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const savedId = localStorage.getItem('semprep_scene_id');
+    if (typeof window !== "undefined") {
+      const savedId = localStorage.getItem("semprep_scene_id");
       if (savedId && SCENES_MAP[savedId]) {
         return SCENES_MAP[savedId];
       }
@@ -148,8 +151,8 @@ function RootComponent() {
         setSceneUrl(e.detail.url);
       }
     };
-    window.addEventListener('semprep-scene-change', handleSceneChange);
-    return () => window.removeEventListener('semprep-scene-change', handleSceneChange);
+    window.addEventListener("semprep-scene-change", handleSceneChange);
+    return () => window.removeEventListener("semprep-scene-change", handleSceneChange);
   }, []);
 
   return (
@@ -158,16 +161,16 @@ function RootComponent() {
         {/* Global Persistent 3D Background */}
         <div className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000">
           <Suspense fallback={null}>
-            <SplineScene 
+            <SplineScene
               key={sceneUrl}
               scene={sceneUrl}
               className={`w-full h-full transition-opacity duration-1000 ${
-                location.pathname === '/' ? 'opacity-100' : 'opacity-60'
+                location.pathname === "/" ? "opacity-100" : "opacity-60"
               }`}
             />
           </Suspense>
         </div>
-        
+
         {/* Shared ambient glows */}
         <div className="pointer-events-none fixed inset-0 overflow-hidden z-[1]">
           <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/10 blur-[140px]" />
@@ -176,7 +179,7 @@ function RootComponent() {
 
         {/* Persistent Scene Selector in Footer or Corner */}
         <div className="fixed bottom-6 right-6 z-[100] hidden md:block">
-           <SceneSelector />
+          <SceneSelector />
         </div>
 
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
