@@ -45,11 +45,12 @@ const SCENES: SplineSceneConfig[] = [
 export const SceneSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   
-  const getInitialId = () => {
+  const getInitialId = (): string => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('semprep_scene_id');
-      if (saved && SCENES.some(s => s.id === saved)) {
-        return saved;
+      if (saved) {
+        const found = SCENES.find(s => s.id === saved);
+        if (found) return found.id;
       }
     }
     return SCENES[0].id;
