@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState, Suspense } from "react";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
 import { SplineScene } from "@/components/SplineScene";
@@ -33,7 +33,9 @@ import {
   TrendingUp,
   Activity,
   History,
+  Calendar,
 } from "lucide-react";
+
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -79,7 +81,9 @@ const priorityStyles: Record<string, string> = {
 
 function DashboardPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const runAnalysis = useServerFn(analyzeMaterial);
+
   const runExplain = useServerFn(getExplanation);
   const fetchStats = useServerFn(getPreparationStats);
 
@@ -144,12 +148,20 @@ function DashboardPage() {
       await Promise.all([loadMaterials(), loadProgress(), loadStats()]);
       setChecking(false);
       setTimeout(() => setShowProgressOrbit(true), 800);
+
+      // Scroll to specific section if hash exists
+      if (location.hash) {
+        const id = location.hash.replace('#', '');
+        setTimeout(() => {
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }, 1000);
+      }
     });
     return () => {
       mounted = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loadMaterials, loadProgress, loadStats, navigate, location.hash]);
+
 
   const active = useMemo(
     () => materials.find((m) => m.id === activeId) ?? null,
@@ -221,8 +233,9 @@ function DashboardPage() {
         prev.map((m) => (m.id === id ? { ...m, status: "ready", analysis: res.analysis } : m)),
       );
       toast.success("Analysis ready");
-      loadStats();
+      await loadStats();
     } catch (e: any) {
+
       setMaterials((prev) => prev.map((m) => (m.id === id ? { ...m, status: "failed" } : m)));
       toast.error("Analysis failed", { description: e?.message ?? "Try again" });
     } finally {
@@ -258,8 +271,9 @@ function DashboardPage() {
 
       if (next) {
         toast.success(`Topic "${topic}" completed!`);
-        loadStats();
+        await loadStats();
       }
+
     } catch (err) {
       // Revert on error
       setProgress((p) => ({ ...p, [topic]: !next }));
@@ -313,8 +327,10 @@ function DashboardPage() {
   }
 
   const analysis = active?.analysis;
-  const topics = analysis?.topics ?? [];
-  const done = topics.filter((t: any) => progress[t.topic]).length;
+  const analysisTopics = (analysis?.topics as any[]) ?? [];
+  const topicCoverage = stats?.topicCoverage ?? 0;
+
+
 
   return (
     <div className="min-h-screen pb-20 text-foreground bg-[#020205]">
@@ -338,7 +354,8 @@ function DashboardPage() {
       <main className="relative z-10 mx-auto max-w-7xl px-5 lg:pl-80 pt-28 pb-20">
 
         {/* TOP: Exam Readiness command center */}
-        <section className="mb-10 rounded-[2.5rem] border border-white/10 bg-white/5 p-8 backdrop-blur-2xl">
+        <section id="readiness-section" className="mb-10 rounded-[2.5rem] border border-white/10 bg-white/5 p-8 backdrop-blur-2xl">
+
           <div className="grid gap-10 lg:grid-cols-[1fr_300px]">
             <div>
               <div className="flex items-center gap-3 text-accent">
@@ -360,7 +377,22 @@ function DashboardPage() {
                 {stats?.recommendation ?? "Complete your first practice session to calculate your readiness score."}
               </p>
 
-              <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4">
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link
+                  to="/planner"
+                  className="inline-flex items-center gap-2 rounded-full bg-purple-600 px-6 py-3 text-xs font-black uppercase tracking-widest text-white transition hover:scale-105 active:scale-95 shadow-lg shadow-purple-600/20"
+                >
+                  <Calendar className="size-4" /> Open Planner
+                </Link>
+                <Link
+                  to="/analytics"
+                  className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-6 py-3 text-xs font-black uppercase tracking-widest text-white transition hover:bg-white/10"
+                >
+                  <LineChart className="size-4" /> Deep Analytics
+                </Link>
+              </div>
+
+              <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4 border-t border-white/5 pt-10">
                 {[
                   { label: "Topic Coverage", val: stats?.topicCoverage ?? 0, icon: ListChecks, color: "text-cyan-400" },
                   { label: "Question Accuracy", val: stats?.questionAccuracy ?? 0, icon: Activity, color: "text-purple-400" },
@@ -393,7 +425,7 @@ function DashboardPage() {
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="size-48 rounded-full border border-white/5 bg-white/[0.02]" />
               </div>
-              <div className="relative h-64 w-full">
+              <div className="relative h-64 w-full cursor-pointer" onClick={() => navigate({ to: '/analytics' })}>
                 <Canvas camera={{ position: [0, 0, 8], fov: 35 }}>
                   <ambientLight intensity={0.5} />
                   <pointLight position={[10, 10, 10]} intensity={1} />
@@ -403,6 +435,7 @@ function DashboardPage() {
             </div>
           </div>
         </section>
+
 
         <div className="grid gap-6 lg:grid-cols-[340px_1fr]">
         {/* LEFT: upload + library */}
@@ -621,7 +654,8 @@ function DashboardPage() {
 
               {analysis && busyId !== active.id && (
                 <>
-                  <div className="grid gap-6 lg:grid-cols-2">
+                  <div id="analysis-results" className="grid gap-6 lg:grid-cols-2">
+
                     <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -646,9 +680,10 @@ function DashboardPage() {
                           Preparation Orbit
                         </h2>
                         <div className="mt-1 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                          <span>
-                            {done}/{topics.length} Topics Ready
-                          </span>
+                            <span>
+                              {Math.round((topicCoverage / 100) * analysisTopics.length)}/{analysisTopics.length} Topics Ready
+                            </span>
+
                         </div>
                       </div>
 
@@ -660,7 +695,7 @@ function DashboardPage() {
                             <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
                               <ambientLight intensity={0.5} />
                               <pointLight position={[10, 10, 10]} intensity={1} />
-                              <ProgressWheel3D completion={done} totalTopics={topics.length} />
+                              <ProgressWheel3D completion={topicCoverage} totalTopics={100} />
                             </Canvas>
                           )}
                         </Suspense>
@@ -683,13 +718,14 @@ function DashboardPage() {
                     </motion.div>
                   </div>
 
-                  {topics.length > 0 && (
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+                  {analysisTopics.length > 0 && (
+                    <div id="topics-list" className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+
                       <h2 className="flex items-center gap-2 font-display text-sm font-black uppercase tracking-widest text-accent">
                         <Target className="size-4" /> Priority topics
                       </h2>
                       <ul className="mt-4 space-y-3">
-                        {topics.map((t: any) => (
+                        {analysisTopics.map((t: any) => (
                           <li
                             key={t.topic}
                             className="rounded-2xl border border-white/10 bg-black/30 p-4"
@@ -721,6 +757,12 @@ function DashboardPage() {
                             </div>
                             <p className="mt-2 pl-8 text-xs text-muted-foreground">{t.reason}</p>
                             <div className="mt-3 flex flex-wrap gap-2 pl-8">
+                              <Link
+                                to="/topics"
+                                className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest transition hover:border-purple-400/50 hover:bg-purple-500/10"
+                              >
+                                Start Learning
+                              </Link>
                               {(["quick", "exam", "revision"] as const).map((lvl) => (
                                 <button
                                   key={lvl}
@@ -739,6 +781,7 @@ function DashboardPage() {
                                 <Youtube className="size-3" /> Tamil
                               </a>
                             </div>
+
                           </li>
                         ))}
                       </ul>
@@ -746,14 +789,25 @@ function DashboardPage() {
                   )}
 
                   {analysis.questions?.length > 0 && (
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-                      <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">
-                        Question bank
-                      </h2>
-                      <p className="mt-1 text-[11px] text-muted-foreground">
-                        Ranked by how strongly the material supports them — not a guarantee of what
-                        will be asked.
-                      </p>
+                    <div id="questions-list" className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">
+                            Question bank
+                          </h2>
+                          <p className="mt-1 text-[11px] text-muted-foreground">
+                            Ranked by support in material.
+                          </p>
+                        </div>
+                        <Link 
+                          to="/questions"
+                          className="text-[10px] font-black uppercase tracking-widest text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+                        >
+                          View Full Bank <ChevronRight className="size-3" />
+                        </Link>
+                      </div>
+
                       <ul className="mt-4 space-y-3">
                         {analysis.questions.map((q: any, i: number) => (
                           <li

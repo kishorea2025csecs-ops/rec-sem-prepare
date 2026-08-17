@@ -1,5 +1,6 @@
 import { type SupabaseClient } from "@supabase/supabase-js";
 import { type Database } from "@/integrations/supabase/types";
+import { addDays, format, differenceInDays, startOfDay } from 'date-fns';
 
 export type PrepAnalytics = {
   readiness: number;
@@ -55,7 +56,7 @@ export async function getPrepAnalytics(supabase: SupabaseClient<Database>, userI
   ).length || 0;
   const priorityCoverage = priorityTopics.length > 0 ? Math.round((masteredPriority / priorityTopics.length) * 100) : 0;
 
-  // Selection Rate: prepared topics / total topics (simplification of the formula provided)
+  // Selection Rate: prepared topics / total topics
   const selectionRate = Math.round(((progress?.length || 0) / totalTopics) * 100);
 
   // Revision KPI
@@ -100,3 +101,123 @@ export async function getPrepAnalytics(supabase: SupabaseClient<Database>, userI
     recommendation
   };
 }
+
+export async function handleGetQuestionBank(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+  filter: { subject?: string | undefined; unit?: string | undefined }
+) {
+  const { data, error } = await supabase
+    .from('questions')
+    .select(`
+      *,
+      topic:topics(id, name, importance, subject_id, unit_id)
+    `);
+
+  if (error) throw error;
+  return data;
+}
+
+export async function handleGetTopics(
+  supabase: SupabaseClient<Database>,
+  userId: string
+) {
+  const { data, error } = await supabase
+    .from('topics')
+    .select(`
+      *,
+      progress:topic_progress(*)
+    `);
+
+  if (error) throw error;
+  return data;
+}
+
+export async function handleUpdateTopicMastery(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+  data: { topicId: string; masteryScore: number }
+) {
+  const { data: updated, error } = await supabase
+    .from('topic_progress')
+    .upsert({
+      user_id: userId,
+      topic_id: data.topicId,
+      mastery_score: data.masteryScore,
+      status: data.masteryScore > 80 ? 'mastered' : data.masteryScore > 40 ? 'learning' : 'weak',
+      updated_at: new Date().toISOString()
+    })
+    .select()
+    .single();
+
+  if (error) throw error;
+  return updated;
+}
+
+export async function handleGeneratePlan(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+  config: { examDate: string; dailyHours: number; units: string[] }
+) {
+  const examDate = new Date(config.examDate);
+  const today = startOfDay(new Date());
+  const daysAvailable = differenceInDays(examDate, today);
+
+  if (daysAvailable <= 0) {
+    throw new Error("Exam date must be in the future");
+  }
+
+  const { data: topics, error } = await supabase
+    .from('topics')
+    .select('*, progress:topic_progress(*)')
+    .in('unit_id', config.units);
+
+  if (error) throw error;
+  if (!topics || topics.length === 0) {
+    throw new Error("No topics found for the selected units. Upload notes first.");
+  }
+
+  const prioritizedTopics = [...topics].sort((a, b) => {
+    const aMastery = a.progress?.[0]?.mastery_score || 0;
+    const bMastery = b.progress?.[0]?.mastery_score || 0;
+    const aPriority = (a.importance || 0.5) * (1 - aMastery / 100);
+    const bPriority = (b.importance || 0.5) * (1 - bMastery / 100);
+    return bPriority - aPriority;
+  });
+
+  const topicsPerDay = Math.ceil(prioritizedTopics.length / daysAvailable);
+  const plan = [];
+
+  for (let i = 0; i < daysAvailable; i++) {
+    const date = addDays(today, i);
+    const dayTopics = prioritizedTopics.slice(i * topicsPerDay, (i + 1) * topicsPerDay);
+    
+    if (dayTopics.length > 0) {
+      plan.push({
+        date: format(date, 'yyyy-MM-dd'),
+        label: `Day ${i + 1}`,
+        tasks: dayTopics.map(t => ({
+          id: t.id,
+          title: t.title || 'Untitled Topic',
+          unit: t.unit_id,
+          priority: (t.importance || 0.5) > 0.7 ? 'high' : 'medium',
+          completed: (t.progress?.[0]?.mastery_score || 0) === 100
+        }))
+      });
+    }
+  }
+
+  const planInsertData: any = {
+      user_id: userId,
+      exam_date: config.examDate,
+      study_hours_per_day: config.dailyHours,
+      updated_at: new Date().toISOString()
+  };
+
+  await supabase
+    .from('study_plans')
+    .upsert(planInsertData);
+
+  return plan;
+}
+

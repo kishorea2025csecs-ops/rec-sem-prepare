@@ -113,7 +113,10 @@ function ProfilePage() {
                       {(profile?.full_name || user?.user_metadata?.full_name || "S").charAt(0)}
                     </div>
                   )}
-                  <button className="absolute -bottom-2 -right-2 size-8 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full flex items-center justify-center border-2 border-[#020205] shadow-[0_0_15px_rgba(236,72,153,0.4)] transition-all duration-300 hover:scale-110">
+                  <button 
+                    onClick={() => toast.info("Profile picture synchronization is managed by REC IT.")}
+                    className="absolute -bottom-2 -right-2 size-8 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-full flex items-center justify-center border-2 border-[#020205] shadow-[0_0_15px_rgba(236,72,153,0.4)] transition-all duration-300 hover:scale-110"
+                  >
                     <Camera className="size-4" />
                   </button>
                 </div>
@@ -174,7 +177,10 @@ function ProfilePage() {
             </div>
 
             <div className="rounded-3xl border border-border bg-card p-6 space-y-4">
-              <button className="flex w-full items-center justify-between rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-500 hover:bg-purple-500/10 hover:border-purple-400/50 hover:shadow-[0_0_20px_rgba(192,132,252,0.2)] backdrop-blur-md group">
+              <button 
+                onClick={() => toast.info("Password management is handled via the REC Google Workspace portal.")}
+                className="flex w-full items-center justify-between rounded-full border border-white/10 bg-white/5 p-4 transition-all duration-500 hover:bg-purple-500/10 hover:border-purple-400/50 hover:shadow-[0_0_20px_rgba(192,132,252,0.2)] backdrop-blur-md group"
+              >
                 <div className="flex items-center gap-3">
                   <div className="size-10 rounded-full bg-purple-500/10 flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
                     <Key className="size-5" />
