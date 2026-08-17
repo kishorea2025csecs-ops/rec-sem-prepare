@@ -219,6 +219,7 @@ function DashboardPage() {
         prev.map((m) => (m.id === id ? { ...m, status: "ready", analysis: res.analysis } : m)),
       );
       toast.success("Analysis ready");
+      loadStats();
     } catch (e: any) {
       setMaterials((prev) => prev.map((m) => (m.id === id ? { ...m, status: "failed" } : m)));
       toast.error("Analysis failed", { description: e?.message ?? "Try again" });
