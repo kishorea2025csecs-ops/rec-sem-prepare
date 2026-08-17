@@ -5,6 +5,7 @@ import { SplineScene } from "@/components/SplineScene";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { analyzeMaterial, getExplanation } from "@/lib/study.functions";
+import { getPreparationStats } from "@/lib/prep.functions";
 import { extractPdfText } from "@/lib/pdf";
 import { toast } from "sonner";
 import { Canvas } from "@react-three/fiber";
@@ -26,6 +27,10 @@ import {
   LineChart,
   Target as TargetIcon,
   ListChecks,
+  ChevronRight,
+  TrendingUp,
+  Activity,
+  History,
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
