@@ -13,6 +13,7 @@ import {
   Timer,
   Upload,
   Youtube,
+  Lock,
 } from "lucide-react";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
@@ -25,7 +26,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { getSessionInfo } from "@/lib/auth.functions";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { Lock } from "lucide-react";
+import { Header } from "@/components/Header";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -167,71 +168,12 @@ function Landing() {
 
   return (
     <div className="min-h-screen bg-[#020205] font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
-      <header className="fixed top-4 left-0 right-0 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 md:px-5 py-3 md:py-4">
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="relative">
-              <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <div className="relative flex size-12 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none" />
-                <img
-                  src={logoAsset.url}
-                  alt="REC Logo"
-                  className="size-full object-contain relative z-10 pro-glow-logo"
-                />
-              </div>
-            </div>
-            <span className="font-display text-xl font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-              SemPrep AI
-            </span>
-          </Link>
-          <nav className="hidden items-center gap-4 text-[10px] font-black md:flex uppercase tracking-[0.15em]">
-            <a
-              className="transition-all duration-500 hover:text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md relative group overflow-hidden"
-              href="#how"
-            >
-              <span className="relative z-10">How it works</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/0 via-cyan-400/10 to-cyan-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            </a>
-            <a
-              className="transition-all duration-500 hover:text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-purple-500/10 hover:border-purple-400/50 hover:shadow-[0_0_20px_rgba(192,132,252,0.3)] backdrop-blur-md relative group overflow-hidden"
-              href="#features"
-            >
-              <span className="relative z-10">Features</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400/0 via-purple-400/10 to-purple-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            </a>
-            <a
-              className="transition-all duration-500 hover:text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-amber-500/10 hover:border-amber-400/50 hover:shadow-[0_0_20px_rgba(251,191,36,0.3)] backdrop-blur-md relative group overflow-hidden"
-              href="#tamil"
-            >
-              <span className="relative z-10">Tamil help</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-amber-400/10 to-amber-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            </a>
-          </nav>
-          {isAuthenticated ? (
-            isVerifiedRec ? (
-              <Link
-                to="/dashboard"
-                className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
-              >
-                Go to Dashboard
-              </Link>
-            ) : (
-              <div className="flex items-center gap-2 rounded-full bg-red-500/10 border border-red-500/30 px-4 py-2 text-[10px] font-black uppercase text-red-400 backdrop-blur-md">
-                <Lock className="size-3" />
-                <span>Verified REC Only</span>
-              </div>
-            )
-          ) : (
-            <Link
-              to="/auth/login"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 md:px-6 md:py-2.5 text-xs md:text-sm font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-pink shrink-0 whitespace-nowrap"
-            >
-              Sign In
-            </Link>
-          )}
-        </div>
-      </header>
+      <Header
+        isAuthenticated={isAuthenticated}
+        isVerifiedRec={isVerifiedRec}
+        userEmail={session?.user?.email}
+        activeLink="home"
+      />
 
       <main id="top" className="relative">
         {/* Background Video & Glows for Hero */}
@@ -333,7 +275,7 @@ function Landing() {
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
                         <Upload className="size-5 transition-transform group-hover:-translate-y-1 relative z-10" />
-                        <span className="relative z-10">Start Your Orbit</span>
+                        <span className="relative z-10">Go to Dashboard</span>
                       </Link>
                     ) : (
                       <div className="flex flex-col gap-2">
@@ -360,10 +302,10 @@ function Landing() {
                   )}
                   <a
                     href="#how"
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 px-10 py-5 text-base font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-cyan"
+                    className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-10 py-5 text-base font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/10"
                   >
                     <Play className="size-5 text-white" />
-                    <span>How it works</span>
+                    <span>Watch Demo</span>
                   </a>
                 </div>
               </motion.div>
