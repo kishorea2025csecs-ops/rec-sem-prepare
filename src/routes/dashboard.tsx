@@ -207,13 +207,27 @@ function DashboardPage() {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) return;
     const next = !progress[topic];
+    
+    // Optimistic update
     setProgress((p) => ({ ...p, [topic]: next }));
-    await supabase
-      .from("study_progress")
-      .upsert(
-        { user_id: session.user.id, topic, subject, completed: next },
-        { onConflict: "user_id,subject,topic" },
-      );
+    
+    try {
+      await supabase
+        .from("study_progress")
+        .upsert(
+          { user_id: session.user.id, topic, subject, completed: next },
+          { onConflict: "user_id,subject,topic" },
+        );
+      
+      if (next) {
+        toast.success(`Topic "${topic}" completed!`);
+      }
+    } catch (err) {
+      // Revert on error
+      setProgress((p) => ({ ...p, [topic]: !next }));
+      toast.error("Failed to update progress");
+    }
+  };
   };
 
   const askExplain = async (topic: string, level: "quick" | "exam" | "revision") => {
