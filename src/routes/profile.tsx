@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import logoAsset from "@/assets/logo-glow.png.asset.json";
+import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { 
   User, 
