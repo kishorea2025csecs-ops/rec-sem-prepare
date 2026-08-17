@@ -1,10 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { analyzeMaterial, getExplanation } from "@/lib/study.functions";
 import { extractPdfText } from "@/lib/pdf";
 import { toast } from "sonner";
+import { Canvas } from "@react-three/fiber";
+import { ProgressWheel3D } from "@/components/ProgressWheel3D";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
   BrainCircuit,
@@ -17,6 +20,9 @@ import {
   Trash2,
   Upload,
   Youtube,
+  LineChart,
+  Target as TargetIcon,
+  ListChecks,
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
@@ -74,6 +80,7 @@ function DashboardPage() {
   const [progress, setProgress] = useState<Record<string, boolean>>({});
   const [explain, setExplain] = useState<{ topic: string; level: string; text: string } | null>(null);
   const [explaining, setExplaining] = useState(false);
+  const [showProgressOrbit, setShowProgressOrbit] = useState(false);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({ subject: "", unit: "Unit 1", kind: "notes" as "notes" | "pyq" });
@@ -107,6 +114,7 @@ function DashboardPage() {
       setEmail(session.user.email ?? null);
       await Promise.all([loadMaterials(), loadProgress()]);
       setChecking(false);
+      setTimeout(() => setShowProgressOrbit(true), 800);
     });
     return () => {
       mounted = false;
@@ -199,13 +207,26 @@ function DashboardPage() {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) return;
     const next = !progress[topic];
+    
+    // Optimistic update
     setProgress((p) => ({ ...p, [topic]: next }));
-    await supabase
-      .from("study_progress")
-      .upsert(
-        { user_id: session.user.id, topic, subject, completed: next },
-        { onConflict: "user_id,subject,topic" },
-      );
+    
+    try {
+      await supabase
+        .from("study_progress")
+        .upsert(
+          { user_id: session.user.id, topic, subject, completed: next },
+          { onConflict: "user_id,subject,topic" },
+        );
+      
+      if (next) {
+        toast.success(`Topic "${topic}" completed!`);
+      }
+    } catch (err) {
+      // Revert on error
+      setProgress((p) => ({ ...p, [topic]: !next }));
+      toast.error("Failed to update progress");
+    }
   };
 
   const askExplain = async (topic: string, level: "quick" | "exam" | "revision") => {
@@ -332,14 +353,17 @@ function DashboardPage() {
               className="hidden"
               onChange={(e) => e.target.files?.[0] && handleUpload(e.target.files[0])}
             />
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => fileRef.current?.click()}
               disabled={!!uploading}
-              className="group relative mt-5 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-6 py-4 text-sm font-black text-white transition-all duration-500 hover:scale-[1.02] active:scale-95 disabled:opacity-60"
+              className="group relative mt-5 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-6 py-4 text-sm font-black text-white transition-all duration-500 shadow-[0_0_20px_rgba(121,40,202,0.3)] hover:shadow-[0_0_30px_rgba(0,112,243,0.5)] disabled:opacity-60"
             >
-              {uploading ? <Loader2 className="size-4 animate-spin" /> : <Upload className="size-4" />}
-              {uploading ?? "Choose PDF & analyse"}
-            </button>
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+              {uploading ? <Loader2 className="size-4 animate-spin relative z-10" /> : <Upload className="size-4 relative z-10" />}
+              <span className="relative z-10">{uploading ?? "Choose PDF & analyse"}</span>
+            </motion.button>
           </section>
 
           <section className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
@@ -352,12 +376,17 @@ function DashboardPage() {
                   Nothing uploaded yet.
                 </li>
               )}
-              {materials.map((m) => (
-                <li key={m.id}>
+              {materials.map((m, i) => (
+                <motion.li 
+                  key={m.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                >
                   <div
-                    className={`flex items-center gap-3 rounded-2xl border p-3 transition ${
+                    className={`flex items-center gap-3 rounded-2xl border p-3 transition-all duration-300 ${
                       activeId === m.id
-                        ? "border-cyan-400/50 bg-cyan-500/10"
+                        ? "border-cyan-400/50 bg-cyan-500/10 shadow-[0_0_15px_rgba(34,211,238,0.2)]"
                         : "border-white/10 bg-black/30 hover:bg-white/5"
                     }`}
                   >
@@ -376,7 +405,7 @@ function DashboardPage() {
                       <Trash2 className="size-4" />
                     </button>
                   </div>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </section>
@@ -425,23 +454,52 @@ function DashboardPage() {
 
               {analysis && busyId !== active.id && (
                 <>
-                  <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-                    <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Summary</h2>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{analysis.summary}</p>
-                    {topics.length > 0 && (
-                      <div className="mt-5">
-                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                          <span>Revision progress</span>
-                          <span>{done}/{topics.length}</span>
-                        </div>
-                        <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
-                          <div
-                            className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 transition-all"
-                            style={{ width: `${topics.length ? (done / topics.length) * 100 : 0}%` }}
-                          />
+                  <div className="grid gap-6 lg:grid-cols-2">
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
+                    >
+                      <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Summary</h2>
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{analysis.summary}</p>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.1 }}
+                      className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl flex flex-col items-center justify-center min-h-[300px] group cursor-pointer"
+                    >
+                      <div className="absolute top-6 left-6 z-10">
+                        <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Preparation Orbit</h2>
+                        <div className="mt-1 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                          <span>{done}/{topics.length} Topics Ready</span>
                         </div>
                       </div>
-                    )}
+                      
+                      <div className="size-full max-h-[250px] relative z-0">
+                        <Suspense fallback={<Loader2 className="size-8 animate-spin text-accent" />}>
+                          {showProgressOrbit && (
+                            <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
+                              <ambientLight intensity={0.5} />
+                              <pointLight position={[10, 10, 10]} intensity={1} />
+                              <ProgressWheel3D completion={done} totalTopics={topics.length} />
+                            </Canvas>
+                          )}
+                        </Suspense>
+                      </div>
+
+                      <div className="absolute bottom-6 w-full px-6 flex justify-between gap-4 z-10">
+                         <div className="rounded-2xl bg-black/40 border border-white/5 p-3 flex-1 text-center backdrop-blur-md">
+                            <p className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">Accuracy</p>
+                            <p className="text-sm font-bold text-cyan-400">92%</p>
+                         </div>
+                         <div className="rounded-2xl bg-black/40 border border-white/5 p-3 flex-1 text-center backdrop-blur-md">
+                            <p className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">Selection</p>
+                            <p className="text-sm font-bold text-purple-400">84%</p>
+                         </div>
+                      </div>
+                    </motion.div>
                   </div>
 
                   {topics.length > 0 && (

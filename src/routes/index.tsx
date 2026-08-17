@@ -292,10 +292,7 @@ function Landing() {
                   </span>
                 </h1>
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground/90">
-                  '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
-                                        
-                                            
-                                            Add PDF upload to the home page and make the AI analysis and question bank buttons real.
+                  SemPrep AI helps you master semester exams with high-priority topics, AI analysis, and interactive Tamil tutorials, tailored for Rajalakshmi Engineering College students.
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   {isAuthenticated ? (
