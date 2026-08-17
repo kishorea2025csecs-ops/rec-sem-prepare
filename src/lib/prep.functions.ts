@@ -16,7 +16,10 @@ export const getQuestionBank = createServerFn({ method: "GET" })
   )
   .handler(async ({ data, context }) => {
     const { handleGetQuestionBank } = await import("./prep.server");
-    return handleGetQuestionBank(context.supabase as any, context.userId, data);
+    return handleGetQuestionBank(context.supabase as any, context.userId, {
+      subject: data.subject || undefined,
+      unit: data.unit || undefined
+    });
   });
 
 export const updateTopicMastery = createServerFn({ method: "POST" })
