@@ -361,6 +361,7 @@ function DashboardPage() {
                   Nothing uploaded yet.
                 </li>
               )}
+              {materials.map((m, i) => (
                 <motion.li 
                   key={m.id}
                   initial={{ opacity: 0, x: -20 }}
@@ -389,7 +390,7 @@ function DashboardPage() {
                       <Trash2 className="size-4" />
                     </button>
                   </div>
-                </li>
+                </motion.li>
               ))}
             </ul>
           </section>
