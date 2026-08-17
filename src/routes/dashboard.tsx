@@ -836,6 +836,7 @@ function DashboardPage() {
             </>
           )}
         </section>
+        </div>
       </main>
 
       {explain && (
