@@ -114,6 +114,7 @@ function DashboardPage() {
       setEmail(session.user.email ?? null);
       await Promise.all([loadMaterials(), loadProgress()]);
       setChecking(false);
+      setTimeout(() => setShowProgressOrbit(true), 800);
     });
     return () => {
       mounted = false;
