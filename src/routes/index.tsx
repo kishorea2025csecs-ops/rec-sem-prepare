@@ -298,7 +298,7 @@ function Landing() {
                   '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
                                         
                                             
-                                            make some new object to the backgorund motion and make the different pattern when i scroll the home page it make new feel like professional
+                                            add some other object like cubic and stars and cone related object each animation in the background of the website and make it real animation
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   {isAuthenticated ? (
