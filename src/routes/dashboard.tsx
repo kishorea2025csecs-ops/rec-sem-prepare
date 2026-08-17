@@ -256,6 +256,7 @@ function DashboardPage() {
 
       if (next) {
         toast.success(`Topic "${topic}" completed!`);
+        loadStats();
       }
     } catch (err) {
       // Revert on error
