@@ -152,12 +152,11 @@ const AnswerSheet = ({ scrollProgress }: { scrollProgress: number }) => {
 };
 
 const RevisionCards = ({ scrollProgress }: { scrollProgress: number }) => {
-  const visible = scrollProgress > 0.8;
-  if (!visible) return null;
-
+  // Always render some floating background objects for professional depth
   return (
     <group>
-      {[0, 1, 2].map((i) => (
+      {/* Scroll-conditional main objects */}
+      {scrollProgress > 0.8 && [0, 1, 2].map((i) => (
         <Float key={i} speed={2} rotationIntensity={1} floatIntensity={2} position={[(i - 1) * 3, 2, -2] as any}>
           <mesh rotation={[Math.random(), Math.random(), 0]}>
             <boxGeometry args={[1, 0.6, 0.02]} />
@@ -165,22 +164,69 @@ const RevisionCards = ({ scrollProgress }: { scrollProgress: number }) => {
           </mesh>
         </Float>
       ))}
-      {/* Added Stars and Cones for professional animation */}
-      {[...Array(15)].map((_, i) => (
-        <Float key={`extra-${i}`} speed={1.5} rotationIntensity={2} floatIntensity={1} position={[Math.random() * 20 - 10, Math.random() * 20 - 10, -15] as any}>
-          {i % 2 === 0 ? (
-            <mesh>
-              <coneGeometry args={[0.2, 0.5, 32]} />
-              <meshStandardMaterial color="#00D2FF" emissive="#00D2FF" emissiveIntensity={0.5} />
-            </mesh>
-          ) : (
-            <mesh>
-              <octahedronGeometry args={[0.2]} />
-              <meshStandardMaterial color="#FFD700" emissive="#FFD700" emissiveIntensity={0.5} />
-            </mesh>
-          )}
-        </Float>
-      ))}
+
+      {/* Persistent floating professional primitives */}
+      {[...Array(20)].map((_, i) => {
+        const x = Math.sin(i * 1.5) * 15;
+        const y = Math.cos(i * 2) * 12;
+        const z = -20 - (i % 5) * 5;
+        
+        return (
+          <Float 
+            key={`extra-${i}`} 
+            speed={1 + Math.random()} 
+            rotationIntensity={2} 
+            floatIntensity={2} 
+            position={[x, y, z] as any}
+          >
+            {i % 4 === 0 ? (
+              <mesh>
+                <coneGeometry args={[0.3, 0.7, 32]} />
+                <meshPhysicalMaterial 
+                  color="#00D2FF" 
+                  emissive="#00D2FF" 
+                  emissiveIntensity={0.8} 
+                  transmission={0.5}
+                  thickness={1}
+                />
+              </mesh>
+            ) : i % 4 === 1 ? (
+              <mesh>
+                <octahedronGeometry args={[0.4]} />
+                <meshPhysicalMaterial 
+                  color="#FFD700" 
+                  emissive="#FFD700" 
+                  emissiveIntensity={0.8} 
+                  transmission={0.5}
+                  thickness={1}
+                />
+              </mesh>
+            ) : i % 4 === 2 ? (
+              <mesh>
+                <boxGeometry args={[0.4, 0.4, 0.4]} />
+                <meshPhysicalMaterial 
+                  color="#FF0080" 
+                  emissive="#FF0080" 
+                  emissiveIntensity={0.8} 
+                  transmission={0.5}
+                  thickness={1}
+                />
+              </mesh>
+            ) : (
+              <mesh>
+                <tetrahedronGeometry args={[0.3]} />
+                <meshPhysicalMaterial 
+                  color="#7928CA" 
+                  emissive="#7928CA" 
+                  emissiveIntensity={0.8} 
+                  transmission={0.5}
+                  thickness={1}
+                />
+              </mesh>
+            )}
+          </Float>
+        );
+      })}
     </group>
   );
 };
