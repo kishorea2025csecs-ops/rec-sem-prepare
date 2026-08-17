@@ -1,4 +1,5 @@
-import { supabase } from "@/integrations/supabase/client";
+import { type SupabaseClient } from "@supabase/supabase-js";
+import { type Database } from "@/integrations/supabase/types";
 
 export type PrepAnalytics = {
   readiness: number;
@@ -11,7 +12,7 @@ export type PrepAnalytics = {
   recommendation: string;
 };
 
-export async function getPrepAnalytics(userId: string): Promise<PrepAnalytics> {
+export async function getPrepAnalytics(supabase: SupabaseClient<Database>, userId: string): Promise<PrepAnalytics> {
   // 1. Fetch data in parallel
   const [
     { data: topics },
