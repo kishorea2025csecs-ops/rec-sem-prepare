@@ -837,8 +837,6 @@ function DashboardPage() {
           )}
         </section>
       </main>
-    </div>
-
 
       {explain && (
         <div
@@ -872,5 +870,7 @@ function DashboardPage() {
         </div>
       )}
     </div>
+  );
+}
   );
 }
