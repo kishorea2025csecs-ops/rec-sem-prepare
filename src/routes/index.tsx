@@ -159,7 +159,7 @@ function Landing() {
     <div className="min-h-screen bg-[#020205] font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
       <header className="fixed top-4 left-0 right-0 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 md:px-5 py-3 md:py-4">
-          <a href="#top" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative flex size-12 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
@@ -168,7 +168,7 @@ function Landing() {
               </div>
             </div>
             <span className="font-display text-xl font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">SemPrep AI</span>
-          </a>
+          </Link>
           <nav className="hidden items-center gap-4 text-[10px] font-black md:flex uppercase tracking-[0.15em]">
             <a className="transition-all duration-500 hover:text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md relative group overflow-hidden" href="#how">
               <span className="relative z-10">How it works</span>
@@ -293,10 +293,6 @@ function Landing() {
                 </h1>
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground/90">
                   SemPrep AI helps you master semester exams with high-priority topics, AI analysis, and interactive Tamil tutorials, tailored for Rajalakshmi Engineering College students.
-                  <br />
-                  <span className="sr-only">
-                    Make the Tamil tutorial YouTube search on the home page and dashboard open a real Tamil playlist.
-                  </span>
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   {isAuthenticated ? (

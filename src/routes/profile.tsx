@@ -1,6 +1,8 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import logoAsset from "@/assets/logo-glow.png.asset.json";
+import { Link } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { 
   User, 
@@ -71,14 +73,20 @@ function ProfilePage() {
   return (
     <div className="min-h-screen bg-background text-foreground pb-20">
       {/* Header */}
-      <header className="sticky top-4 z-30 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-2xl flex h-16 items-center px-6 backdrop-blur-xl">
-        <button 
-          onClick={() => navigate({ to: "/" })}
-          className="mr-4 flex size-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-muted-foreground transition-all duration-300 hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:text-white hover:shadow-[0_0_15px_rgba(34,211,238,0.3)] backdrop-blur-md"
-        >
-          <ArrowLeft className="size-4" />
-        </button>
-        <h1 id="profile-heading" className="font-display text-lg font-bold tracking-tight">Account Settings</h1>
+      <header className="sticky top-4 z-30 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-2xl flex h-16 items-center px-6 backdrop-blur-xl justify-between">
+        <div className="flex items-center gap-4">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="relative">
+              <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div className="relative flex size-9 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-tr from-accent/10 to-transparent pointer-events-none" />
+                <img src={logoAsset.url} alt="REC Logo" className="size-full object-contain relative z-10" />
+              </div>
+            </div>
+            <span className="font-display text-base font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent hidden sm:block">SemPrep AI</span>
+          </Link>
+        </div>
+        <h1 id="profile-heading" className="font-display text-sm font-black uppercase tracking-widest text-muted-foreground">Settings</h1>
       </header>
 
       <main className="mx-auto max-w-2xl p-6 lg:p-10" aria-labelledby="profile-heading">
