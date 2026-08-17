@@ -1,6 +1,6 @@
 /**
  * MCP Client Implementation for TanStack Start (Worker Runtime)
- * 
+ *
  * Since we run in a Cloudflare Worker-like runtime, we use HTTP transport
  * for interacting with MCP servers.
  */
@@ -27,15 +27,15 @@ export async function callMcpTool(
   serverUrl: string,
   toolName: string,
   args: any,
-  apiKey?: string
+  apiKey?: string,
 ): Promise<McpCallResult> {
-  const endpoint = `${serverUrl.replace(/\/$/, '')}/tools/call`;
-  
+  const endpoint = `${serverUrl.replace(/\/$/, "")}/tools/call`;
+
   const response = await fetch(endpoint, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      ...(apiKey ? { 'Authorization': `Bearer ${apiKey}` } : {}),
+      "Content-Type": "application/json",
+      ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}),
     },
     body: JSON.stringify({
       name: toolName,
@@ -54,16 +54,13 @@ export async function callMcpTool(
 /**
  * Lists available tools from a remote MCP server.
  */
-export async function listMcpTools(
-  serverUrl: string,
-  apiKey?: string
-): Promise<McpTool[]> {
-  const endpoint = `${serverUrl.replace(/\/$/, '')}/tools/list`;
-  
+export async function listMcpTools(serverUrl: string, apiKey?: string): Promise<McpTool[]> {
+  const endpoint = `${serverUrl.replace(/\/$/, "")}/tools/list`;
+
   const response = await fetch(endpoint, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      ...(apiKey ? { 'Authorization': `Bearer ${apiKey}` } : {}),
+      ...(apiKey ? { Authorization: `Bearer ${apiKey}` } : {}),
     },
   });
 
