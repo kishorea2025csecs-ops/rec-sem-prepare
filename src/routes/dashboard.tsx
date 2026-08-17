@@ -872,5 +872,3 @@ function DashboardPage() {
     </div>
   );
 }
-  );
-}
