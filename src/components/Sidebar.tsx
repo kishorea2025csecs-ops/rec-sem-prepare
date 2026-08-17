@@ -16,7 +16,7 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { label: "Control Panel", icon: LayoutDashboard, path: "/dashboard" },
+  { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
   { label: "Important Topics", icon: Target, path: "/topics" },
   { label: "Question Bank", icon: BookOpen, path: "/questions" },
   { label: "Study Planner", icon: Calendar, path: "/planner" },
