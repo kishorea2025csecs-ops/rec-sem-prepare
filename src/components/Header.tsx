@@ -30,17 +30,31 @@ export const Header = ({ isAuthenticated, isVerifiedRec, userEmail, activeLink }
         </Link>
 
         <nav className="hidden md:flex items-center gap-2">
-            <SceneSelector />
-            {isAuthenticated && (
-                <Link
-                    to="/dashboard"
-                    className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all ${
-                        activeLink === "dashboard" ? "bg-white/10 text-white" : "text-white/60 hover:text-white"
-                    }`}
-                >
-                    Dashboard
-                </Link>
-            )}
+          {isAuthenticated && (
+            <>
+              <Link
+                to="/"
+                className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all ${
+                  activeLink === "home"
+                    ? "bg-white/10 text-white"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                Home
+              </Link>
+              <Link
+                to="/dashboard"
+                className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.15em] transition-all ${
+                  activeLink === "dashboard"
+                    ? "bg-white/10 text-white"
+                    : "text-white/60 hover:text-white"
+                }`}
+              >
+                Dashboard
+              </Link>
+            </>
+          )}
+          <SceneSelector />
         </nav>
 
         <div className="flex items-center gap-3 shrink-0">
