@@ -79,6 +79,7 @@ function DashboardPage() {
   const navigate = useNavigate();
   const runAnalysis = useServerFn(analyzeMaterial);
   const runExplain = useServerFn(getExplanation);
+  const fetchStats = useServerFn(getPreparationStats);
 
   const [checking, setChecking] = useState(true);
   const [email, setEmail] = useState<string | null>(null);
@@ -93,6 +94,7 @@ function DashboardPage() {
   const [explaining, setExplaining] = useState(false);
   const [showProgressOrbit, setShowProgressOrbit] = useState(false);
   const [useMcp, setUseMcp] = useState(true);
+  const [stats, setStats] = useState<any>(null);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({
