@@ -329,7 +329,75 @@ function DashboardPage() {
         activeLink="dashboard"
       />
 
-      <main className="relative z-10 mx-auto grid max-w-7xl gap-6 px-5 lg:grid-cols-[340px_1fr]">
+      <main className="relative z-10 mx-auto max-w-7xl px-5 pt-28 pb-20">
+        {/* TOP: Exam Readiness command center */}
+        <section className="mb-10 rounded-[2.5rem] border border-white/10 bg-white/5 p-8 backdrop-blur-2xl">
+          <div className="grid gap-10 lg:grid-cols-[1fr_300px]">
+            <div>
+              <div className="flex items-center gap-3 text-accent">
+                <TargetIcon className="size-5" />
+                <h2 className="font-display text-sm font-black uppercase tracking-widest">
+                  Exam Readiness
+                </h2>
+              </div>
+              <div className="mt-6 flex items-baseline gap-4">
+                <span className="font-display text-7xl font-black tracking-tighter text-white">
+                  {stats?.readiness ?? 0}%
+                </span>
+                <div className="flex items-center gap-2 rounded-full bg-emerald-500/10 px-3 py-1 text-[10px] font-black uppercase text-emerald-400 border border-emerald-500/20">
+                  <TrendingUp className="size-3" />
+                  +5% weekly
+                </div>
+              </div>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                {stats?.recommendation ?? "Complete your first practice session to calculate your readiness score."}
+              </p>
+
+              <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4">
+                {[
+                  { label: "Topic Coverage", val: stats?.topicCoverage ?? 0, icon: ListChecks, color: "text-cyan-400" },
+                  { label: "Question Accuracy", val: stats?.questionAccuracy ?? 0, icon: Activity, color: "text-purple-400" },
+                  { label: "Revision Consistency", val: stats?.revisionConsistency ?? 0, icon: History, color: "text-pink-400" },
+                  { label: "Priority Coverage", val: stats?.priorityCoverage ?? 0, icon: Sparkles, color: "text-amber-400" },
+                ].map((item) => (
+                  <div key={item.label} className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <item.icon className={`size-3 ${item.color}`} />
+                        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                          {item.label}
+                        </span>
+                      </div>
+                      <span className="text-xs font-bold">{item.val}%</span>
+                    </div>
+                    <div className="h-1 overflow-hidden rounded-full bg-white/5">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        animate={{ width: `${item.val}%` }}
+                        className={`h-full rounded-full ${item.color.replace('text-', 'bg-').split(' ')[0]}`}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="hidden lg:block relative">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="size-48 rounded-full border border-white/5 bg-white/[0.02]" />
+              </div>
+              <div className="relative h-64 w-full">
+                <Canvas camera={{ position: [0, 0, 8], fov: 35 }}>
+                  <ambientLight intensity={0.5} />
+                  <pointLight position={[10, 10, 10]} intensity={1} />
+                  <ProgressWheel3D completion={stats?.readiness ?? 0} totalTopics={100} />
+                </Canvas>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <div className="grid gap-6 lg:grid-cols-[340px_1fr]">
         {/* LEFT: upload + library */}
         <aside className="space-y-6">
           <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
