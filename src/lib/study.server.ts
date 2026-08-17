@@ -83,7 +83,7 @@ export async function analyseText(input: {
     method: "POST",
     headers: { "content-type": "application/json", authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({
-      model: "google/gemini-2.5-flash",
+      model: "google/gemini-2.0-flash",
       messages: [
         { role: "system", content: SYSTEM_PROMPT },
         {
@@ -128,7 +128,7 @@ export async function explainTopic(topic: string, level: "quick" | "exam" | "rev
     method: "POST",
     headers: { "content-type": "application/json", authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({
-      model: "google/gemini-2.5-flash",
+      model: "google/gemini-2.0-flash",
       messages: [
         {
           role: "system",
