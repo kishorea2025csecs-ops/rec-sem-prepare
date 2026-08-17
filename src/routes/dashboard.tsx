@@ -431,23 +431,50 @@ function DashboardPage() {
 
               {analysis && busyId !== active.id && (
                 <>
-                  <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-                    <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Summary</h2>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{analysis.summary}</p>
-                    {topics.length > 0 && (
-                      <div className="mt-5">
-                        <div className="flex justify-between text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                          <span>Revision progress</span>
-                          <span>{done}/{topics.length}</span>
-                        </div>
-                        <div className="mt-2 h-2 overflow-hidden rounded-full bg-white/10">
-                          <div
-                            className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-purple-500 transition-all"
-                            style={{ width: `${topics.length ? (done / topics.length) * 100 : 0}%` }}
-                          />
+                  <div className="grid gap-6 lg:grid-cols-2">
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl"
+                    >
+                      <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Summary</h2>
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{analysis.summary}</p>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.1 }}
+                      className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl flex flex-col items-center justify-center min-h-[300px] group cursor-pointer"
+                    >
+                      <div className="absolute top-6 left-6 z-10">
+                        <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">Preparation Orbit</h2>
+                        <div className="mt-1 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
+                          <span>{done}/{topics.length} Topics Ready</span>
                         </div>
                       </div>
-                    )}
+                      
+                      <div className="size-full max-h-[250px] relative z-0">
+                        <Suspense fallback={<Loader2 className="size-8 animate-spin text-accent" />}>
+                          <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
+                            <ambientLight intensity={0.5} />
+                            <pointLight position={[10, 10, 10]} intensity={1} />
+                            <ProgressWheel3D completion={done} totalTopics={topics.length} />
+                          </Canvas>
+                        </Suspense>
+                      </div>
+
+                      <div className="absolute bottom-6 w-full px-6 flex justify-between gap-4 z-10">
+                         <div className="rounded-2xl bg-black/40 border border-white/5 p-3 flex-1 text-center backdrop-blur-md">
+                            <p className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">Accuracy</p>
+                            <p className="text-sm font-bold text-cyan-400">92%</p>
+                         </div>
+                         <div className="rounded-2xl bg-black/40 border border-white/5 p-3 flex-1 text-center backdrop-blur-md">
+                            <p className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">Selection</p>
+                            <p className="text-sm font-bold text-purple-400">84%</p>
+                         </div>
+                      </div>
+                    </motion.div>
                   </div>
 
                   {topics.length > 0 && (
