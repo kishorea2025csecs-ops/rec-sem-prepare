@@ -80,6 +80,7 @@ function DashboardPage() {
   const [progress, setProgress] = useState<Record<string, boolean>>({});
   const [explain, setExplain] = useState<{ topic: string; level: string; text: string } | null>(null);
   const [explaining, setExplaining] = useState(false);
+  const [showProgressOrbit, setShowProgressOrbit] = useState(false);
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState({ subject: "", unit: "Unit 1", kind: "notes" as "notes" | "pyq" });
