@@ -739,6 +739,12 @@ function DashboardPage() {
                             </div>
                             <p className="mt-2 pl-8 text-xs text-muted-foreground">{t.reason}</p>
                             <div className="mt-3 flex flex-wrap gap-2 pl-8">
+                              <Link
+                                to="/topics"
+                                className="rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-[10px] font-black uppercase tracking-widest transition hover:border-purple-400/50 hover:bg-purple-500/10"
+                              >
+                                Start Learning
+                              </Link>
                               {(["quick", "exam", "revision"] as const).map((lvl) => (
                                 <button
                                   key={lvl}
@@ -757,6 +763,7 @@ function DashboardPage() {
                                 <Youtube className="size-3" /> Tamil
                               </a>
                             </div>
+
                           </li>
                         ))}
                       </ul>
@@ -765,13 +772,23 @@ function DashboardPage() {
 
                   {analysis.questions?.length > 0 && (
                     <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-                      <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">
-                        Question bank
-                      </h2>
-                      <p className="mt-1 text-[11px] text-muted-foreground">
-                        Ranked by how strongly the material supports them — not a guarantee of what
-                        will be asked.
-                      </p>
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">
+                            Question bank
+                          </h2>
+                          <p className="mt-1 text-[11px] text-muted-foreground">
+                            Ranked by support in material.
+                          </p>
+                        </div>
+                        <Link 
+                          to="/questions"
+                          className="text-[10px] font-black uppercase tracking-widest text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
+                        >
+                          View Full Bank <ChevronRight className="size-3" />
+                        </Link>
+                      </div>
+
                       <ul className="mt-4 space-y-3">
                         {analysis.questions.map((q: any, i: number) => (
                           <li
