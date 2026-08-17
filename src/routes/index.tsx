@@ -284,9 +284,6 @@ function Landing() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
               >
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/10 glass-morphism px-3 py-1 text-xs font-black uppercase tracking-[0.2em] text-accent">
-                  <Sparkles className="size-3.5" />
-                </span>
                 <h1 id="hero-heading" className="mt-6 font-display text-4xl font-black leading-[0.95] tracking-tighter sm:text-6xl lg:text-8xl uppercase">
                   Master your exams 
                   <br />
