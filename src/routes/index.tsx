@@ -298,7 +298,7 @@ function Landing() {
                   '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
                                         
                                             
-                                            Test the Home page on my phone: confirm the persistent 3D scene continues smoothly through every section.
+                                            Add PDF upload to the home page and make the AI analysis and question bank buttons real.
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   {isAuthenticated ? (
