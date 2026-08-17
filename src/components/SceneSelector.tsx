@@ -42,6 +42,7 @@ const SCENES: SplineSceneConfig[] = [
   }
 ];
 
+
 export const SceneSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentSceneId, setCurrentSceneId] = useState<string>(() => {
