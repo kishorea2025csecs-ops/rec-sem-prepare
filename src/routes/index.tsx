@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
-import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef, Suspense, useEffect } from "react";
 import { StudySpace } from "@/components/StudySpace";
