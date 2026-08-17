@@ -1,13 +1,13 @@
-import React, { useRef, useState, useMemo, useEffect } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Environment, ContactShadows, Float, MeshDistortMaterial } from '@react-three/drei';
-import * as THREE from 'three';
+import React, { useRef, useState, useMemo, useEffect } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Environment, ContactShadows, Float, MeshDistortMaterial } from "@react-three/drei";
+import * as THREE from "three";
 
 // --- Components for specific 3D objects ---
 
 const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
   const groupRef = useRef<THREE.Group>(null);
-  
+
   useFrame((state) => {
     if (groupRef.current) {
       groupRef.current.rotation.y += 0.01;
@@ -28,7 +28,11 @@ const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
       const t = (scrollProgress - 0.2) / 0.2;
       const startX = isMobile ? 0 : 3.5;
       const startY = isMobile ? 0.5 : 0;
-      return [THREE.MathUtils.lerp(startX, 0, t), THREE.MathUtils.lerp(startY, 4, t), THREE.MathUtils.lerp(0, -10, t)];
+      return [
+        THREE.MathUtils.lerp(startX, 0, t),
+        THREE.MathUtils.lerp(startY, 4, t),
+        THREE.MathUtils.lerp(0, -10, t),
+      ];
     }
     // Section 3: AI Analysis (0.4-0.6) -> Center focus
     if (scrollProgress < 0.6) {
@@ -46,11 +50,11 @@ const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
     <group ref={groupRef} position={pos as any}>
       <mesh>
         <icosahedronGeometry args={[1.6, 2]} />
-        <meshPhysicalMaterial 
-          color="#00D2FF" 
-          transmission={0.9} 
-          thickness={1.5} 
-          roughness={0.1} 
+        <meshPhysicalMaterial
+          color="#00D2FF"
+          transmission={0.9}
+          thickness={1.5}
+          roughness={0.1}
           metalness={0.2}
           ior={1.5}
           clearcoat={1}
@@ -66,7 +70,7 @@ const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
 
 const StudyNotes = ({ scrollProgress }: { scrollProgress: number }) => {
   const meshRef = useRef<THREE.Mesh>(null);
-  
+
   useFrame((state) => {
     if (meshRef.current) {
       meshRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
@@ -156,36 +160,43 @@ const RevisionCards = ({ scrollProgress }: { scrollProgress: number }) => {
   return (
     <group>
       {/* Scroll-conditional main objects */}
-      {scrollProgress > 0.8 && [0, 1, 2].map((i) => (
-        <Float key={i} speed={2} rotationIntensity={1} floatIntensity={2} position={[(i - 1) * 3, 2, -2] as any}>
-          <mesh rotation={[Math.random(), Math.random(), 0]}>
-            <boxGeometry args={[1, 0.6, 0.02]} />
-            <meshStandardMaterial color={i === 1 ? "#FF0080" : "#7928CA"} />
-          </mesh>
-        </Float>
-      ))}
+      {scrollProgress > 0.8 &&
+        [0, 1, 2].map((i) => (
+          <Float
+            key={i}
+            speed={2}
+            rotationIntensity={1}
+            floatIntensity={2}
+            position={[(i - 1) * 3, 2, -2] as any}
+          >
+            <mesh rotation={[Math.random(), Math.random(), 0]}>
+              <boxGeometry args={[1, 0.6, 0.02]} />
+              <meshStandardMaterial color={i === 1 ? "#FF0080" : "#7928CA"} />
+            </mesh>
+          </Float>
+        ))}
 
       {/* Persistent floating professional primitives */}
       {[...Array(20)].map((_, i) => {
         const x = Math.sin(i * 1.5) * 15;
         const y = Math.cos(i * 2) * 12;
         const z = -20 - (i % 5) * 5;
-        
+
         return (
-          <Float 
-            key={`extra-${i}`} 
-            speed={1 + Math.random()} 
-            rotationIntensity={2} 
-            floatIntensity={2} 
+          <Float
+            key={`extra-${i}`}
+            speed={1 + Math.random()}
+            rotationIntensity={2}
+            floatIntensity={2}
             position={[x, y, z] as any}
           >
             {i % 4 === 0 ? (
               <mesh>
                 <coneGeometry args={[0.3, 0.7, 32]} />
-                <meshPhysicalMaterial 
-                  color="#00D2FF" 
-                  emissive="#00D2FF" 
-                  emissiveIntensity={0.8} 
+                <meshPhysicalMaterial
+                  color="#00D2FF"
+                  emissive="#00D2FF"
+                  emissiveIntensity={0.8}
                   transmission={0.5}
                   thickness={1}
                 />
@@ -193,10 +204,10 @@ const RevisionCards = ({ scrollProgress }: { scrollProgress: number }) => {
             ) : i % 4 === 1 ? (
               <mesh>
                 <octahedronGeometry args={[0.4]} />
-                <meshPhysicalMaterial 
-                  color="#FFD700" 
-                  emissive="#FFD700" 
-                  emissiveIntensity={0.8} 
+                <meshPhysicalMaterial
+                  color="#FFD700"
+                  emissive="#FFD700"
+                  emissiveIntensity={0.8}
                   transmission={0.5}
                   thickness={1}
                 />
@@ -204,10 +215,10 @@ const RevisionCards = ({ scrollProgress }: { scrollProgress: number }) => {
             ) : i % 4 === 2 ? (
               <mesh>
                 <boxGeometry args={[0.4, 0.4, 0.4]} />
-                <meshPhysicalMaterial 
-                  color="#FF0080" 
-                  emissive="#FF0080" 
-                  emissiveIntensity={0.8} 
+                <meshPhysicalMaterial
+                  color="#FF0080"
+                  emissive="#FF0080"
+                  emissiveIntensity={0.8}
                   transmission={0.5}
                   thickness={1}
                 />
@@ -215,10 +226,10 @@ const RevisionCards = ({ scrollProgress }: { scrollProgress: number }) => {
             ) : (
               <mesh>
                 <tetrahedronGeometry args={[0.3]} />
-                <meshPhysicalMaterial 
-                  color="#7928CA" 
-                  emissive="#7928CA" 
-                  emissiveIntensity={0.8} 
+                <meshPhysicalMaterial
+                  color="#7928CA"
+                  emissive="#7928CA"
+                  emissiveIntensity={0.8}
                   transmission={0.5}
                   thickness={1}
                 />
@@ -263,14 +274,14 @@ const Scene = ({ scrollY }: { scrollY: number }) => {
     // Smoother persistent camera movement
     const targetZ = isMobile ? 8 - scrollProgress * 5 : 10 - scrollProgress * 3;
     const targetY = isMobile ? -scrollProgress * 6 : -scrollProgress * 4;
-    
+
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
     camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
-    
+
     // Add subtle camera tilt based on time
     camera.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.05;
     camera.rotation.y = Math.cos(state.clock.elapsedTime * 0.2) * 0.05;
-    
+
     camera.lookAt(0, targetY, 0);
   });
 
@@ -285,7 +296,7 @@ const Scene = ({ scrollY }: { scrollY: number }) => {
 
       <Environment preset="night" />
       <ContactShadows position={[0, -6, 0]} opacity={0.4} scale={25} blur={2.5} far={10} />
-      
+
       <ambientLight intensity={0.4} />
       <spotLight position={[15, 20, 10]} angle={0.2} penumbra={1} intensity={1.5} castShadow />
       <pointLight position={[-15, -10, -10]} intensity={0.5} color="#9D4EDD" />
@@ -300,20 +311,20 @@ export const StudySpace = () => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
-      <Canvas 
+      <Canvas
         shadows
         camera={{ position: [0, 0, 10], fov: 40 }}
         dpr={[1, 2]}
-        gl={{ 
-          antialias: true, 
+        gl={{
+          antialias: true,
           alpha: true,
-          powerPreference: "high-performance" 
+          powerPreference: "high-performance",
         }}
       >
         <Scene scrollY={scrollY} />

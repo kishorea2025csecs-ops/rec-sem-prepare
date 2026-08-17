@@ -16,12 +16,12 @@ function AuthCallback() {
     const handleAuth = async () => {
       try {
         const { data, error } = await supabase.auth.getSession();
-        
+
         if (error) throw error;
 
         if (data.session) {
           const user = data.session.user;
-          
+
           // Double check domain server-side/client-side during hydration
           if (!user.email?.endsWith("@rajalakshmi.edu.in")) {
             await supabase.auth.signOut();
@@ -31,7 +31,7 @@ function AuthCallback() {
           toast.success("Welcome back!", {
             description: `Signed in as ${user.email}`,
           });
-          
+
           navigate({ to: "/" });
         } else {
           // No session found, user might have just landed here
@@ -41,12 +41,12 @@ function AuthCallback() {
         const msg = err instanceof Error ? err.message : "Authentication failed";
         setError(msg);
         toast.error("Authentication error", { description: msg });
-        
+
         // Wait a bit so user can see the error before redirecting back
         setTimeout(() => {
-          navigate({ 
-            to: "/auth/login", 
-            search: { error: msg } 
+          navigate({
+            to: "/auth/login",
+            search: { error: msg },
           } as any);
         }, 3000);
       }
@@ -64,9 +64,7 @@ function AuthCallback() {
               <Loader2 className="size-8 animate-spin" />
             </div>
             <h1 className="mt-6 text-xl font-bold text-foreground">Access Restricted</h1>
-            <p className="mt-2 text-sm text-muted-foreground max-w-xs mx-auto">
-              {error}
-            </p>
+            <p className="mt-2 text-sm text-muted-foreground max-w-xs mx-auto">{error}</p>
             <p className="mt-4 text-[10px] text-muted-foreground uppercase tracking-widest font-bold">
               Redirecting to login...
             </p>

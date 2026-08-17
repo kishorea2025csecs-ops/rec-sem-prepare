@@ -3,7 +3,12 @@ export type Analysis = {
   concepts: { name: string; detail: string }[];
   formulas: { name: string; expression: string }[];
   topics: { topic: string; priority: "high" | "medium" | "low"; marks: string; reason: string }[];
-  questions: { question: string; marks: string; priority: "high" | "medium" | "low"; source: string }[];
+  questions: {
+    question: string;
+    marks: string;
+    priority: "high" | "medium" | "low";
+    source: string;
+  }[];
   tamilQueries: string[];
 };
 
@@ -114,7 +119,11 @@ ${input.text.slice(0, 60000)}`,
   return JSON.parse(content) as Analysis;
 }
 
-export async function explainTopic(topic: string, level: "quick" | "exam" | "revision", subject: string) {
+export async function explainTopic(
+  topic: string,
+  level: "quick" | "exam" | "revision",
+  subject: string,
+) {
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) throw new Error("AI is not configured");
 
@@ -135,7 +144,10 @@ export async function explainTopic(topic: string, level: "quick" | "exam" | "rev
           content:
             "You help Anna University engineering students. Be accurate and concise. Use markdown-free plain text with simple dashes for bullets.",
         },
-        { role: "user", content: `Subject: ${subject}\nTopic: ${topic}\nGive me ${styles[level]}.` },
+        {
+          role: "user",
+          content: `Subject: ${subject}\nTopic: ${topic}\nGive me ${styles[level]}.`,
+        },
       ],
     }),
   });

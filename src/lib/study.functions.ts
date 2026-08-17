@@ -50,15 +50,15 @@ export const analyzeMaterial = createServerFn({ method: "POST" })
 
 export const getExplanation = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-    .validator((data: unknown) =>
-      z
-        .object({
-          topic: z.string().min(2).max(300),
-          subject: z.string().max(120).default("General"),
-          level: z.enum(["quick", "exam", "revision"]),
-        })
-        .parse(data),
-    )
+  .validator((data: unknown) =>
+    z
+      .object({
+        topic: z.string().min(2).max(300),
+        subject: z.string().max(120).default("General"),
+        level: z.enum(["quick", "exam", "revision"]),
+      })
+      .parse(data),
+  )
   .handler(async ({ data, context }) => {
     const email = (context.claims.email as string) ?? "";
     if (!email.endsWith("@rajalakshmi.edu.in")) {

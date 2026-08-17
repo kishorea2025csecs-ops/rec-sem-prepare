@@ -11,13 +11,15 @@ function Model() {
 export function ModelViewer() {
   return (
     <div className="size-full">
-      <Suspense fallback={
-        <div className="flex size-full items-center justify-center bg-surface/30">
-          <div className="size-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
-        </div>
-      }>
-        <Canvas dpr={[1, 2]} camera={{ fov: 45 }} style={{ touchAction: 'none' }}>
-          <color attach="background" args={['#0f172a']} />
+      <Suspense
+        fallback={
+          <div className="flex size-full items-center justify-center bg-surface/30">
+            <div className="size-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+          </div>
+        }
+      >
+        <Canvas dpr={[1, 2]} camera={{ fov: 45 }} style={{ touchAction: "none" }}>
+          <color attach="background" args={["#0f172a"]} />
           <PresentationControls
             speed={1.5}
             global
