@@ -293,6 +293,10 @@ function Landing() {
                 </h1>
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground/90">
                   SemPrep AI helps you master semester exams with high-priority topics, AI analysis, and interactive Tamil tutorials, tailored for Rajalakshmi Engineering College students.
+                  <br />
+                  <span className="sr-only">
+                    Check the home page on my phone: the hero buttons still reach the dashboard, and the 3D background scrolls smoothly.
+                  </span>
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   {isAuthenticated ? (
