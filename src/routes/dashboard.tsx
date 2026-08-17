@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState, Suspense } from "react";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
+import { SplineScene } from "@/components/SplineScene";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { analyzeMaterial, getExplanation } from "@/lib/study.functions";
