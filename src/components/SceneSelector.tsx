@@ -54,7 +54,7 @@ export const SceneSelector: React.FC = () => {
     return SCENES[0].id;
   });
 
-  const currentScene = SCENES.find(s => s.id === currentSceneId) || SCENES[0];
+  const activeScene = SCENES.find(s => s.id === currentSceneId) || SCENES[0];
 
   const handleSelect = (id: string) => {
     setCurrentSceneId(id);
@@ -76,7 +76,7 @@ export const SceneSelector: React.FC = () => {
         className="flex items-center gap-2 px-4 py-2 rounded-full glass-morphism border border-white/10 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/10 hover:border-accent/50 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
       >
         <Settings2 className="size-3.5 text-accent animate-pulse" />
-        <span>3D Scene: {currentScene.name}</span>
+        <span>3D Scene: {activeScene.name}</span>
         <ChevronDown className={`size-3.5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
