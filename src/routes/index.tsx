@@ -298,7 +298,7 @@ function Landing() {
                   '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
                                         
                                             
-                                            from this three section need to remove the background glass design to see the 3d object motion in the website free motion for the scroll
+                                            Upload a PDF on the dashboard and confirm the extracted text and the saved record appear correctly.
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   {isAuthenticated ? (
