@@ -81,7 +81,7 @@ function QuestionsPage() {
   const filteredQuestions = useMemo(() => {
     return questions.filter(q => {
       const matchesSearch = q.question_text.toLowerCase().includes(search.toLowerCase()) || 
-                           q.topic?.name.toLowerCase().includes(search.toLowerCase());
+                           (q.topic?.title || '').toLowerCase().includes(search.toLowerCase());
       const matchesUnit = selectedUnit === "All" || q.topic?.unit_id === selectedUnit;
       // Difficulty mapping logic if available, otherwise just use marks as proxy
       return matchesSearch && matchesUnit;
@@ -168,7 +168,7 @@ function QuestionsPage() {
                         {q.is_pyq ? `PYQ ${q.year_semester || ''}` : 'Practice'}
                       </span>
                       <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                        {q.topic?.name || 'General'} • {q.marks} Marks
+                        {q.topic?.title || 'General'} • {q.marks} Marks
                       </span>
                     </div>
                     <p className="text-lg font-medium leading-relaxed group-hover:text-white transition-colors">
@@ -221,7 +221,7 @@ function QuestionsPage() {
                 <div>
                   <h4 className="text-cyan-400 font-bold text-sm uppercase tracking-widest mb-2">Key Concepts</h4>
                   <p className="text-sm leading-relaxed">
-                    Based on your notes, this question requires explaining {selectedQuestion.topic?.name}. 
+                    Based on your notes, this question requires explaining {selectedQuestion.topic?.title}. 
                     Focus on the fundamental definitions and key structural diagrams provided in Unit 1.
                   </p>
                 </div>

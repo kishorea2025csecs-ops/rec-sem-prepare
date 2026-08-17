@@ -74,9 +74,9 @@ function TopicsPage() {
     setExplanation(null);
     try {
       const res: any = await runExplain({
-        data: { topic: topic.name, level, subject: "Engineering" },
+        data: { topic: topic.title, level, subject: "Engineering" },
       });
-      setExplanation({ ...res, topicName: topic.title || topic.name });
+      setExplanation({ ...res, topicName: topic.title });
     } catch (err) {
       toast.error("Failed to generate explanation");
     } finally {
@@ -182,7 +182,7 @@ function TopicsPage() {
                         <Brain className="size-6" />
                       </div>
                       <div>
-                        <h3 className="text-xl font-bold group-hover:text-white transition-colors">{topic.title || topic.name}</h3>
+                        <h3 className="text-xl font-bold group-hover:text-white transition-colors">{topic.title}</h3>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-black mt-1">
                           {topic.marks_weightage || '2/13'} Marks • Exam Freq: {Math.round((topic.exam_frequency || 0.5) * 100)}%
                         </p>
@@ -214,7 +214,7 @@ function TopicsPage() {
                       Start Learning
                     </button>
                     <button 
-                      onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(topic.name + " engineering Tamil explanation")}`, '_blank')}
+                      onClick={() => window.open(`https://www.youtube.com/results?search_query=${encodeURIComponent(topic.title + " engineering Tamil explanation")}`, '_blank')}
                       className="flex items-center justify-center gap-2 py-3 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold hover:bg-red-500/20 transition-colors"
                     >
                       <Youtube className="size-4" /> Tamil Tutorial
