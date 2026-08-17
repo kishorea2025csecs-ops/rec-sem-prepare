@@ -5,11 +5,12 @@ import {
   createRootRouteWithContext,
   useRouter,
   HeadContent,
-    Scripts,
+  Scripts,
   useLocation,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode, Suspense } from "react";
+import { useEffect, type ReactNode, Suspense, useState } from "react";
 import { SplineScene } from "@/components/SplineScene";
+import { SceneSelector } from "@/components/SceneSelector";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -120,9 +121,32 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+const DEFAULT_SCENE = "https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode";
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const location = useLocation();
+  const [sceneUrl, setSceneUrl] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('semprep_scene_id');
+      // Minimal validation - normally we'd check against SCENES but here we just use what was set
+      // The SceneSelector handleSelect sends the URL, we'll listen for that too.
+      // For initial load, we might just default if we don't have the URL mapping easily accessible
+      // but let's just use DEFAULT_SCENE as fallback.
+      return DEFAULT_SCENE;
+    }
+    return DEFAULT_SCENE;
+  });
+
+  useEffect(() => {
+    const handleSceneChange = (e: any) => {
+      if (e.detail && e.detail.url) {
+        setSceneUrl(e.detail.url);
+      }
+    };
+    window.addEventListener('semprep-scene-change', handleSceneChange);
+    return () => window.removeEventListener('semprep-scene-change', handleSceneChange);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -131,7 +155,8 @@ function RootComponent() {
         <div className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000">
           <Suspense fallback={null}>
             <SplineScene 
-              scene="https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode"
+              key={sceneUrl}
+              scene={sceneUrl}
               className={`w-full h-full transition-opacity duration-1000 ${
                 location.pathname === '/' ? 'opacity-100' : 'opacity-60'
               }`}
@@ -143,6 +168,11 @@ function RootComponent() {
         <div className="pointer-events-none fixed inset-0 overflow-hidden z-[1]">
           <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/10 blur-[140px]" />
           <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/10 blur-[150px]" />
+        </div>
+
+        {/* Persistent Scene Selector in Footer or Corner */}
+        <div className="fixed bottom-6 right-6 z-[100] hidden md:block">
+           <SceneSelector />
         </div>
 
         {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
