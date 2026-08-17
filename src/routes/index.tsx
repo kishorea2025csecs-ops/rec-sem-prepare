@@ -275,7 +275,7 @@ function Landing() {
                       >
                         <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
                         <Upload className="size-5 transition-transform group-hover:-translate-y-1 relative z-10" />
-                        <span className="relative z-10">Start Your Orbit</span>
+                        <span className="relative z-10">Go to Dashboard</span>
                       </Link>
                     ) : (
                       <div className="flex flex-col gap-2">
@@ -302,10 +302,10 @@ function Landing() {
                   )}
                   <a
                     href="#how"
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-600 px-10 py-5 text-base font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 neon-glow-cyan"
+                    className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-10 py-5 text-base font-bold text-white transition-all duration-300 hover:scale-105 active:scale-95 hover:bg-white/10"
                   >
                     <Play className="size-5 text-white" />
-                    <span>How it works</span>
+                    <span>Watch Demo</span>
                   </a>
                 </div>
               </motion.div>
