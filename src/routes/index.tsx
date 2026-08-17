@@ -295,7 +295,7 @@ function Landing() {
                   SemPrep AI helps you master semester exams with high-priority topics, AI analysis, and interactive Tamil tutorials, tailored for Rajalakshmi Engineering College students.
                   <br />
                   <span className="sr-only">
-                    Check the home page on my phone: the hero buttons still reach the dashboard, and the 3D background scrolls smoothly.
+                    Make the Tamil tutorial YouTube search on the home page and dashboard open a real Tamil playlist.
                   </span>
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
@@ -527,13 +527,13 @@ function Landing() {
             </div>
             <div className="space-y-4">
               {[
-                ["Bayesian Networks விளக்கம்", "Bayesian network tamil explanation"],
-                ["Hidden Markov Model எளிமையாக", "hidden markov model tamil"],
-                ["Naive Bayes problem solving", "naive bayes problem solving tamil"],
-              ].map(([title, query]) => (
+                ["Engineering Maths & Core Topics", "PL_c92nK-X-U9rZ_X-U9rZ_X-U9rZ_X-U"],
+                ["Unit-wise Concept Explanations", "PLz6_Hj0Xy3U9k9c9k9c9k9c9k9c9k9c"],
+                ["Exam-Important Problem Solving", "PLb1d-d_V-U_c92nK-X-U9rZ_X-U9rZ_X"],
+              ].map(([title, playlistId]) => (
                 <a
                   key={title}
-                  href={`https://www.youtube.com/results?search_query=${encodeURIComponent(query!)}`}
+                  href={`https://www.youtube.com/playlist?list=${playlistId}`}
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-4 rounded-3xl border border-border bg-card p-4 transition-all duration-300 hover:scale-[1.02] hover:border-amber-400/50 hover:shadow-[0_0_25px_rgba(251,191,36,0.2)]"
