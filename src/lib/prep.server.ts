@@ -198,7 +198,7 @@ export async function handleGeneratePlan(
         label: `Day ${i + 1}`,
         tasks: dayTopics.map(t => ({
           id: t.id,
-          title: t.name,
+          title: t.title || 'Untitled Topic',
           unit: t.unit_id,
           priority: (t.importance || 0.5) > 0.7 ? 'high' : 'medium',
           completed: (t.progress?.[0]?.mastery_score || 0) === 100
