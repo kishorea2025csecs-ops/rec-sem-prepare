@@ -271,9 +271,9 @@ const KnowledgeNodes = ({ scrollProgress }: { scrollProgress: number }) => {
 };
 
 const Scene = ({ scrollY }: { scrollY: number }) => {
-  const { camera, viewport } = useThree();
+  const { camera, viewport, mouse } = useThree();
   const [scrollProgress, setScrollProgress] = useState(0);
-  const isMobile = viewport.width < 5; // Rough heuristic for mobile in Three.js units
+  const isMobile = viewport.width < 5;
 
   useEffect(() => {
     const height = document.documentElement.scrollHeight - window.innerHeight;
@@ -281,16 +281,25 @@ const Scene = ({ scrollY }: { scrollY: number }) => {
   }, [scrollY]);
 
   useFrame((state) => {
-    // Smoother persistent camera movement
+    // Smoother persistent camera movement based on scroll
     const targetZ = isMobile ? 8 - scrollProgress * 5 : 10 - scrollProgress * 3;
     const targetY = isMobile ? -scrollProgress * 6 : -scrollProgress * 4;
 
+    // Interpolate camera position for buttery smooth feel
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
     camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
 
-    // Add subtle camera tilt based on time
-    camera.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.05;
-    camera.rotation.y = Math.cos(state.clock.elapsedTime * 0.2) * 0.05;
+    // MOUSE REACTIVITY: Subtle camera movement based on cursor position
+    // This creates the "Pro Edit" parallax effect
+    const mouseX = mouse.x * (isMobile ? 0.2 : 0.5);
+    const mouseY = mouse.y * (isMobile ? 0.2 : 0.5);
+    
+    camera.position.x = THREE.MathUtils.lerp(camera.position.x, mouseX, 0.05);
+    camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY + mouseY, 0.05);
+
+    // Add subtle procedural camera breathing/tilt
+    camera.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.03;
+    camera.rotation.y = Math.cos(state.clock.elapsedTime * 0.2) * 0.03;
 
     camera.lookAt(0, targetY, 0);
   });
