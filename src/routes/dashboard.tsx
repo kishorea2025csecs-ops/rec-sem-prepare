@@ -327,8 +327,9 @@ function DashboardPage() {
   }
 
   const analysis = active?.analysis;
-  const topics = analysis?.topics ?? [];
-  const done = topics.filter((t: any) => progress[t.topic]).length;
+  const analysisTopics = analysis?.topics ?? [];
+  const topicCoverage = stats?.topicCoverage ?? 0;
+
 
   return (
     <div className="min-h-screen pb-20 text-foreground bg-[#020205]">
@@ -678,9 +679,10 @@ function DashboardPage() {
                           Preparation Orbit
                         </h2>
                         <div className="mt-1 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground">
-                          <span>
-                            {done}/{topics.length} Topics Ready
-                          </span>
+                            <span>
+                              {Math.round((topicCoverage / 100) * analysisTopics.length)}/{analysisTopics.length} Topics Ready
+                            </span>
+
                         </div>
                       </div>
 
@@ -692,7 +694,7 @@ function DashboardPage() {
                             <Canvas camera={{ position: [0, 0, 5], fov: 40 }}>
                               <ambientLight intensity={0.5} />
                               <pointLight position={[10, 10, 10]} intensity={1} />
-                              <ProgressWheel3D completion={done} totalTopics={topics.length} />
+                              <ProgressWheel3D completion={topicCoverage} totalTopics={100} />
                             </Canvas>
                           )}
                         </Suspense>

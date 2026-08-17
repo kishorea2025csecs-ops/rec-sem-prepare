@@ -12,7 +12,7 @@ export const ProgressWheel3D = ({
 }) => {
   const groupRef = useRef<THREE.Group>(null);
   const ringRef = useRef<THREE.Mesh>(null);
-  const progressPercent = totalTopics > 0 ? completion / totalTopics : 0;
+  const progressPercent = totalTopics > 0 ? completion / 100 : 0; // Fix: completion is already 0-100 percentage in the new system
 
   useFrame((state) => {
     if (groupRef.current) {
