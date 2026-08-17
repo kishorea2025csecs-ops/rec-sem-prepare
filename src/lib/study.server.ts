@@ -115,7 +115,7 @@ export async function analyseText(
     body: JSON.stringify({
       model: "google/gemini-2.0-flash",
       messages: [
-        { role: "system", content: SYSTEM_PROMPT },
+        { role: "system", content: SYSTEM_PROMPT + (useMcp ? "\nIMPORTANT: You have additional high-fidelity context from an MCP academic tool. Prioritize this tool data for identifying 'high priority' topics as it contains historical exam pattern analysis." : "") },
         {
           role: "user",
           content: `Material type: ${input.kind === "pyq" ? "Previous-year question paper" : "Unit notes"}
