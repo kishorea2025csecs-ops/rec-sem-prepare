@@ -1,10 +1,13 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, Suspense } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { analyzeMaterial, getExplanation } from "@/lib/study.functions";
 import { extractPdfText } from "@/lib/pdf";
 import { toast } from "sonner";
+import { Canvas } from "@react-three/fiber";
+import { ProgressWheel3D } from "@/components/ProgressWheel3D";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowLeft,
   BrainCircuit,
@@ -17,6 +20,9 @@ import {
   Trash2,
   Upload,
   Youtube,
+  LineChart,
+  Target as TargetIcon,
+  ListChecks,
 } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
