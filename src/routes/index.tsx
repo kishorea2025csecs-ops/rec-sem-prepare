@@ -123,7 +123,14 @@ function Landing() {
 
   const { data: authStatus, isLoading: isAuthLoading } = useQuery({
     queryKey: ["auth-status", session?.user?.id],
-    queryFn: () => getSession(),
+    queryFn: async () => {
+      try {
+        return await getSession();
+      } catch (err) {
+        console.warn("Auth check failed:", err);
+        return { isVerifiedRec: false };
+      }
+    },
     enabled: !!session,
   });
 
