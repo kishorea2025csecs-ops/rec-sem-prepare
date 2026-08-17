@@ -64,10 +64,12 @@ const AIKnowledgeCore = ({ scrollProgress }: { scrollProgress: number }) => {
           color="#00D2FF"
           transmission={0.9}
           thickness={1.5}
-          roughness={0.1}
-          metalness={0.2}
-          ior={1.5}
+          roughness={0.05}
+          metalness={0.1}
+          ior={1.6}
           clearcoat={1}
+          attenuationColor="#ffffff"
+          attenuationDistance={0.5}
         />
       </mesh>
       <mesh>
