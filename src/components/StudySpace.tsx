@@ -259,14 +259,18 @@ const Scene = ({ scrollY }: { scrollY: number }) => {
     setScrollProgress(scrollY / height);
   }, [scrollY]);
 
-  useFrame(() => {
+  useFrame((state) => {
     // Smoother persistent camera movement
-    // Adjust camera position and zoom for mobile to ensure objects aren't clipped
     const targetZ = isMobile ? 8 - scrollProgress * 5 : 10 - scrollProgress * 3;
     const targetY = isMobile ? -scrollProgress * 6 : -scrollProgress * 4;
     
     camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
     camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetY, 0.05);
+    
+    // Add subtle camera tilt based on time
+    camera.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.05;
+    camera.rotation.y = Math.cos(state.clock.elapsedTime * 0.2) * 0.05;
+    
     camera.lookAt(0, targetY, 0);
   });
 
