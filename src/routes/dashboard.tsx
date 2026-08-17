@@ -1,4 +1,4 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate, useLocation } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState, Suspense } from "react";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
 import { SplineScene } from "@/components/SplineScene";
@@ -81,7 +81,9 @@ const priorityStyles: Record<string, string> = {
 
 function DashboardPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const runAnalysis = useServerFn(analyzeMaterial);
+
   const runExplain = useServerFn(getExplanation);
   const fetchStats = useServerFn(getPreparationStats);
 
@@ -146,12 +148,20 @@ function DashboardPage() {
       await Promise.all([loadMaterials(), loadProgress(), loadStats()]);
       setChecking(false);
       setTimeout(() => setShowProgressOrbit(true), 800);
+
+      // Scroll to specific section if hash exists
+      if (location.hash) {
+        const id = location.hash.replace('#', '');
+        setTimeout(() => {
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }, 1000);
+      }
     });
     return () => {
       mounted = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loadMaterials, loadProgress, loadStats, navigate, location.hash]);
+
 
   const active = useMemo(
     () => materials.find((m) => m.id === activeId) ?? null,
@@ -223,8 +233,9 @@ function DashboardPage() {
         prev.map((m) => (m.id === id ? { ...m, status: "ready", analysis: res.analysis } : m)),
       );
       toast.success("Analysis ready");
-      loadStats();
+      await loadStats();
     } catch (e: any) {
+
       setMaterials((prev) => prev.map((m) => (m.id === id ? { ...m, status: "failed" } : m)));
       toast.error("Analysis failed", { description: e?.message ?? "Try again" });
     } finally {
@@ -260,8 +271,9 @@ function DashboardPage() {
 
       if (next) {
         toast.success(`Topic "${topic}" completed!`);
-        loadStats();
+        await loadStats();
       }
+
     } catch (err) {
       // Revert on error
       setProgress((p) => ({ ...p, [topic]: !next }));
@@ -340,7 +352,8 @@ function DashboardPage() {
       <main className="relative z-10 mx-auto max-w-7xl px-5 lg:pl-80 pt-28 pb-20">
 
         {/* TOP: Exam Readiness command center */}
-        <section className="mb-10 rounded-[2.5rem] border border-white/10 bg-white/5 p-8 backdrop-blur-2xl">
+        <section id="readiness-section" className="mb-10 rounded-[2.5rem] border border-white/10 bg-white/5 p-8 backdrop-blur-2xl">
+
           <div className="grid gap-10 lg:grid-cols-[1fr_300px]">
             <div>
               <div className="flex items-center gap-3 text-accent">
@@ -639,7 +652,8 @@ function DashboardPage() {
 
               {analysis && busyId !== active.id && (
                 <>
-                  <div className="grid gap-6 lg:grid-cols-2">
+                  <div id="analysis-results" className="grid gap-6 lg:grid-cols-2">
+
                     <motion.div
                       initial={{ opacity: 0, scale: 0.95 }}
                       animate={{ opacity: 1, scale: 1 }}
@@ -702,7 +716,8 @@ function DashboardPage() {
                   </div>
 
                   {topics.length > 0 && (
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+                    <div id="topics-list" className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+
                       <h2 className="flex items-center gap-2 font-display text-sm font-black uppercase tracking-widest text-accent">
                         <Target className="size-4" /> Priority topics
                       </h2>
@@ -771,7 +786,8 @@ function DashboardPage() {
                   )}
 
                   {analysis.questions?.length > 0 && (
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+                    <div id="questions-list" className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
+
                       <div className="flex items-center justify-between gap-4">
                         <div>
                           <h2 className="font-display text-sm font-black uppercase tracking-widest text-accent">
