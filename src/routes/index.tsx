@@ -159,7 +159,7 @@ function Landing() {
     <div className="min-h-screen bg-[#020205] font-sans text-foreground selection:bg-primary selection:text-primary-foreground">
       <header className="fixed top-4 left-0 right-0 z-50 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-6xl overflow-hidden backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 md:px-5 py-3 md:py-4">
-          <a href="#top" className="flex items-center gap-3 group">
+          <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
               <div className="absolute -inset-1 rounded-full bg-accent/40 blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative flex size-12 items-center justify-center rounded-xl bg-black/40 backdrop-blur-md p-1 border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.05)] overflow-hidden">
