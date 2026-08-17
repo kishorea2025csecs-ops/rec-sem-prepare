@@ -186,3 +186,63 @@ export async function explainTopic(
   const json = await res.json();
   return (json?.choices?.[0]?.message?.content as string) ?? "";
 }
+
+export async function handleAnalyzeMaterial(
+  supabase: SupabaseClient<Database>,
+  data: { materialId: string; useMcp?: boolean },
+  context: any
+) {
+  const email = (context.claims.email as string) ?? "";
+  if (!email.endsWith("@rajalakshmi.edu.in")) {
+    throw new Error("A verified @rajalakshmi.edu.in account is required.");
+  }
+
+  const { data: material, error } = await supabase
+    .from("study_materials")
+    .select("*")
+    .eq("id", data.materialId)
+    .single();
+
+  if (error || !material) throw new Error("Material not found");
+  if (!material.extracted_text || material.extracted_text.trim().length < 80) {
+    await supabase.from("study_materials").update({ status: "failed" }).eq("id", material.id);
+    throw new Error("No readable text found in this PDF. Scanned images are not supported yet.");
+  }
+
+  await supabase.from("study_materials").update({ status: "analyzing" }).eq("id", material.id);
+
+  try {
+    const analysis = await analyseText(
+      {
+        text: material.extracted_text,
+        kind: material.kind as "notes" | "pyq",
+        subject: material.subject,
+        unit: material.unit,
+        title: material.title,
+      },
+      !!data.useMcp,
+    );
+
+    await supabase
+      .from("study_materials")
+      .update({ analysis, status: "ready" })
+      .eq("id", material.id);
+
+    return { analysis };
+  } catch (e) {
+    await supabase.from("study_materials").update({ status: "failed" }).eq("id", material.id);
+    throw e;
+  }
+}
+
+export async function handleGetExplanation(
+  data: { topic: string; level: "quick" | "exam" | "revision"; subject: string },
+  context: any
+) {
+  const email = (context.claims.email as string) ?? "";
+  if (!email.endsWith("@rajalakshmi.edu.in")) {
+    throw new Error("A verified @rajalakshmi.edu.in account is required.");
+  }
+  const text = await explainTopic(data.topic, data.level, data.subject);
+  return { text };
+}
