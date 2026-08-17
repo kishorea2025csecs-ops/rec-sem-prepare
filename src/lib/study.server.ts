@@ -76,15 +76,38 @@ const SCHEMA = {
   },
 } as const;
 
-export async function analyseText(input: {
-  text: string;
-  kind: "notes" | "pyq";
-  subject: string;
-  unit: string;
-  title: string;
-}): Promise<Analysis> {
+export async function analyseText(
+  input: {
+    text: string;
+    kind: "notes" | "pyq";
+    subject: string;
+    unit: string;
+    title: string;
+  },
+  useMcp: boolean = false,
+): Promise<Analysis> {
   const apiKey = process.env["LOVABLE_API_KEY"];
   if (!apiKey) throw new Error("AI is not configured");
+
+  let contextualData = "";
+  if (useMcp) {
+    try {
+      // Example MCP server for exam patterns - this would be configured in environment
+      const mcpServerUrl = process.env["MCP_ACADEMIC_SERVER_URL"];
+      if (mcpServerUrl) {
+        const mcpResult = await callMcpTool(mcpServerUrl, "get_exam_patterns", {
+          subject: input.subject,
+          unit: input.unit,
+        });
+        if (mcpResult.content && mcpResult.content[0]?.text) {
+          contextualData = `\n\nADDITIONAL MCP TOOL CONTEXT:\n${mcpResult.content[0].text}`;
+          console.log("MCP Context integrated into analysis");
+        }
+      }
+    } catch (err) {
+      console.warn("MCP Tool call failed, proceeding with standard analysis:", err);
+    }
+  }
 
   const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
     method: "POST",
@@ -92,7 +115,7 @@ export async function analyseText(input: {
     body: JSON.stringify({
       model: "google/gemini-2.0-flash",
       messages: [
-        { role: "system", content: SYSTEM_PROMPT },
+        { role: "system", content: SYSTEM_PROMPT + (useMcp ? "\nIMPORTANT: You have additional high-fidelity context from an MCP academic tool. Prioritize this tool data for identifying 'high priority' topics as it contains historical exam pattern analysis." : "") },
         {
           role: "user",
           content: `Material type: ${input.kind === "pyq" ? "Previous-year question paper" : "Unit notes"}
@@ -101,7 +124,7 @@ Unit: ${input.unit}
 Title: ${input.title}
 
 TEXT:
-${input.text.slice(0, 60000)}`,
+${input.text.slice(0, 60000)}${contextualData}`,
         },
       ],
       response_format: {
