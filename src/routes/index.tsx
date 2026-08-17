@@ -168,7 +168,7 @@ function Landing() {
               </div>
             </div>
             <span className="font-display text-xl font-bold tracking-tight bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">SemPrep AI</span>
-          </a>
+          </Link>
           <nav className="hidden items-center gap-4 text-[10px] font-black md:flex uppercase tracking-[0.15em]">
             <a className="transition-all duration-500 hover:text-white px-5 py-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-cyan-500/10 hover:border-cyan-400/50 hover:shadow-[0_0_20px_rgba(34,211,238,0.3)] backdrop-blur-md relative group overflow-hidden" href="#how">
               <span className="relative z-10">How it works</span>
