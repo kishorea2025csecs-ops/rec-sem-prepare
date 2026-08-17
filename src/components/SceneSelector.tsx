@@ -8,7 +8,14 @@ import {
   Hexagon
 } from 'lucide-react';
 
-const SCENES = [
+interface SplineSceneConfig {
+  id: string;
+  name: string;
+  url: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const SCENES: SplineSceneConfig[] = [
   { 
     id: 'abstract-crystal', 
     name: 'Abstract Crystal', 
@@ -37,9 +44,12 @@ const SCENES = [
 
 export const SceneSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentSceneId, setCurrentSceneId] = useState(() => {
+  const [currentSceneId, setCurrentSceneId] = useState<string>(() => {
     if (typeof window !== 'undefined') {
-      return localStorage.getItem('semprep_scene_id') || SCENES[0].id;
+      const saved = localStorage.getItem('semprep_scene_id');
+      if (saved && SCENES.some(s => s.id === saved)) {
+        return saved;
+      }
     }
     return SCENES[0].id;
   });
