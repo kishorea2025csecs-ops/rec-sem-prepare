@@ -298,7 +298,7 @@ function Landing() {
                   '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
                                         
                                             
-                                            Walk the Home page on my phone: confirm the persistent 3D background and the hero buttons stay readable.
+                                            Add a mobile-first layout that lets the hero text stay readable above the 3D background on every screen.
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   {isAuthenticated ? (
