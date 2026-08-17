@@ -327,8 +327,9 @@ function DashboardPage() {
   }
 
   const analysis = active?.analysis;
-  const analysisTopics = analysis?.topics ?? [];
+  const analysisTopics = (analysis?.topics as any[]) ?? [];
   const topicCoverage = stats?.topicCoverage ?? 0;
+
 
 
   return (
@@ -717,14 +718,14 @@ function DashboardPage() {
                     </motion.div>
                   </div>
 
-                  {topics.length > 0 && (
+                  {analysisTopics.length > 0 && (
                     <div id="topics-list" className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
 
                       <h2 className="flex items-center gap-2 font-display text-sm font-black uppercase tracking-widest text-accent">
                         <Target className="size-4" /> Priority topics
                       </h2>
                       <ul className="mt-4 space-y-3">
-                        {topics.map((t: any) => (
+                        {analysisTopics.map((t: any) => (
                           <li
                             key={t.topic}
                             className="rounded-2xl border border-white/10 bg-black/30 p-4"
