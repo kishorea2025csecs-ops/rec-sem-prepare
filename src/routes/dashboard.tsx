@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useCallback, useEffect, useMemo, useRef, useState, Suspense } from "react";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
+import { SplineScene } from "@/components/SplineScene";
 import { supabase } from "@/integrations/supabase/client";
 import { useServerFn } from "@tanstack/react-start";
 import { analyzeMaterial, getExplanation } from "@/lib/study.functions";
@@ -276,7 +277,13 @@ function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-[#020205] pb-20 text-foreground">
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+      <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
+        <Suspense fallback={null}>
+          <SplineScene 
+            scene="https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode"
+            className="w-full h-full opacity-60"
+          />
+        </Suspense>
         <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/10 blur-[140px]" />
         <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/10 blur-[150px]" />
       </div>

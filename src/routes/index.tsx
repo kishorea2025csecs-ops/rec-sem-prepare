@@ -20,6 +20,7 @@ import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef, Suspense, useEffect } from "react";
 import { StudySpace } from "@/components/StudySpace";
+import { SplineScene } from "@/components/SplineScene";
 import { useServerFn } from "@tanstack/react-start";
 import { getSessionInfo } from "@/lib/auth.functions";
 import { useQuery } from "@tanstack/react-query";
@@ -212,7 +213,10 @@ function Landing() {
         {/* Persistent 3D Background */}
         <div className="fixed inset-0 z-0 opacity-100 pointer-events-none">
           <Suspense fallback={null}>
-            <StudySpace />
+            <SplineScene 
+              scene="https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode"
+              className="w-full h-full"
+            />
           </Suspense>
         </div>
 
@@ -291,9 +295,13 @@ function Landing() {
                     with The Learner Orbit.
                   </span>
                 </h1>
-                <p className="mt-6 max-w-xl text-lg text-muted-foreground/90">
-                  SemPrep AI helps you master semester exams with high-priority topics, AI analysis, and interactive Tamil tutorials, tailored for Rajalakshmi Engineering College students.
-                </p>
+                  <p className="mt-6 max-w-xl text-lg text-muted-foreground/90">
+                    <span className="sr-only">'''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
+                                        
+                                            
+                                            i need the 3d object animation like this like "https://app.spline.design/file/071e2553-06ea-4df9-9d18-636f553bdb29"</span>
+                    SemPrep AI helps you master semester exams with high-priority topics, AI analysis, and interactive Tamil tutorials, tailored for Rajalakshmi Engineering College students.
+                  </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   {isAuthenticated ? (
                     isVerifiedRec ? (

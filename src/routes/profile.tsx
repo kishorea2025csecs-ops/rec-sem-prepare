@@ -1,8 +1,10 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { SplineScene } from "@/components/SplineScene";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
 import { Link } from "@tanstack/react-router";
+import { Suspense } from "react";
 import { toast } from "sonner";
 import { 
   User, 
@@ -71,9 +73,21 @@ function ProfilePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-20">
+    <div className="min-h-screen bg-[#020205] text-foreground pb-20 relative overflow-hidden">
+      {/* Persistent 3D Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
+        <Suspense fallback={null}>
+          <SplineScene 
+            scene="https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode"
+            className="w-full h-full"
+          />
+        </Suspense>
+      </div>
+
+      <div className="absolute left-[10%] top-[10%] size-96 rounded-full bg-cyan-500/5 blur-[140px] pointer-events-none" />
+      <div className="absolute right-[10%] top-[45%] size-[420px] rounded-full bg-purple-600/5 blur-[150px] pointer-events-none" />
       {/* Header */}
-      <header className="sticky top-4 z-30 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-2xl flex h-16 items-center px-6 backdrop-blur-xl justify-between">
+      <header className="sticky top-4 z-30 border border-white/10 glass-morphism mx-5 md:mx-auto max-w-2xl flex h-16 items-center px-6 backdrop-blur-xl justify-between relative">
         <div className="flex items-center gap-4">
           <Link to="/" className="flex items-center gap-3 group">
             <div className="relative">
