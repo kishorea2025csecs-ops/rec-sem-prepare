@@ -295,7 +295,7 @@ function Landing() {
                   SemPrep AI helps you master semester exams with high-priority topics, AI analysis, and interactive Tamil tutorials, tailored for Rajalakshmi Engineering College students.
                   <br />
                   <span className="sr-only">
-                    Check the home page on my phone: the hero buttons still reach the dashboard, and the 3D background scrolls smoothly.
+                    Make the Tamil tutorial YouTube search on the home page and dashboard open a real Tamil playlist.
                   </span>
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
