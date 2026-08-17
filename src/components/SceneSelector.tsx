@@ -53,7 +53,9 @@ export const SceneSelector: React.FC = () => {
         if (found) return found.id;
       }
     }
-    return SCENES[0].id;
+    const first = SCENES[0];
+    if (first) return first.id;
+    return 'default';
   };
 
   const [currentSceneId, setCurrentSceneId] = useState<string>(getInitialId);
@@ -70,6 +72,8 @@ export const SceneSelector: React.FC = () => {
     }
     setIsOpen(false);
   };
+
+  if (!activeScene) return null;
 
   return (
     <div className="relative group">
