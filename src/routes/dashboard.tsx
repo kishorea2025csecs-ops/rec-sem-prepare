@@ -329,6 +329,7 @@ function DashboardPage() {
         isVerifiedRec={isVerified}
         userEmail={email}
         activeLink="dashboard"
+
       />
 
       <Sidebar activeLink="/dashboard" />

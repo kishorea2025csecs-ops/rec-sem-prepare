@@ -16,11 +16,11 @@ interface SidebarProps {
 }
 
 const menuItems = [
-  { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard", color: "cyan" },
-  { label: "Important Topics", icon: Target, path: "/topics", color: "purple" },
-  { label: "Question Bank", icon: BookOpen, path: "/questions", color: "pink" },
-  { label: "Study Planner", icon: Calendar, path: "/planner", color: "amber" },
-  { label: "Analytics", icon: BarChart3, path: "/analytics", color: "cyan" },
+  { label: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
+  { label: "Important Topics", icon: Target, path: "/topics" },
+  { label: "Question Bank", icon: BookOpen, path: "/questions" },
+  { label: "Study Planner", icon: Calendar, path: "/planner" },
+  { label: "Analytics", icon: BarChart3, path: "/analytics" },
 ];
 
 export const Sidebar = ({ activeLink }: SidebarProps) => {
@@ -73,13 +73,17 @@ export const Sidebar = ({ activeLink }: SidebarProps) => {
         <div className="mt-auto pt-6 border-t border-white/5">
           <Link
             to="/profile"
-            className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-white/5 transition-colors group"
+            className={`flex items-center gap-3 px-4 py-3 rounded-2xl transition-all duration-300 group ${
+              activeLink === "/profile" 
+                ? "bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.15)]" 
+                : "hover:bg-white/5"
+            }`}
           >
             <div className="size-8 rounded-full bg-gradient-to-tr from-accent to-primary flex items-center justify-center text-[10px] font-black">
               REC
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold text-white truncate">Student Portal</p>
+            <div className="flex-1 min-w-0 text-left">
+              <p className={`text-xs font-bold truncate ${activeLink === "/profile" ? "text-cyan-400" : "text-white"}`}>Student Portal</p>
               <p className="text-[10px] text-muted-foreground truncate uppercase tracking-widest">Profile</p>
             </div>
           </Link>
@@ -109,6 +113,14 @@ export const MobileNav = ({ activeLink }: SidebarProps) => {
             </Link>
           );
         })}
+        <Link
+          to="/profile"
+          className={`p-3 rounded-2xl transition-all ${
+            activeLink === "/profile" ? "bg-cyan-500/10 text-cyan-400" : "text-muted-foreground"
+          }`}
+        >
+          <UserIcon className="size-5" />
+        </Link>
       </div>
     </div>
   );
