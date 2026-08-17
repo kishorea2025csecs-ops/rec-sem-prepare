@@ -42,10 +42,10 @@ const SCENES: SplineSceneConfig[] = [
   }
 ];
 
-
 export const SceneSelector: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [currentSceneId, setCurrentSceneId] = useState<string>(() => {
+  
+  const getInitialId = () => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('semprep_scene_id');
       if (saved && SCENES.some(s => s.id === saved)) {
@@ -53,8 +53,9 @@ export const SceneSelector: React.FC = () => {
       }
     }
     return SCENES[0].id;
-  });
+  };
 
+  const [currentSceneId, setCurrentSceneId] = useState<string>(getInitialId);
   const activeScene = SCENES.find(s => s.id === currentSceneId) || SCENES[0];
 
   const handleSelect = (id: string) => {
