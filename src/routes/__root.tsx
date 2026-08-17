@@ -9,7 +9,7 @@ import {
   useLocation,
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode, Suspense, useState } from "react";
-import { SplineScene } from "@/components/SplineScene";
+import { StudySpace } from "@/components/StudySpace";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -123,51 +123,16 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-const DEFAULT_SCENE_ID = "abstract-crystal";
-const SCENES_MAP: Record<string, string> = {
-  "abstract-crystal": "https://prod.spline.design/q5P9V-35n4G5Q4Z2/scene.splinecode",
-  "glass-nodes": "https://prod.spline.design/Kz6xJ-M-5r-oX1-Q/scene.splinecode",
-  "tech-orbit": "https://prod.spline.design/ATw-M-y5K7Wk-1P7/scene.splinecode",
-  "modern-box": "https://prod.spline.design/cW9kF-1O7k-P-v-9/scene.splinecode",
-};
-
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const location = useLocation();
-  const [sceneUrl, setSceneUrl] = useState(() => {
-    if (typeof window !== "undefined") {
-      const savedId = localStorage.getItem("semprep_scene_id");
-      if (savedId && SCENES_MAP[savedId]) {
-        return SCENES_MAP[savedId];
-      }
-    }
-    return SCENES_MAP[DEFAULT_SCENE_ID] as string;
-  });
-
-  useEffect(() => {
-    const handleSceneChange = (e: any) => {
-      if (e.detail && e.detail.url) {
-        setSceneUrl(e.detail.url);
-      }
-    };
-    window.addEventListener("semprep-scene-change", handleSceneChange);
-    return () => window.removeEventListener("semprep-scene-change", handleSceneChange);
-  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="relative min-h-screen bg-[#020205]">
         {/* Global Persistent 3D Background */}
         <div className="fixed inset-0 z-0 pointer-events-none transition-opacity duration-1000">
-          <Suspense fallback={null}>
-            <SplineScene
-              key={sceneUrl}
-              scene={sceneUrl}
-              className={`w-full h-full transition-opacity duration-1000 ${
-                location.pathname === "/" ? "opacity-100" : "opacity-60"
-              }`}
-            />
-          </Suspense>
+          <StudySpace />
         </div>
 
         {/* Shared ambient glows */}

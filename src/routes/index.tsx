@@ -17,7 +17,6 @@ import {
 } from "lucide-react";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
 import brainVideoAsset from "@/assets/brain-video.png.asset.json";
-import backgroundVideoAsset from "@/assets/background-video.mp4.asset.json";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useState, useRef, Suspense, useEffect } from "react";
 import { StudySpace } from "@/components/StudySpace";
@@ -183,19 +182,9 @@ function Landing() {
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
-          {/* Background Video & Glows */}
+          {/* Hero Glow Overlay */}
           <div className="absolute inset-0 z-0 overflow-hidden">
-            <video
-              src={backgroundVideoAsset.url}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 h-full w-full object-cover opacity-10 grayscale scale-110"
-              aria-hidden="true"
-            />
             <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent via-transparent to-transparent" />
-            <div className="absolute inset-0 z-10 backdrop-blur-none" />
             <div
               className="pointer-events-none absolute inset-0 z-20"
               style={{
