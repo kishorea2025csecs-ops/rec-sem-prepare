@@ -338,14 +338,17 @@ function DashboardPage() {
               className="hidden"
               onChange={(e) => e.target.files?.[0] && handleUpload(e.target.files[0])}
             />
-            <button
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => fileRef.current?.click()}
               disabled={!!uploading}
-              className="group relative mt-5 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-6 py-4 text-sm font-black text-white transition-all duration-500 hover:scale-[1.02] active:scale-95 disabled:opacity-60"
+              className="group relative mt-5 inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/20 bg-gradient-to-r from-[#FF0080] via-[#7928CA] to-[#0070F3] px-6 py-4 text-sm font-black text-white transition-all duration-500 shadow-[0_0_20px_rgba(121,40,202,0.3)] hover:shadow-[0_0_30px_rgba(0,112,243,0.5)] disabled:opacity-60"
             >
-              {uploading ? <Loader2 className="size-4 animate-spin" /> : <Upload className="size-4" />}
-              {uploading ?? "Choose PDF & analyse"}
-            </button>
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
+              {uploading ? <Loader2 className="size-4 animate-spin relative z-10" /> : <Upload className="size-4 relative z-10" />}
+              <span className="relative z-10">{uploading ?? "Choose PDF & analyse"}</span>
+            </motion.button>
           </section>
 
           <section className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl">
