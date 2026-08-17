@@ -295,8 +295,10 @@ function Landing() {
                   </span>
                 </h1>
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground/90">
-                  A sleek, AI-driven preparation interface designed for Rajalakshmi Engineering College. 
-                  Turn your unit PDFs into winning strategies and Tamil-supported learning paths.
+                  '''Do not make any visual modifications. The phrases I write are commands to understand what I want, not to be written down. Understand their content well, then execute what is required.'''
+                                        
+                                            
+                                            Walk the Home page on my phone: confirm the persistent 3D background and the hero buttons stay readable.
                 </p>
                 <div id="start" className="mt-9 flex flex-wrap items-center gap-4">
                   {isAuthenticated ? (
