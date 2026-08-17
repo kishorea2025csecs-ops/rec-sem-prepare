@@ -61,7 +61,9 @@ export const SceneSelector: React.FC = () => {
     localStorage.setItem('semprep_scene_id', id);
     const scene = SCENES.find(s => s.id === id);
     if (scene) {
-      window.dispatchEvent(new CustomEvent('semprep-scene-change', { detail: scene.url }));
+      window.dispatchEvent(new CustomEvent('semprep-scene-change', { 
+        detail: { url: scene.url } 
+      }));
     }
     setIsOpen(false);
   };
