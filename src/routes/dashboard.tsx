@@ -228,7 +228,6 @@ function DashboardPage() {
       toast.error("Failed to update progress");
     }
   };
-  };
 
   const askExplain = async (topic: string, level: "quick" | "exam" | "revision") => {
     setExplaining(true);
