@@ -199,6 +199,7 @@ const RevisionCards = ({ scrollProgress }: { scrollProgress: number }) => {
             rotationIntensity={2}
             floatIntensity={2}
             position={[x, y, z] as any}
+            floatingRange={[-1, 1]}
           >
             {i % 4 === 0 ? (
               <mesh>
