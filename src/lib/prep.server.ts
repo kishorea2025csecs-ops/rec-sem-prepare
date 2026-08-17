@@ -105,19 +105,33 @@ export async function handleGetQuestionBank(
   supabase: SupabaseClient<Database>,
   userId: string,
   filter: { subject?: string | undefined; unit?: string | undefined }
-
 ) {
-  let query = supabase
+  const { data, error } = await supabase
     .from('questions')
     .select(`
       *,
-      topic:topics(name, importance, subject_id, subjects(name))
+      topic:topics(id, name, importance, subject_id, unit_id)
     `);
 
-  const { data, error } = await query;
   if (error) throw error;
   return data;
 }
+
+export async function handleGetTopics(
+  supabase: SupabaseClient<Database>,
+  userId: string
+) {
+  const { data, error } = await supabase
+    .from('topics')
+    .select(`
+      *,
+      progress:topic_progress(*)
+    `);
+
+  if (error) throw error;
+  return data;
+}
+
 
 export async function handleUpdateTopicMastery(
   supabase: SupabaseClient<Database>,

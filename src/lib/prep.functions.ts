@@ -22,6 +22,13 @@ export const getQuestionBank = createServerFn({ method: "GET" })
     });
   });
 
+export const getImportantTopics = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { handleGetTopics } = await import("./prep.server");
+    return handleGetTopics(context.supabase as any, context.userId);
+  });
+
 export const updateTopicMastery = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .validator((data: unknown) =>
