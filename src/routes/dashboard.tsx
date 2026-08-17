@@ -121,6 +121,15 @@ function DashboardPage() {
     setProgress(map);
   }, []);
 
+  const loadStats = useCallback(async () => {
+    try {
+      const s = await fetchStats();
+      setStats(s);
+    } catch (err) {
+      console.warn("Failed to load stats:", err);
+    }
+  }, [fetchStats]);
+
   useEffect(() => {
     let mounted = true;
     supabase.auth.getSession().then(async ({ data: { session } }) => {
@@ -130,7 +139,7 @@ function DashboardPage() {
         return;
       }
       setEmail(session.user.email ?? null);
-      await Promise.all([loadMaterials(), loadProgress()]);
+      await Promise.all([loadMaterials(), loadProgress(), loadStats()]);
       setChecking(false);
       setTimeout(() => setShowProgressOrbit(true), 800);
     });
