@@ -14,7 +14,7 @@ export const SplineScene: React.FC<SplineSceneProps> = ({ scene, className, onLo
       <Suspense fallback={null}>
         <Spline 
           scene={scene} 
-          onLoad={onLoad}
+          {...(onLoad ? { onLoad } : {})}
         />
       </Suspense>
     </div>
