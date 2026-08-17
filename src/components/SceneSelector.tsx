@@ -59,20 +59,22 @@ export const SceneSelector: React.FC = () => {
   return (
     <div className="relative group">
       <button 
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 px-4 py-2 rounded-full glass-morphism border border-white/10 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/10 hover:border-accent/50 transition-all duration-300 shadow-[0_0_20px_rgba(255,255,255,0.05)]"
       >
         <Settings2 className="size-3.5 text-accent animate-pulse" />
-        <span>3D Scene: {currentScene.name}</span>
+        <span>3D Scene: {currentScene?.name || 'Default'}</span>
         <ChevronDown className={`size-3.5 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
       {isOpen && (
-        <div className="absolute top-full mt-2 right-0 w-56 rounded-2xl glass-morphism border border-white/10 overflow-hidden backdrop-blur-2xl z-50 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-300">
+        <div className="absolute top-full mt-2 right-0 w-56 rounded-2xl glass-morphism border border-white/10 overflow-hidden backdrop-blur-2xl z-[100] shadow-2xl">
           <div className="p-2 space-y-1">
             {SCENES.map((scene) => (
               <button
                 key={scene.id}
+                type="button"
                 onClick={() => handleSelect(scene.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 group/item ${
                   currentSceneId === scene.id 
