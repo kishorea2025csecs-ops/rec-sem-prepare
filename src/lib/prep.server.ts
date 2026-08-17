@@ -104,7 +104,7 @@ export async function getPrepAnalytics(supabase: SupabaseClient<Database>, userI
 export async function handleGetQuestionBank(
   supabase: SupabaseClient<Database>,
   userId: string,
-  filter: { subject?: string; unit?: string }
+  filter: { subject?: string | undefined; unit?: string | undefined }
 
 ) {
   let query = supabase
