@@ -279,3 +279,70 @@ export async function handleGeneratePlan(
 
   return handleGetStudyPlan(supabase, userId);
 }
+
+export async function handleGetQuestionSolution(
+  supabase: SupabaseClient<Database>,
+  data: { questionId: string },
+) {
+  const { data: question, error } = await supabase
+    .from('questions')
+    .select('*, topic:topics(id, title)')
+    .eq('id', data.questionId)
+    .single();
+  if (error || !question) throw new Error('Question not found');
+
+  const apiKey = process.env["LOVABLE_API_KEY"];
+  if (!apiKey) throw new Error('AI is not configured');
+
+  const marks = question.marks ?? 13;
+  const res = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', authorization: `Bearer ${apiKey}` },
+    body: JSON.stringify({
+      model: 'google/gemini-2.0-flash',
+      messages: [
+        {
+          role: 'system',
+          content:
+            'You are an Anna University exam evaluator. Write accurate model answers in plain text with simple dash bullets. Never claim a question will definitely appear in an exam.',
+        },
+        {
+          role: 'user',
+          content: `Topic: ${(question as any).topic?.title ?? 'General'}
+Marks: ${marks}
+Question: ${question.question_text}
+
+Write a ${marks}-mark model answer with: Definition, Key points, Steps/derivation (if any), Diagram description (if relevant), and 5-8 keywords the examiner looks for.`,
+        },
+      ],
+    }),
+  });
+
+  if (res.status === 429) throw new Error('AI rate limit reached. Please try again in a minute.');
+  if (res.status === 402) throw new Error('AI credits exhausted. Please top up to continue.');
+  if (!res.ok) throw new Error(`AI request failed (${res.status})`);
+
+  const json = await res.json();
+  const answer = (json?.choices?.[0]?.message?.content as string) ?? '';
+  if (!answer.trim()) throw new Error('AI returned an empty answer');
+  return { answer, question };
+}
+
+export async function handleRecordAttempt(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+  data: { questionId: string; isCorrect: boolean; confidence?: number | undefined },
+) {
+  const { data: inserted, error } = await supabase
+    .from('question_attempts')
+    .insert({
+      user_id: userId,
+      question_id: data.questionId,
+      is_correct: data.isCorrect,
+      confidence: data.confidence ?? null,
+    })
+    .select()
+    .single();
+  if (error) throw error;
+  return inserted;
+}
