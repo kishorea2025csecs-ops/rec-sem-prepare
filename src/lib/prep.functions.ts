@@ -79,3 +79,27 @@ export const toggleStudyTask = createServerFn({ method: "POST" })
     const { handleToggleStudyTask } = await import("./prep.server");
     return handleToggleStudyTask(context.supabase as any, context.userId, data);
   });
+
+export const getQuestionSolution = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((data: unknown) => z.object({ questionId: z.string().uuid() }).parse(data))
+  .handler(async ({ data, context }) => {
+    const { handleGetQuestionSolution } = await import("./prep.server");
+    return handleGetQuestionSolution(context.supabase as any, data);
+  });
+
+export const recordQuestionAttempt = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .validator((data: unknown) =>
+    z
+      .object({
+        questionId: z.string().uuid(),
+        isCorrect: z.boolean(),
+        confidence: z.number().min(0).max(100).optional(),
+      })
+      .parse(data),
+  )
+  .handler(async ({ data, context }) => {
+    const { handleRecordAttempt } = await import("./prep.server");
+    return handleRecordAttempt(context.supabase as any, context.userId, data);
+  });
