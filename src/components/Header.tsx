@@ -25,7 +25,7 @@ export const Header = ({ isAuthenticated, isVerifiedRec, userEmail, activeLink }
             </div>
           </div>
           <span className="font-display text-lg font-bold tracking-tight text-white hidden sm:block">
-            SemPrep AI
+            NexLearn AI
           </span>
         </Link>
 

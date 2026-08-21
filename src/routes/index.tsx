@@ -30,13 +30,13 @@ import { Header } from "@/components/Header";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "SemPrep AI — Crack Semester Exams with Your Own Notes" },
+      { title: "NexLearn AI — Crack Semester Exams with Your Own Notes" },
       {
         name: "description",
         content:
           "Upload your unit notes, let AI mine previous-year papers, get a topic-priority plan and Tamil YouTube tutorials built for REC engineering students.",
       },
-      { property: "og:title", content: "SemPrep AI — Crack Semester Exams with Your Own Notes" },
+      { property: "og:title", content: "NexLearn AI — Crack Semester Exams with Your Own Notes" },
       {
         property: "og:description",
         content:
@@ -245,7 +245,7 @@ function Landing() {
                   </span>
                 </h1>
                 <p className="mt-6 max-w-xl text-lg text-muted-foreground/90">
-                  SemPrep AI helps you master semester exams with high-priority topics, AI analysis,
+                  NexLearn AI helps you master semester exams with high-priority topics, AI analysis,
                   and interactive Tamil tutorials, tailored for Rajalakshmi Engineering College
                   students.
                 </p>
@@ -514,7 +514,7 @@ function Landing() {
                 When English textbooks stop making sense
               </h2>
               <p className="mt-4 text-muted-foreground">
-                For every hard concept in your unit, SemPrep AI finds the clearest Tamil explanation
+                For every hard concept in your unit, NexLearn AI finds the clearest Tamil explanation
                 on YouTube and jumps straight to the timestamp that covers it — no scrubbing through
                 two-hour lectures at 2 AM.
               </p>
@@ -575,8 +575,8 @@ function Landing() {
 
       <footer className="border-t border-border py-8" role="contentinfo">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 text-sm text-muted-foreground sm:flex-row">
-          <p>SemPrep AI · Made for Rajalakshmi Engineering College (REC)</p>
-          <p>© {new Date().getFullYear()} SemPrep AI. All rights reserved.</p>
+          <p>NexLearn AI · Made for Rajalakshmi Engineering College (REC)</p>
+          <p>© {new Date().getFullYear()} NexLearn AI. All rights reserved.</p>
         </div>
       </footer>
     </div>

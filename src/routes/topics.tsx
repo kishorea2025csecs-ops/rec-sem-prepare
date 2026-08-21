@@ -25,7 +25,7 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/topics")({
   head: () => ({
     meta: [
-      { title: "Important Topics | SemPrep AI" },
+      { title: "Important Topics | NexLearn AI" },
       { name: "description", content: "High-priority engineering exam topics for REC students." },
     ],
   }),

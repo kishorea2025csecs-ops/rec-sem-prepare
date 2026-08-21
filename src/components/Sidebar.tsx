@@ -36,7 +36,7 @@ export const Sidebar = ({ activeLink }: SidebarProps) => {
             />
           </div>
           <span className="font-display text-lg font-bold tracking-tight text-white">
-            SemPrep AI
+            NexLearn AI
           </span>
         </div>
 

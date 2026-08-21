@@ -40,13 +40,13 @@ import {
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
-      { title: "Study Dashboard | SemPrep AI for REC Students" },
+      { title: "Study Dashboard | NexLearn AI for REC Students" },
       {
         name: "description",
         content:
           "Upload unit notes and previous-year papers, get AI-ranked high-priority topics, model answers and Tamil tutorials.",
       },
-      { property: "og:title", content: "Study Dashboard | SemPrep AI" },
+      { property: "og:title", content: "Study Dashboard | NexLearn AI" },
       {
         property: "og:description",
         content:

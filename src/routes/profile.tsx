@@ -14,14 +14,14 @@ import { Sidebar, MobileNav } from "@/components/Sidebar";
 export const Route = createFileRoute("/profile")({
   head: () => ({
     meta: [
-      { title: "My Profile | SemPrep AI - Account Settings" },
+      { title: "My Profile | NexLearn AI - Account Settings" },
       {
         name: "description",
         content:
-          "Manage your SemPrep AI profile and account settings. Secure academic portal for Rajalakshmi Engineering College students.",
+          "Manage your NexLearn AI profile and account settings. Secure academic portal for Rajalakshmi Engineering College students.",
       },
-      { property: "og:title", content: "Student Profile | SemPrep AI" },
-      { property: "og:description", content: "Manage your account settings on SemPrep AI." },
+      { property: "og:title", content: "Student Profile | NexLearn AI" },
+      { property: "og:description", content: "Manage your account settings on NexLearn AI." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -95,7 +95,7 @@ function ProfilePage() {
             <div>
               <h2 className="font-display text-xl font-bold">Personal Information</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Your static account details managed by SemPrep AI.
+                Your static account details managed by NexLearn AI.
               </p>
             </div>
 
@@ -208,7 +208,7 @@ function ProfilePage() {
             <div>
               <h2 className="font-display text-xl font-bold">Plan & Subscription</h2>
               <p className="text-sm text-muted-foreground mt-1">
-                Your current access level to SemPrep AI features.
+                Your current access level to NexLearn AI features.
               </p>
             </div>
 
