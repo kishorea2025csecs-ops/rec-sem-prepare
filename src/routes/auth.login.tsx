@@ -9,7 +9,7 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/auth/login")({
   head: () => ({
     meta: [
-      { title: "Login | SemPrep AI" },
+      { title: "Login | NexLearn AI" },
       { name: "description", content: "Sign in with your REC Google account to continue." },
     ],
   }),

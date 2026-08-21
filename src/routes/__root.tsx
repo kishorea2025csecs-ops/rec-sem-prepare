@@ -79,9 +79,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SemPrep AI — Academic Excellence" },
+      { title: "NexLearn AI — Academic Excellence" },
       { name: "description", content: "AI-powered exam preparation for engineering students." },
-      { property: "og:title", content: "SemPrep AI" },
+      { property: "og:title", content: "NexLearn AI" },
       {
         property: "og:description",
         content: "AI-powered exam preparation for engineering students.",

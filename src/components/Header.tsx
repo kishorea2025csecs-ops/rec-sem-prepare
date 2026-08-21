@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import logoAsset from "@/assets/logo-glow.png.asset.json";
 import { SceneSelector } from "@/components/SceneSelector";
 import { Lock } from "lucide-react";
+import { TranslateToggle } from "@/components/TranslateToggle";
 
 interface HeaderProps {
   isAuthenticated: boolean;
@@ -25,7 +26,7 @@ export const Header = ({ isAuthenticated, isVerifiedRec, userEmail, activeLink }
             </div>
           </div>
           <span className="font-display text-lg font-bold tracking-tight text-white hidden sm:block">
-            SemPrep AI
+            NexLearn AI
           </span>
         </Link>
 
@@ -57,6 +58,7 @@ export const Header = ({ isAuthenticated, isVerifiedRec, userEmail, activeLink }
         </nav>
 
         <div className="flex items-center gap-3 shrink-0">
+          <TranslateToggle compact />
           {isAuthenticated ? (
             isVerifiedRec ? (
               <Link

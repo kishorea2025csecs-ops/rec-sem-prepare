@@ -22,7 +22,7 @@ import { motion } from "framer-motion";
 export const Route = createFileRoute("/analytics")({
   head: () => ({
     meta: [
-      { title: "Preparation Analytics | SemPrep AI" },
+      { title: "Preparation Analytics | NexLearn AI" },
       { name: "description", content: "Detailed preparation analytics and readiness metrics." },
     ],
   }),

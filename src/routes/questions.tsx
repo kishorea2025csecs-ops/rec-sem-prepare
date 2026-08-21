@@ -26,12 +26,12 @@ import { toast } from "sonner";
 export const Route = createFileRoute("/questions")({
   head: () => ({
     meta: [
-      { title: "Question Bank | SemPrep AI" },
+      { title: "Question Bank | NexLearn AI" },
       {
         name: "description",
         content: "Previous year questions and practice bank for REC students.",
       },
-      { property: "og:title", content: "Question Bank | SemPrep AI" },
+      { property: "og:title", content: "Question Bank | NexLearn AI" },
       {
         property: "og:description",
         content: "Search, practise and solve previous year questions with AI model answers.",
